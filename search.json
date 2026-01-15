@@ -1,0 +1,459 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "DATA STRUCTURES AND ALOGRITHMS",
+    "section": "",
+    "text": "About the book\nData Structure and Algorithms",
+    "crumbs": [
+      "About the book"
+    ]
+  },
+  {
+    "objectID": "lect01.html",
+    "href": "lect01.html",
+    "title": "1  INTRODUCTION",
+    "section": "",
+    "text": "Introduction",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>INTRODUCTION</span>"
+    ]
+  },
+  {
+    "objectID": "lect01.html#c-data-type",
+    "href": "lect01.html#c-data-type",
+    "title": "1  INTRODUCTION",
+    "section": "1.1 C++ Data Type",
+    "text": "1.1 C++ Data Type\n\nData Type\n\nDefinition: Data type \\(T = \\langle V, O \\rangle\\)\n\n\\(V\\) is a set of values\n\\(O\\) is a set of operations or methods\n\n\n\nExample: Consider short int \\(T\\)\n\n\\(V\\) = {-32768, ..., 32767}\n\\(O\\) = {+, -, *, /}\n\n\n\n\nC++ Primitive Data Types\n\n\n\nData Type\nSize\nOperations\n\n\n\n\nbool\n1\n…\n\n\nchar, unsigned char\n1\n…\n\n\nshort, unsigned short\n2\n…\n\n\nint, unsigned int\n4\n…\n\n\nlong, unsigned long\n4\n…\n\n\nlong long, unsigned long long\n8\n…\n\n\nfloat\n4\n…\n\n\ndouble\n8\n…\n\n\n\n\n\nC++ Structured Data Types\n\nstring\nstruct\nclass\narray",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>INTRODUCTION</span>"
+    ]
+  },
+  {
+    "objectID": "lect01.html#abstract-data-type",
+    "href": "lect01.html#abstract-data-type",
+    "title": "1  INTRODUCTION",
+    "section": "1.2 Abstract Data Type",
+    "text": "1.2 Abstract Data Type\n\nAbstract Data Type (ADT)\n\nDefinition:\n\nAn abstract data type (ADT) is a specification for a group of values and the operations on those values.\nA data structure is an implementation of an ADT within a programming language.\n\n\n\nExample: A Stack is an iterable collection of items that is based on the last-in-first-out (LIFO) policy.\n\n\n\nMethod\nDescription\n\n\n\n\npush\nadd an item to the stack\n\n\npop\nremove the most recently added item",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>INTRODUCTION</span>"
+    ]
+  },
+  {
+    "objectID": "lect01.html#references",
+    "href": "lect01.html#references",
+    "title": "1  INTRODUCTION",
+    "section": "1.3 References",
+    "text": "1.3 References",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>INTRODUCTION</span>"
+    ]
+  },
+  {
+    "objectID": "recursion.html",
+    "href": "recursion.html",
+    "title": "2  Recursion & Divide-and-Conquer",
+    "section": "",
+    "text": "2.1 Recursion",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Recursion & Divide-and-Conquer</span>"
+    ]
+  },
+  {
+    "objectID": "recursion.html#recursion",
+    "href": "recursion.html#recursion",
+    "title": "2  Recursion & Divide-and-Conquer",
+    "section": "",
+    "text": "Introduction to Recursion?\n\nRecursion occurs when a function calls itself.\n\n\nRecursion can be direct (when the function calls itself) or indirect (when the function calls some other function that then calls the first function).\nRecursion can also be single (when the function calls itself once) or multiple (when the function calls itself multiple times).\n\n\n\nRecursive Algorithm\nWhen designing a recursive algorithm, We must identify\n\nThe base case, which is the part of the problem that we can solve without recursion.\nThe recursive case, or the part of the problem that we use recursion to solve.\n\n\nFactorial\nThe factorial of a number \\(n\\) is written \\(n!\\) and pronounced “N factorial.”\n\nThe base case: if \\(n=0\\) then \\(factorial(0)=1\\)\nThe recursive case: if \\(n&gt;0\\) then \\(factorial(n)=factorial(n-1)\\times n\\)\n\nint factorial(int n) { \n    if(n==0) \n        return 1; \n    else\n        return n * factorial(n-1); \n} \n\n\nFibonacci Numbers\nThe Fibonacci numbers are defined by these equations:\n\n\\(f_{0}=1\\) and \\(f_{1}=1\\)\n\\(f_{n}=f_{n-1}+f_{n-2}\\) for \\(n&gt;1\\)\n\nint fibonacci(int n)  { \n    if(n &lt;= 1)\n        return 1;\n    else\n        return fibonacci(n-1) + fibonacci(n-2);\n} \n\n\nTower of Hanoi\n\nThe Tower of Hanoi puzzle has three pegs.\nOne peg holds a stack of disks of different sizes, ordered from smallest to largest.\nYou cannot place a disk on top of another disk that has a smaller radius.\nThe goal: move disks from one peg to another without placing a disk on top of a smaller disk.\n\nTo move \\(n\\) disks, recursively move the upper \\(n-1\\) disks to the temporary peg.\nThen move the remaining disk to the destination peg.\nFinally, move the \\(n-1\\) upper disks from the temporary peg to the destination peg.\n\n\nvoid TowerOfHanoi(int n, char A, char B, char C)  { \n    if(n==1) \n        printf(\"Di chuyen dia tren cung tu %d den %d\\n\", A, C);\n    else {\n        TowerOfHanoi(n-1, A, C, B);\n        printf(\"Di chuyen dia tren cung tu %d den %d\\n\", A, C);\n        TowerOfHanoi(n-1, B, A, C);\n    }\n}",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Recursion & Divide-and-Conquer</span>"
+    ]
+  },
+  {
+    "objectID": "recursion.html#divide-and-conquer",
+    "href": "recursion.html#divide-and-conquer",
+    "title": "2  Recursion & Divide-and-Conquer",
+    "section": "2.2 Divide-and-Conquer",
+    "text": "2.2 Divide-and-Conquer\n\nIntroduction to Divide-and-Conquer\n\nThe divide-and-conquer approach employs this same strategy on an instance of a problem.\n\nIt divides an instance of a problem into two or more smaller instances.\nThe smaller instances are usually instances of the original problem, solves them recursively\n\nIf solutions to the smaller instances can be obtained readily, the solution to the original instance can be obtained by combining these solutions.\nIf the smaller instances are still too large to be solved readily, they can be divided into still smaller instances.\n\nThe divide-and-conquer can be top-down or bottom-up approach.\n\n\n\n\nBinary Search\nLocates a key \\(x\\) in a sorted (nondecreasing order) array \\(\\boldsymbol{a}\\)\n\nIf x equals the middle item, quit. Otherwise:\n\nDivide the array into two subarrays about half as large. If \\(x\\) is smaller than the middle item, choose the left subarray. If \\(x\\) is larger than the middle item, choose the right subarray.\nConquer (solve) the subarray by determining whether \\(x\\) is in that subarray. Unless the subarray is sufficiently small, use recursion to do this.\nObtain the solution to the array from the solution to the subarray.\n\n\nint binarySearch(int a[], int l, int r, int x) {\n    int m = (l+r)/2; \n    if(l&gt;r) return -1; \n    if(a[m]==x)\n        return m; \n    if(a[m]&gt;x) \n        return binarySearch(a, l, m-1, x); \n    if(a[m]&lt;x) \n        return binarySearch(a, m+1, r, x);  \n}",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Recursion & Divide-and-Conquer</span>"
+    ]
+  },
+  {
+    "objectID": "recursion.html#workshop",
+    "href": "recursion.html#workshop",
+    "title": "2  Recursion & Divide-and-Conquer",
+    "section": "2.3 Workshop",
+    "text": "2.3 Workshop\n\nQuiz\n\nWhat is the recursion?\n\n\n\nExercises\n\nWrite a program that solves the Tower of Hanoi puzzle and then displays the moves by graphically drawing disks moving between the pegs",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Recursion & Divide-and-Conquer</span>"
+    ]
+  },
+  {
+    "objectID": "recursion.html#references",
+    "href": "recursion.html#references",
+    "title": "2  Recursion & Divide-and-Conquer",
+    "section": "2.4 References",
+    "text": "2.4 References",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Recursion & Divide-and-Conquer</span>"
+    ]
+  },
+  {
+    "objectID": "fractal.html",
+    "href": "fractal.html",
+    "title": "3  FRACTAL",
+    "section": "",
+    "text": "3.1 Overview of Fractals\nFractal is a branch of geometry that studies objects with the property of self-similarity. This is a property where if we zoom in on a small part of the object, that part looks exactly like the whole object. This characteristic appears frequently in the natural world, such as the shapes of trees, coastlines, mountain ranges, or leaf veins.",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>FRACTAL</span>"
+    ]
+  },
+  {
+    "objectID": "fractal.html#overview-of-fractals",
+    "href": "fractal.html#overview-of-fractals",
+    "title": "3  FRACTAL",
+    "section": "",
+    "text": "Applications of Fractals\nFractal graphics have many practical applications:\n\nImage Generation: Used to create complex natural images such as clouds, mountains, water surfaces, trees.\nImage Compression: Fractal-based image compression algorithms exploit structural repetition in images to reduce storage size.\nScientific Research: Modeling chaotic phenomena, material structures, and complex dynamic systems.\n\n\n\nClassic Fractal Examples\nMany fractals are constructed by repeatedly applying a simple generation rule:\n\nVon Koch Curve (Koch Curve):\n\nBase set (\\(n=0\\)): A line segment.\nGeneration rule: Divide the line segment into 3 equal parts. Remove the middle segment and replace it with two line segments forming an equilateral triangle.\nRepetition: Apply this rule to all new line segments.\n\n\n\n\nMinkowski Curve:\n\nBase set (\\(n=0\\)): A line segment.\nGeneration rule: Divide the line segment into 4 parts. Remove the 2 middle segments and replace them with 6 new line segments.\n\n\n\n\nVon Koch Snowflake (Koch Snowflake):\n\nBase set (\\(n=0\\)): An equilateral triangle.\nGeneration rule: Apply the generation rule of the Von Koch curve to all three sides of the triangle.\n\n\n\nMinkowski Island:\n\nBase set (\\(n=0\\)): A square.\nGeneration rule: Apply the generation rule of the Minkowski curve to all four sides of the square.\n\n\nSierpinski Triangle:\n\nBase set (\\(n=0\\)): A solid equilateral triangle.\nGeneration rule: Divide the triangle into 4 smaller equilateral triangles by connecting the midpoints of the 3 sides. Remove the middle triangle.\nRepetition: Apply this rule to the 3 remaining equilateral triangles.\n\n\n\n\n\n\n\n\nFractal Dimension (Self-similarity Dimension)\nAn important characteristic of fractals is that their “dimension” is not always an integer (like 1D, 2D, 3D). The self-similarity dimension (\\(D\\)) is defined based on the relationship between the number of self-similar copies (\\(N\\)) and the scaling factor (\\(s\\)).\n\nIf a shape \\(H\\) is divided into \\(N\\) parts, each part being a copy of \\(H\\) scaled down by a factor \\(s\\), then the dimension \\(D\\) is calculated as:\n\\[D = \\frac{\\log(N)}{\\log(1/s)}\\]\n\n\nLine segment (1D): Divided into \\(N\\) small segments, scaling factor \\(s = 1/N\\). \\[D = \\frac{\\log(N)}{\\log(1 / (1/N))} = \\frac{\\log(N)}{\\log(N)} = 1\\]\n\nSquare (2D): Divided into \\(N \\times N = N^2\\) small squares, scaling factor \\(s = 1/N\\). \\[D = \\frac{\\log(N^2)}{\\log(1 / (1/N))} = \\frac{2 \\log(N)}{\\log(N)} = 2\\]\n\nCube (3D): Divided into \\(N \\times N = N^3\\) small cubes, scaling factor \\(s = 1/N\\). \\[D = \\frac{\\log(N^3)}{\\log(1 / (1/N))} = \\frac{3 \\log(N)}{\\log(N)} = 3\\]\n\nVon Koch Curve: Each segment is replaced by 4 smaller segments (\\(N=4\\)), each new segment has a length equal to \\(1/3\\) of the old segment (\\(s=1/3\\)). \\[D = \\frac{\\log(4)}{\\log(1 / (1/3))} = \\frac{\\log(4)}{\\log(3)} \\approx 1.26\\] The value 1.26 (greater than 1D of a line but less than 2D of a square) is its “fractal dimension”.",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>FRACTAL</span>"
+    ]
+  },
+  {
+    "objectID": "fractal.html#iterated-function-systems-ifs",
+    "href": "fractal.html#iterated-function-systems-ifs",
+    "title": "3  FRACTAL",
+    "section": "3.2 Iterated Function Systems (IFS)",
+    "text": "3.2 Iterated Function Systems (IFS)\nIFS (Iterated Function Systems) is a solid mathematical foundation for defining and creating fractal shapes.\n\nMathematical Basis\n\nHausdorff Space \\((H(X))\\):\n\nThis is a special space where each “element” of it is a subset (specifically a compact, non-empty set) from \\(X\\).\nOne defines the Hausdorff distance \\(h(A, B)\\) between two sets \\(A\\) and \\(B\\).\n\n\n\n\nContraction Mapping:\n\nIn a complete Metric space \\((X, d)\\) (where we can measure distance \\(d\\)).\nA mapping \\(T\\) is called a contraction mapping if it always pulls points closer together.\nThat is, there exists \\(k\\) (with \\(0 &lt; k &lt; 1\\)) such that: \\[d(T(x'), T(x'')) \\le k \\cdot d(x', x'')\\] for all points \\(x', x''\\) in \\(X\\).\n\n\n\n\nImportant Property: Every contraction mapping has a unique fixed point. If we start from any point \\(c\\) and iterate \\(x_{n+1} = T(x_n)\\), the sequence \\(x_n\\) will always converge to that fixed point.\n\n\n\n\n\nAn Iterated Function System (IFS) is a set of contraction mappings {\\(T_1, T_2, \\dots, T_N\\)} on \\(X\\).\nWe define a new contraction mapping \\(T\\) on the Hausdorff space \\(H(X)\\) as follows: \\[T(A) = T_1(A) \\cup T_2(A) \\cup \\dots \\cup T_N(A)\\] (where \\(T_i(A) = \\{T_i(x) \\mid x \\in A\\}\\)).\nSince \\(T\\) is also a contraction mapping (in the Hausdorff space), it also has a unique “fixed point”. This “fixed point” is a set, and it is the attractor, or fractal shape, of the IFS system.\n\n\n\n\n\nAlgorithm for Generating Fractals from IFS\nThere are two main algorithms to draw the attractor of an IFS:\n\nDeterministic Algorithm:\n\nStart with any initial shape \\(S\\) (e.g., a triangle).\nIterate \\(n\\) times: \\[S = T(S) = T_1(S) \\cup T_2(S) \\cup \\dots \\cup T_N(S)\\]\nThe image will converge to the fractal.\n\n\nExample Equilateral Triangle (Sierpinski Triangle): Using 3 affine transformations (scaling + translation)\n\n\\(T_1\\): Scale (0.5, 0.5)\n\\(T_2\\): Scale (0.5, 0.5) + Translate (0.5, 0)\n\\(T_3\\): Scale (0.5, 0.5) + Translate (0.25, 0.433)\n\n\n\nExample Right Triangle: Using 3 affine transformations (scaling + translation)\n\n\\(T_1\\): Scale (0.5, 0.5)\n\\(T_2\\): Scale (0.5, 0.5) + Translate (0.5, 0)\n\\(T_3\\): Scale (0.5, 0.5) + Translate (0.0, 0.5)\n\n\n\n\nRandom Algorithm:\n\nInput: Transformations {\\(T_1, \\dots, T_N\\)}, a starting point \\(P_0 = (x_0, y_0)\\), and number of iterations \\(k\\).\n\nDraw point \\(P_0\\).\nLoop \\(i\\) from 0 to \\(k\\):\n\nRandomly select a transformation \\(T\\) from the IFS set.\nCalculate the next point: \\(P_{i+1} = T(P_i)\\).\nDraw point \\(P_{i+1}\\).\n\n\nAfter a number of iterations (e.g., \\(k=10000\\)), the set of drawn points will reveal the shape of the fractal.",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>FRACTAL</span>"
+    ]
+  },
+  {
+    "objectID": "fractal.html#l-system",
+    "href": "fractal.html#l-system",
+    "title": "3  FRACTAL",
+    "section": "3.3 L-System",
+    "text": "3.3 L-System\nL-System (Lindenmayer System) is a formal grammar system, originally developed to model the growth of plants. It creates fractals by string rewriting.\n\nTurtle Graphics\nL-System is often drawn using Turtle Graphics. A “turtle” (drawing pen) has 3 attributes:\n\nPosition (\\(p\\))\nDirection (\\(\\\\alpha\\))\nDrawing parameters: step size \\(\\\\Delta d\\) and turning angle \\(\\\\Delta \\\\alpha\\).\n\nThe symbols in the L-System string are interpreted as commands controlling the “turtle”:\n\n\n\n\n\n\n\nCommand\nContent\n\n\n\n\n\\(F\\)\nMove forward a segment \\(\\\\Delta d\\).\n\n\n\\(+\\)\nTurn the drawing pen left by an angle \\(\\\\Delta \\\\alpha\\).\n\n\n\\(-\\)\nTurn the drawing pen right by an angle \\(\\\\Delta \\\\alpha\\).\n\n\n\\([\\)\nSave the current position (\\(p\\)) and direction (\\(\\\\alpha\\)) of the turtle (push to stack).\n\n\n\\(]\\)\nRestore the saved position (\\(p\\)) and direction (\\(\\\\alpha\\)) (pop from stack).\n\n\n\n\n\n\n\nL-System Definition\nAn L-System includes:\n\nSymbol Set: Characters that the turtle understands (e.g., \\(F, +, -, [, ]\\)).\nAxiom \\(s_0\\): The initial character string.\nProduction Rules: Rules for replacing characters. Example: \\(F \\to F+F-F\\).\n\n\n\nExecution Process:\n\nStart from the axiom \\(s_0\\).\nIterate \\(n\\) times: At each step, simultaneously apply the production rules to all characters in the current string to create a new string (\\(s_0 \\to s_1 \\to s_2 \\to \\dots \\to s_n\\)).\nUse Turtle Graphics to draw the final string \\(s_n\\).\n\n\n\n\n\nL-System Examples\n\nExample 1\n\nAxiom \\(s_0 = F++F++F\\)\nProduction Rules\n\n\\(F \\to F-F++F-F\\)\n\n\\(\\\\Delta\\alpha = 60.0^\\circ\\)\n\n\n\n\nExample 2\n\nAxiom \\(s_0 = F\\)\nProduction Rules\n\n\\(F \\to FF+[+F-F-F]-[-F+F+F]\\)\n\n\\(\\\\Delta\\alpha = 22.5^\\circ\\)\n\n\n\n\nExample 3\n\nAxiom \\(s_0 = X\\)\nProduction Rules\n\n\\(F \\to FF\\)\n\\(X \\to F[+X]F[-X]+X\\)\n\n\\(\\\\Delta\\alpha = 20.0^\\circ\\)\n\n\n\n\nExample 4\n\nAxiom \\(s_0 = X\\)\nProduction Rules\n\n\\(F \\to FF\\)\n\\(X \\to F-[[X]+X]+F[+FX]-X\\)\n\n\\(\\\\Delta\\alpha = 22.5^\\circ\\)",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>FRACTAL</span>"
+    ]
+  },
+  {
+    "objectID": "fractal.html#mandelbrot-set",
+    "href": "fractal.html#mandelbrot-set",
+    "title": "3  FRACTAL",
+    "section": "3.4 Mandelbrot Set",
+    "text": "3.4 Mandelbrot Set\nThe Mandelbrot set is one of the most famous fractals, defined in the complex plane.\n\nDefinition\n\nThe Mandelbrot set is defined based on a simple recursive expression:\n\nStart with \\(z_0 = 0 + 0i\\).\nIterate: \\(z_{n+1} = z_n^2 + c\\).\n\nWhere \\(c\\) is a complex number. The Mandelbrot set is the set of all complex numbers \\(c\\) such that the sequence {\\(z_n\\)} does not diverge to infinity (i.e., the sequence is bounded).\n\n\n\nConvergence Property\nA key property for drawing the Mandelbrot set: If there exists a \\(k\\) such that the modulus (magnitude) of \\(z_k\\) exceeds 2 (i.e., \\(|z_k| &gt; 2\\)), then the sequence {\\(z_n\\)} will definitely diverge to infinity.\n\n\n\nAlgorithm for Drawing Mandelbrot Set\nThis algorithm checks each point \\(c\\) on the complex plane (corresponding to each pixel on the screen) to see if it belongs to the set.\nFor each pixel \\((x, y)\\) on the screen:\n\nMapping: Convert pixel coordinates \\((x, y)\\) into a complex number \\(c = x + yi\\) in a region of the complex plane.\nConvergence Check:\n\nInitialize \\(z = 0\\).\nSet a maximum number of iterations (e.g., \\(N = 100\\)).\nLoop \\(i\\) from 0 to \\(N\\):\n\nCalculate \\(z = z^2 + c\\).\nIf \\(|z| &gt; 2\\): Sequence diverges to infinity. Point \\(c\\) does not belong to the Mandelbrot set. Stop loop.\n\nIf the loop finishes and \\(|z|\\) is still \\(\\le 2\\): Sequence does not diverge to infinity (within the limit of \\(N\\) iterations). Point \\(c\\) belongs to the Mandelbrot set.\n\nColoring:\n\nIf \\(c\\) belongs to the Mandelbrot set, color pixel \\((x, y)\\) black.\nIf \\(c\\) does not belong to the Mandelbrot set, do not color (leave white) (or color based on the number of iterations \\(i\\) before \\(|z| &gt; 2\\) to create colorful Mandelbrot images).",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>FRACTAL</span>"
+    ]
+  },
+  {
+    "objectID": "fractal.html#references",
+    "href": "fractal.html#references",
+    "title": "3  FRACTAL",
+    "section": "References",
+    "text": "References\n\nMathigon\nThe nature of code",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>FRACTAL</span>"
+    ]
+  },
+  {
+    "objectID": "dp.html",
+    "href": "dp.html",
+    "title": "4  Dynamic Programming",
+    "section": "",
+    "text": "4.1 Dynamic Programming",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Dynamic Programming</span>"
+    ]
+  },
+  {
+    "objectID": "dp.html#dynamic-programming",
+    "href": "dp.html#dynamic-programming",
+    "title": "4  Dynamic Programming",
+    "section": "",
+    "text": "Problems in Recursion\n\nThe number of terms computed by the recursive algorithm for determining the \\(n\\)th Fibonacci term is exponential in \\(n\\)\nint fibonacci(int n)  { \n    if(n &lt;= 1)\n        return 1;\n    else\n        return fibonacci(n-1) + fibonacci(n-2);\n} \nThe figure shows the Fibonacci algorithm’s call tree when it evaluates fibonacci(6)\n\n\n\n\nDynamic Programming\n\nDynamic programming is a method for solving complex problems by breaking them down into simpler, overlapping subproblems, solving each subproblem only once, and storing their solutions for future use.\n\n\n\nDynamic programming is similar to divide-and-conquer in that an instance of a problem is divided into smaller instances.\nHowever, in this approach we solve small instances first, store the results, and later, whenever we need a result, look it up instead of recomputing it.\nDynamic programming is a bottom-up approach\n\n\nint fibonacci(int n) {\n    int f[100];\n\n    f[0] = 1;\n    f[1] = 1;\n    for (int i = 2; i &lt;= n; i++)\n        f[i] = f[i - 1] + f[i - 2];\n    return f[n];\n}\n\n\nThe Binomial Coefficient\n\nThe binomial coefficient is given by \\[\\begin{equation}\n\\binom{n}{k}=\\frac{n!}{k!(n-k)!}\\quad\\text{for}\\quad0\\leq k\\leq n\n\\end{equation}\\]\nWe have recursive formula \\[\\begin{equation}\n\\binom{n}{k}=\\begin{cases}\n1 & k=0\\text{ or }k=n\\\\\n\\binom{n-1}{k-1}+\\binom{n-1}{k} & 0&lt;k&lt;n\n\\end{cases}\n\\end{equation}\\]\n\n\n\nRecursive solution\nThe recursive function below calculates the binomial coefficient by directly applying the recursive formula.\nint bin(int n, int k) {  \n    if ( k == 0 || k == n)\n        return 1;\n    else\n        return bin(n-1, k - 1) + bin(n - 1, k);\n}\n\nThis algorithm is very inefficient.\n\n\n\nDP solution\n\nWe define an array \\(B[i][j]\\) containing \\(\\binom{i}{j}\\)\n\n\nEstablish a recursive property. \\[\\begin{equation}\nB[i][j]=\\begin{cases}\n1 & j=0\\text{ or }j=i\\\\\nB[i-1][j-1]+B[i-1][j] & 0&lt;j&lt;i\n\\end{cases}\n\\end{equation}\\]\nSolve an instance of the problem in a bottom-up fashion by computing the rows in \\(B\\) in sequence starting with the first row.\n\nint bin(int n, int k) {  \n    int B[1000][100];\n\n    for (int i = 0; i &lt;= n; i++) {\n        for (int j = 0; j &lt;= i; j++) {\n            if (j == 0 || j == i)\n                B[i][j] = 1;\n            else\n                B[i][j] = B[i-1][j-1] + B[i-1][j];\n        }\n    }\n    return B[n][k];\n}",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Dynamic Programming</span>"
+    ]
+  },
+  {
+    "objectID": "dp.html#optimization-problems",
+    "href": "dp.html#optimization-problems",
+    "title": "4  Dynamic Programming",
+    "section": "4.2 Optimization Problems",
+    "text": "4.2 Optimization Problems\n\nPrinciple of Optimality\n\nA problem is said to satisfy the Principle of Optimality if the subsolutions of an optimal solution of the problem are themesleves optimal solutions for their subproblems.\n\n\nIn practice, it is necessary to show that the principle applies before assuming that an optimal solution can be obtained using dynamic programming.\n\n\n\nLongest Path Problem\nFinding the longest simple paths from each vertex to all other vertices.\n\n\nThe optimal (longest) simple path from \\(v_{1}\\) to \\(v_{4}\\) is {\\(v_{1} \\to v_{3} \\to v_{2} \\to v_{4}\\)}.\nHowever, the subpath {\\(v_{1} \\to v_{3}\\)} is not an optimal (longest) path from \\(v_{1}\\) to \\(v_{3}\\)\n\n\n\nDynamic Programming\n\nEstablish a recursive property that gives the optimal solution to an instance of the problem.\nCompute the value of an optimal solution in a bottom-up fashion.\nConstruct an optimal solution in a bottom-up fashion.\n\n\n\nChained Matrix Multiplication\n\nMultiply a \\(2\\times3\\) matrix times a \\(3\\times4\\) matrix, the resultant matrix is a \\(2\\times4\\) matrix \\[\\left[\\begin{array}{ccc}\n1 & 2 & 3\\\\\n4 & 5 & 6\n\\end{array}\\right]\\left[\\begin{array}{cccc}\n7 & 8 & 9 & 1\\\\\n2 & 3 & 4 & 5\\\\\n6 & 7 & 8 & 9\n\\end{array}\\right]=\\left[\\begin{array}{cccc}\n29 & 35 & 41 & 38\\\\\n74 & 89 & 104 & 83\n\\end{array}\\right]\\] the total number of elementary multiplication is \\(2\\times3\\times4=24\\).\nIn general, to multiply an \\(m\\times n\\) matrix times a \\(n\\times p\\) matrix using the standard method, it is necessary to do \\[\\begin{equation}\nm\\times n\\times p\\quad\\text{elementary multiplications}\n\\end{equation}\\]\nConsider the multiplication of the following four matrices:\n\n\\[\\underset{20\\times2}{\\underbrace{A}}\\times\\underset{2\\times30}{\\underbrace{B}}\\times\\underset{30\\times12}{\\underbrace{C}}\\times\\underset{12\\times8}{\\underbrace{D}}\\]\n\nMatrix multiplication is an associative operation, meaning that the order in which we multiply does not matter. There are five different orders in which we can multiply four matrices, each possibly resulting in a different number of elementary multiplications. \\[\\begin{array}{lll}\nA(B(CD)) & 30\\times12\\times8+2\\times30\\times8+20\\times2\\times8 & =3680\\\\\n(AB)(CD) & 20\\times2\\times30+30\\times12\\times8+20\\times30\\times8 & =8880\\\\\nA((BC)D) & 2\\times30\\times12+2\\times12\\times8+20\\times2\\times8 & =1232\\\\\n(AB)C)D & 20\\times2\\times30+20\\times30\\times12+20\\times12\\times8 & =10320\\\\\n(A(BC))D & 2\\times30\\times12+20\\times2\\times12+20\\times12\\times8 & =3120\n\\end{array}\\]\n\nMultiply \\(n\\) matrices: \\(A_{1},A_{2},\\ldots,A_{n}\\).\n\nIt is not hard to see that the principle of optimality applies in this problem.\n\nLet\n\n\\(d_{0}\\) be the number of rows in \\(A_{1}\\) and\n\\(d_{k}\\) be the number of columns in \\(A_{k}\\) for \\(1\\leq k\\leq n\\), the dimension of \\(A_{k}\\) is \\(d_{k-1}\\times d_{k}\\)\n\n\n\n\nSolution to Chained Matrix Multiplication\n\nLet \\(M[i][j]\\) = minimum number of multiplications needed to multiply \\(A_{i}\\) through \\(A_{j}\\), if \\(i\\leq j\\).\nPrinciple of optimality \\[\\begin{equation}\n\\begin{array}{lll}\nM[i][i] & = & 0\\\\\nM[i][j] & = & \\min_{i\\leq k\\leq j-1}\\left(M[i][k]+M[k+1][j]+d_{i-1}d_{k}d_{j}\\right)\\quad\\text{if }i&lt;j\n\\end{array}\n\\end{equation}\\]\nConsider the multiplication of the following six matrices \\[\\underset{5\\times2}{\\underbrace{A_{1}}}\\times\\underset{2\\times3}{\\underbrace{A_{2}}}\\times\\underset{3\\times4}{\\underbrace{A_{3}}}\\times\\underset{4\\times6}{\\underbrace{A_{4}}}\\times\\underset{6\\times7}{\\underbrace{A_{5}}}\\times\\underset{7\\times8}{\\underbrace{A_{6}}}\\] we have \\(d_{0}=5,d_{1}=2,d_{2}=3,d_{3}=4,d_{4}=6,d_{5}=7,d_{6}=8\\)\nThe table \\(M\\) is:\n\n\n\n\n1\n2\n3\n4\n5\n6\n\n\n\n\n1\n0\n30\n64\n132\n226\n348\n\n\n2\n\n0\n24\n72\n156\n268\n\n\n3\n\n\n0\n72\n198\n366\n\n\n4\n\n\n\n0\n168\n392\n\n\n5\n\n\n\n\n0\n336\n\n\n6\n\n\n\n\n\n0",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Dynamic Programming</span>"
+    ]
+  },
+  {
+    "objectID": "dp.html#workshop",
+    "href": "dp.html#workshop",
+    "title": "4  Dynamic Programming",
+    "section": "4.3 Workshop",
+    "text": "4.3 Workshop\n\nQuiz\n\nWhat is the dynamic programming?\n\n\n\nExercises\n\nWrite a program",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Dynamic Programming</span>"
+    ]
+  },
+  {
+    "objectID": "dp.html#references",
+    "href": "dp.html#references",
+    "title": "4  Dynamic Programming",
+    "section": "4.4 References",
+    "text": "4.4 References",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Dynamic Programming</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html",
+    "href": "lect02.html",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "",
+    "text": "5.1 Introduction",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html#introduction",
+    "href": "lect02.html#introduction",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "",
+    "text": "Analysis of Algorithms\n\nDefinition: Analysing an algorithm means predicting the resources that the algorithm requires.\n\nTime Complexity: How long it takes the algorithm to run\nSpace Complexity: The extra memory space the algorithm needs besides the input data itself.\n\n\n\n\nWhy Analyze Algorithms?\n\nComparison: To compare different algorithms and choose the most efficient one for a given task.\nOptimization: To optimize an algorithm.\nPredictability: To predict how an algorithm will behave with different input sizes and under various conditions.\nResource Management: To ensure algorithms are efficient in terms of computational resources, such as CPU time and memory.\n\n\n\nMethods of Analysis\nThere are two methods of analysis:\n\nEmpirical analysis\nTheoretical analysis\n\n\n\nTime Complexity\n\nDefinition: The time complexity of an algorithm estimates how much time the algorithm will use given an input.\n\\[\\text{time complexity} = T(\\text{input size})\\]\n\nInput size depends on the problem’s input data:\n\nNumber of items in the input.\nTotal number of bits needed to represent the input.\nSometimes described by two or more numbers.\n\nTime complexity measures how many basic operations are executed, rather than direct time in seconds.\n\nDefinition: Basic Operations can be:\n\nMachine operations: assignments, arithmetic operations, etc.\nHuman operations: move, carry, etc.\nGeneral operations.\n\n\n\n\nSpace Complexity\nDefinition: The space complexity of an algorithm estimates the amount of extra memory space the algorithm needs to perform its operations on an input data.\n\\[\\text{space complexity} = T(\\text{input size})\\]\n\n\nExample: Maximum Subarray Sum\n\nGiven an array of \\(n\\) numbers, calculate the maximum subarray sum (largest possible sum of a sequence of consecutive values).\nAn empty subarray is allowed, so the sum is at least 0.\n\nExample array:\n\nMaximum sum (10):\n\n\n\nAlgorithm 1\nGo through all possible subarrays, calculate the sum of each, and maintain the maximum.\nint best = 0;\nfor (int a = 0; a &lt; n; a++) {\n    for (int b = a; b &lt; n; b++) {\n        int sum = 0;\n        for (int k = a; k &lt;= b; k++) {\n            sum += array[k];\n        }\n        best = max(best, sum);\n    }\n}\ncout &lt;&lt; best &lt;&lt; \"\\n\";\n\n\nAlgorithm 2\nOptimize Algorithm 1 by calculating the sum as the right end of the subarray moves.\nint best = 0;\nfor (int a = 0; a &lt; n; a++) {\n    int sum = 0;\n    for (int b = a; b &lt; n; b++) {\n        sum += array[b];\n        best = max(best, sum);\n    }\n}\ncout &lt;&lt; best &lt;&lt; \"\\n\";\n\n\nAlgorithm 3\nCalculate the maximum subarray sum for each ending position from left to right.\n\nThe subarray only contains the element at position \\(k\\).\nThe subarray consists of a subarray ending at \\(k-1\\) followed by the element at \\(k\\).\n\nint best = 0, sum = 0;\nfor (int k = 0; k &lt; n; k++) {\n    sum = max(array[k], sum + array[k]);\n    best = max(best, sum);\n}\ncout &lt;&lt; best &lt;&lt; \"\\n\";",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html#types-of-problem",
+    "href": "lect02.html#types-of-problem",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "5.2 Types Of Problem",
+    "text": "5.2 Types Of Problem\n\nDefinitions\n\nDecision Problem: A problem with a yes or no answer (e.g., “is this number prime?”).\nSearch Problem: Requires identifying a solution from a set of possible solutions (e.g., “finding a path”).\nCounting Problem: Requires the total number of solutions to a search problem (e.g., “how many primes in first 100 integers?”).\nOptimization Problem: Requires identifying the best solution to a search problem (e.g., “finding the shortest path”).\n\n\n\nTractable & Intractable Problems\n\nTractable: A problem that can be solved in polynomial time.\nIntractable: A problem where execution time grows too quickly for polynomial time solutions (e.g., Travelling Salesperson Problem).\n\n\n\nApproximate Solutions\n\nHeuristic Algorithm: Produces usable solutions in reasonable (polynomial) time. These may not be optimal but are “good enough”.\n\n\n\nDecidable/Undecidable Problems\n\nUncomputable Problems: Problems that cannot be solved by algorithms even with unlimited time.\nUndecidable: A decision problem that is uncomputable.\n\n\nThe Halting Problem: Given a program code and input, is it possible to tell if it will halt or loop forever without running it?\n\n\n\nComplexity Classes\n\nP: Decision problems solvable in polynomial time on a deterministic machine.\nNP: Decision problems whose positive solutions can be verified in polynomial time.\nNP-complete: A problem in NP such that every problem in NP is reducible to it in polynomial time.\nNP-hard: Satisfies the reduction property of NP-complete, but might not be in NP.\n\n\n\nSome NP-complete Problems\n\nClique problem\nn-Queens completion\nBoolean satisfiability problem\nSubset sum problem\nTraveling salesman problem\n\n\n\nP = NP?\nThe question of whether P = NP remains unsolved.",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html#asymptotic-notation",
+    "href": "lect02.html#asymptotic-notation",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "5.3 Asymptotic Notation",
+    "text": "5.3 Asymptotic Notation\n\nBig O Notation\n\nHistory:\n\nSymbol \\(O\\) introduced by Paul Bachmann in 1894.\n\\(o\\) notation introduced by Edmund Landau in 1909.\nPopularized in CS by Donald Knuth in the 1970s.\n\n\n\nDefinition: \\(O(g(n)) = \\{f(n) : \\exists c, n_0 &gt; 0 \\text{ s.t. } 0 \\leq f(n) \\leq cg(n) \\forall n \\geq n_0\\}\\).\n\n\nRepresents the upper bound on growth rate.\nPronounced “big-oh of \\(g\\) of \\(n\\)”.\n\n\n\n\nName\nOrder-of-growth function\n\n\n\n\nconstant\n\\(1\\)\n\n\nlogarithm\n\\(\\log n\\)\n\n\nlinear\n\\(n\\)\n\n\nn-log-n\n\\(n \\log n\\)\n\n\nquadratic\n\\(n^2\\)\n\n\ncubic\n\\(n^3\\)\n\n\nexponential\n\\(2^n\\)\n\n\npermutation\n\\(n!\\)\n\n\n\n\n\nExamples\n\nExample: Prove \\(T(n) = 2n^4 + 3n^3 + 5n^2 + 2n + 3 = O(n^4)\\).\n\n\nProof. For \\(n \\geq 1\\):\n\\(2n^4 + 3n^3 + 5n^2 + 2n + 3 \\leq (2+3+5+2+3)n^4 = 15n^4\\).\n\n\nTheorem: If \\(T(n) = a_0 + a_1n + ... + a_dn^d\\) (\\(a_d &gt; 0\\)), then \\(T(n) = O(n^d)\\).\n\nExamples: Find the order-of-growth:\n\n\\(5n^2 + 3n \\log n + 2n + 5 \\to O(n^2)\\)\n\\(20n^3 + 10n \\log n + 5 \\to O(n^3)\\)\n\\(3 \\log n + 2 \\to O(\\log n)\\)\n\\(2^{n+2} \\to O(2^n)\\)\n\\(2n + 100 \\log n \\to O(n)\\)\n\nExercises:\n\nIf \\(f\\) is in \\(O(g)\\), what can we say about \\(af+b\\)?\nIf \\(f_{1}\\) and \\(f_{2}\\) are in \\(O(g)\\), what can we say about \\(f_{1}+f_{2}\\)?\nIf \\(f_{1}\\) is in \\(O(g)\\) and \\(f_{2}\\) is in \\(O(h)\\), what can we say about \\(f_{1}+f_{2}\\)?\nIf \\(f_{1}\\) is in \\(O(g)\\) and \\(f_{2}\\) is \\(O(h)\\), what can we say about \\(f_{1}\\cdot f_{2}\\)?\n\n\n\nBig Omega (\\(\\Omega\\)) Notation\n\nDefinition: \\(\\Omega(g(n)) = \\{f(n) : \\exists c, n_0 &gt; 0 \\text{ s.t. } f(n) \\geq cg(n) \\forall n \\geq n_0\\}\\).\n\n\nRepresents a lower bound on growth rate.\n\n\n\nBig Theta (\\(\\Theta\\)) Notation\n\nDefinition: \\(\\Theta(g(n)) = \\{f(n) : \\exists c_1, c_2, n_0 &gt; 0 \\text{ s.t. } c_1g(n) \\leq f(n) \\leq c_2g(n) \\forall n \\geq n_0\\}\\).\n\n\nRepresents an exact growth rate (upper and lower limits).",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html#mathematical-techniques",
+    "href": "lect02.html#mathematical-techniques",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "5.4 Mathematical Techniques",
+    "text": "5.4 Mathematical Techniques\n\nSummation Formulas\n\nArithmetic Series: \\[\\sum_{k=1}^{n} k = \\frac{1}{2}(n^2 + n)\\]\nSum of Squares: \\[\\sum_{k=1}^{n} k^2 = \\frac{1}{6}(2n^3 + 3n^2 + n)\\]\nSum of Cubes: \\[\\sum_{k=1}^{n} k^3 = \\frac{1}{4}(n^4 + 2n^3 + n^2)\\]\nGeometric Series: \\[\\sum_{k=0}^{n} r^k = \\frac{1-r^{n+1}}{1-r}\\]\n\nHarmonic Series: \\[1 + \\frac{1}{2} + ... + \\frac{1}{n} \\approx \\ln n\\]\n\n\n\nGenerating Functions\n\nDefinition: For a sequence \\(\\{a_k\\}\\), the Ordinary Generating Function (OGF) is: \\[A(z) = \\sum_{k \\geq 0} a_k z^k\\]\n\n\nCommon Generating Functions\n\n\n\nSeries\nGenerating Function\n\n\n\n\n\\(1, 1, 1, 1, ...\\)\n\\(\\frac{1}{1-z}\\)\n\n\n\\(0, 1, 2, 3, ...\\)\n\\(\\frac{z}{(1-z)^2}\\)\n\n\n\\(1, c, c^2, c^3, ...\\)\n\\(\\frac{1}{1-cz}\\)\n\n\n\\(1, 1, \\frac{1}{2!}, \\frac{1}{3!}, ...\\)\n\\(e^z\\)\n\n\n\\(0, 1, \\frac{1}{2}, \\frac{1}{3}, ...\\)\n\\(\\ln \\frac{1}{1-z}\\)\n\n\n\n\n\n\nSolving Recurrences with Generating Functions\n\nExample: \\(a_n = 5a_{n-1} - 6a_{n-2}\\) with \\(a_0 = 0, a_1 = 1\\).\n\nMultiply by \\(z^n\\) and sum: \\(A(z) - z = 5zA(z) - 6z^2A(z)\\).\nSolve for \\(A(z)\\): \\(A(z) = \\frac{z}{1-5z+6z^2} = \\frac{1}{1-3z} - \\frac{1}{1-2z}\\).\nResult: \\(a_n = 3^n - 2^n\\).",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html#algorithm-analysis",
+    "href": "lect02.html#algorithm-analysis",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "5.5 Algorithm Analysis",
+    "text": "5.5 Algorithm Analysis\n\nPerformance Scenarios\n\nBest-case: Fastest completion for any input.\nAverage-case: Expected complexity over all inputs.\nWorst-case: Slowest completion (guaranteed upper bound).\n\n\n\nComplexities for Simple Statements\n\nSequential (\\(P_1, P_2\\)): \\(T(n) = T_1(n) + T_2(n)\\)\nBranch (if-else): \\(T(n) = \\max(T_1(n), T_2(n))\\)\nLoop: \\(T(n) = \\sum_{i} T_i(n)\\)\n\n\n\nExamples\n\nLinear Search (Worst Case)\nint LinearSearch(int n, int a[], int key) {\n    int i = 0;\n    while (i &lt; n) {\n        if (a[i] == key) return i;\n        i++;\n    }\n    return -1;\n}\nComplexity: \\(O(n)\\)\n\n\nBubble Sort (Worst Case)\nvoid BubbleSort(int n, int a[]) {\n    for (int i = 0; i &lt;= n - 2; i++)\n        for (int j = n - 1; j &gt;= i + 1; j--)\n            if (a[j] &lt; a[j - 1]) \n                swap(a[j], a[j-1]);            \n}\nComplexity: \\(O(n^2)\\)\n\n\n\nRecursive Function Analysis\nSteps:\n\nIdentify the Recurrence Relation (Base Case and Recursive Case).\nWrite the Relation (e.g., \\(T(n) = T(n-1) + C\\)).\nSolve (Substitution, Recursion Tree, or Master Theorem).\n\n\nFactorial Example\nint factorial(int n) {\n    if (n == 0) return 1;\n    else return (n * factorial(n - 1));\n}\nComplexity:\n\\[T(n) = T(n-1) + C \\implies O(n)\\]\n\n\nMerge Sort Example\nvoid mergeSort(int a[], int left, int right) {\n    if (left &lt; right) {\n        int mid = (left + right) / 2;\n        mergeSort(a, left, mid);\n        mergeSort(a, mid + 1, right);\n        merge(a, left, mid, right);\n    }\n}\nComplexity:\n\\[T(n) = 2T(n/2) + Cn \\implies O(n \\log n)\\]",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html#the-master-theorem",
+    "href": "lect02.html#the-master-theorem",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "5.6 The Master Theorem",
+    "text": "5.6 The Master Theorem\nThe Master Theorem is a method used to determine the time complexity of divide and conquer algorithms. It provides a solution for recurrence relations of the form\n\\[\\begin{equation}\nT\\left(n\\right)=\\left\\{ \\begin{array}{cc}\n1 & n=1\\\\\na\\cdot T\\left(\\frac{n}{b}\\right)+f(n) & n&gt;1\n\\end{array}\\right.\n\\end{equation}\\]\n\n\\(n\\) is the size of the input.\n\\(a\\geq1\\) is the number of subproblems in the recursion.\n\\(n/b\\) (\\(b&gt;1)\\) is the size of each subproblem. All subproblems are assumed to have the same size.\n\\(f(n)\\) is the cost of the work done outside the recursive call, which includes the cost of dividing the problem and the cost of merging the solutions.\n\nCases:\n\nCase 1: \\(f(n) = O(n^{\\log_b a - \\epsilon}) \\implies T(n) = \\Theta(n^{\\log_b a})\\) (Recursive work dominates).\nCase 2: \\(f(n) = \\Theta(n^{\\log_b a}) \\implies T(n) = \\Theta(n^{\\log_b a} \\log n)\\) (Balanced).\nCase 3: \\(f(n) = \\Omega(n^{\\log_b a + \\epsilon}) \\implies T(n) = \\Theta(f(n))\\) (Non-recursive work dominates).\n\nFirst, consider an algorithm with a recurrence of the form \\[T(n)=aT\\left(\\frac{n}{b}\\right)\\]\n\nThe tree has a depth of \\(\\log_{b}n\\) and depth \\(i\\) contains \\(a^{i}\\) nodes. So there are \\(a^{\\log_{b}n}=n^{\\log_{b}a}\\) leaves, and hence the runtime is \\(\\Theta(n^{\\log_{b}a})\\).\n\n\n\nExamples\n\n\\(T(n) = 4T(n/2) + n \\implies O(n^2)\\) (Case 1)\n\\(T(n) = 4T(n/2) + n^2 \\implies O(n^2 \\log n)\\) (Case 2)\n\\(T(n) = 4T(n/2) + n^3 \\implies O(n^3)\\) (Case 3)\n\\(T(n) = 2T(n/2) + n \\log n \\implies O(n \\log^2 n)\\)",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html#workshop",
+    "href": "lect02.html#workshop",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "5.7 Workshop",
+    "text": "5.7 Workshop\n\nQuiz\n\nWhat is analysis of algorithms?\n\n\n\nExercises\nFind the complexities of:\n\n\n\nfor(i = 0; i &lt; n; i++)\n    for (j = 0; j &lt; n; j++)\n        b[i][j] += c;\n\nfor(i = 0; i &lt; n; i++)\n    for (j = i+1; j &lt; n; j++)\n        b[i][j] -= c;\n\n\n\nfor(i = 0; i &lt; n; i++)\n    for (j = 0; j &lt; n; j++)\n        a[i][j] = b[i][j] + c[i][j];\n\n\n\nfor(i = 0; i &lt; n; i++)\n    for (j = 0; j &lt; n; j++)\n        for(k = a[i][j] = 0; k &lt; n; k++)\n            a[i][j] += b[i][k] + c[k][j];\n\nRecurrence: \\(T(n) = T(n/2) + 1\\) and \\(T(n) = 2T(n/2) + \\log n\\).\nTower of Hanoi Complexity.\n\nvoid HanoiTower(int n, int a, int b, int c) {\n    if (n &gt; 0) {\n        HanoiTower(n - 1, a, c, b);\n        cout &lt;&lt; \"move from \" &lt;&lt; a &lt;&lt; \" to \" &lt;&lt; c &lt;&lt; endl;\n        HanoiTower(n - 1, b, a, c);\n    }\n}\n\nPermutation Complexity.\n\nvoid Permute(int k, int n, int a[]) {\n    if (k == 0) {\n        for (int i = 0; i &lt; n; i++) cout &lt;&lt; a[i] &lt;&lt; \" \";\n        cout &lt;&lt; endl;\n    } else {\n        for (int i = 0; i &lt; k; i++) {\n            swap(a[i], a[k - 1]);\n            Permute(k - 1, n, a);\n            swap(a[i], a[k - 1]);\n        }\n    }\n}",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html#references",
+    "href": "lect02.html#references",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "5.8 References",
+    "text": "5.8 References",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html",
+    "href": "lect03.html",
+    "title": "6  SORTING",
+    "section": "",
+    "text": "Introduction",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#selection-sort",
+    "href": "lect03.html#selection-sort",
+    "title": "6  SORTING",
+    "section": "6.1 Selection Sort",
+    "text": "6.1 Selection Sort\n\nSelection Sort\n\nIdea Assume that the array \\(\\boldsymbol{a}\\) is composed of two parts: the left part \\(\\boldsymbol{s}\\) is sorted and the right part \\(\\boldsymbol{u}\\) is unsorted\n\n\\(\\boldsymbol{s}=\\emptyset\\) and \\(\\boldsymbol{u}=\\boldsymbol{a}\\)\nFind the smallest element \\(x\\) of the part \\(\\boldsymbol{u}\\)\nRemove \\(x\\) from \\(\\boldsymbol{u}\\)\nAppend \\(x\\) to \\(\\boldsymbol{s}\\)\n\nRepeat the actions 2-4 until \\(\\boldsymbol{u}\\) is empty\n\n\n\nImplementation\ntemplate &lt;class Item&gt;\nvoid selection(Item a[], int l, int r) {\n    for (int i = l; i &lt; r; i++) {\n        int min = i;\n        for (int j = i + 1; j &lt;= r; j++)\n            if (a[j] &lt; a[min]) min = j;\n        swap(a[i], a[min]);\n    }\n}\n\n\nAnalysis\n\nSelection sort uses \\(\\sim N^{2}/2\\) compares and \\(N\\) exchanges to sort an array of length \\(N\\).\n\nAnalysis of selection sort for the input size of \\(N\\) (the number of keys)\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: ?\nStability: ?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#insertion-sort",
+    "href": "lect03.html#insertion-sort",
+    "title": "6  SORTING",
+    "section": "6.2 Insertion Sort",
+    "text": "6.2 Insertion Sort\n\nInsertion Sort\n\nIdea Assume that the array \\(\\boldsymbol{a}\\) is composed of two parts: the left part \\(\\boldsymbol{s}\\) is sorted and the right part \\(\\boldsymbol{u}\\) is unsorted\n\n\\(\\boldsymbol{s}=\\emptyset\\) and \\(\\boldsymbol{u}=\\boldsymbol{a}\\)\nRemove the first elements \\(x\\) of \\(\\boldsymbol{u}\\)\nInsert \\(x\\) into its proper place among \\(\\boldsymbol{s}\\)\n\nRepeat the actions 2-3 until \\(\\boldsymbol{u}\\) is empty\n\n\n\nImplementation\n\nAlgorithm 1\n\ntemplate &lt;class Item&gt;\nvoid insertionsort(Item a[], int l, int r) {\n    for (int i = l + 1; i &lt;= r; i++) {\n        Item v = a[i];\n        int j = i;\n        for (; j &gt; l && v &lt; a[j - 1]; j--)\n            a[j] = a[j - 1];\n        a[j] = v;\n    }\n}\n\nAlgorithm 2 (using sentinel technique)\n\ntemplate &lt;class Item&gt;\nvoid insertionsort(Item a[], int l, int r) {\n    int i;\n    for (i = r; i &gt; l; i--) compare_swap(a[i - 1], a[i]);\n    for (i = l + 2; i &lt;= r; i++) {\n        Item v = a[i];\n        int j = i;\n        for (; v &lt; a[j - 1]; j--)  \n            a[j] = a[j - 1];\n        a[j] = v;\n    }\n}\n\n\nAnalysis\n\nThe number of exchanges used by insertion sort is equal to the number of inversions in the array, and the number of compares is at least equal to the number of inversions and at most equal to the number of inversions plus the array size minus 1.\n\n\nInsertion sort uses \\(\\sim N^{2}/4\\) compares and \\(\\sim N^{2}/4\\) exchanges to sort a randomly ordered array of length \\(N\\) with distinct keys, on the average.\n\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: ?\nStability: ?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#bubble-sort",
+    "href": "lect03.html#bubble-sort",
+    "title": "6  SORTING",
+    "section": "6.3 Bubble Sort",
+    "text": "6.3 Bubble Sort\n\nBubble Sort\n\nKeep passing through the array, exchanging adjacent elements that are out of order, continuing until the array is sorted.\nBubble Sort is a kind of Selection Sort.\n\n\n\nImplementation\ntemplate &lt;class Item&gt;\nvoid bubblesort(Item a[], int l, int r) {\n    for (int i = l; i &lt; r; i++)\n        for (int j = r; j &gt; i; j--)\n            compare_swap(a[j - 1], a[j]);\n}\n\nChallenge: reimplement the function bubblesort using recursion technique\n\n\n\nAnalysis\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: ?\nStability: ?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#shell-sort",
+    "href": "lect03.html#shell-sort",
+    "title": "6  SORTING",
+    "section": "6.4 Shell Sort",
+    "text": "6.4 Shell Sort\n\nShell Sort\n\nInsertion sort is slow because the only exchanges it does involve adjacent items, so items can move through the array only one place at a time.\nShellsort is a simple extension of insertion sort that gains speed by allowing exchanges of elements that are far apart.\nThe running time is better than \\(O(n^{2})\\)\n\n\nIdea\n\nGiven the decrement sequence \\(\\{h_{1},h_{2},...,h_{t}\\}\\) where \\(h_{i}\\in\\mathbb{N}\\) and \\(h_{t}=1\\)\nFor each \\(h\\in\\{h_{1},h_{2},...,h_{t}\\}\\)\n\nSplit an array \\(\\boldsymbol{a}\\) into \\(h\\) subsequences \\[\\begin{array}{l}\na_{0},a_{0+h},a_{0+2h},...\\\\\na_{1},a_{1+h},a_{1+2h},...\\\\\na_{2},a_{2+h},a_{2+2h},...\\\\\n...\n\\end{array}\\]\nUsing Insertion Sort to sort each subsequence\n\n\n\n\n\nIncrement/Decrement Sequence\n\nShell proposed \\[\\begin{aligned}\nh_{1} & =\\frac{N}{2}\\nonumber \\\\\nh_{i+1} & =\\frac{h_{i}}{2}\\quad i&gt;1\n\\end{aligned}\\]\nHibbard proposed \\[h_{i}=2^{i}-1\\]\nKnuth proposed \\[\\begin{aligned}\nh_{1} & =1\\nonumber \\\\\nh_{i+1} & =3h_{i}+1\\quad i&gt;1\n\\end{aligned}\\]\nPratt proposed \\[\\begin{aligned}\n\\text{Successive numbers of the form } & 2^{p}3^{q},\\quad p,q\\in\\mathbb{N}\n\\end{aligned}\\]\n\n\n\nImplementation\ntemplate &lt;class Item&gt;\nvoid shellsort(Item a[], int l, int r) {\n    int h;\n    for (h = 1; h &lt;= (r - l) / 9; h = 3 * h + 1);\n    for (; h &gt; 0; h /= 3)\n        for (int i = l + h; i &lt;= r; i++) {\n            int j = i; \n            Item v = a[i];\n            while (j &gt;= l + h && v &lt; a[j - h]) {\n                a[j] = a[j - h];\n                j -= h;\n            }\n            a[j] = v;\n        }\n}\n\n\nAnalysis\n\nThe result of \\(h\\)-sorting an array that is \\(k\\)-ordered is an array that is both \\(h\\)- and \\(k\\)-ordered\n\n\nShellsort does less than \\(N(h-1)(k-1)/g\\) comparisons to \\(g\\)-sort an array that is \\(h\\)- and \\(k\\)-ordered, provided that \\(h\\) and \\(k\\) are relatively prime\n\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: ?\nStability: ?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#heap-sort",
+    "href": "lect03.html#heap-sort",
+    "title": "6  SORTING",
+    "section": "6.5 Heap Sort",
+    "text": "6.5 Heap Sort\n\nHeap Sort\n\n\nMax heap: A tree is heap-ordered if the key in each node is larger than or equal to the keys in all of that node’s children (if any)\nMin heap: A tree is heap-ordered if the key in each node is smaller than or equal to the keys in all of that node’s children (if any)\n\n\n\n\nMax heap: No node in a heap-ordered tree has a key larger than the key at the root\nMin heap: No node in a heap-ordered tree has a key smaller than the key at the root\n\n\n\n\nHeap Representation\n\nArray representation of a heap-ordered complete binary tree\n\n\nArray \\(\\{a_{0},a_{1},a_{2},a_{3},a_{4},a_{5},a_{6},a_{7},a_{8}\\}\\) and complete binary tree\n\n\nNote\nArray vs. Complete binary tree\n\nRoot node is \\(a_{0}\\)\nParent(\\(a_{i}\\)) is \\(a_{\\left\\lfloor \\frac{i-1}{2}\\right\\rfloor }\\) or nothing\nLeftChild(\\(a_{i}\\)) is \\(a_{2i+1}\\) or nothing\nRightChild(\\(a_{i}\\)) is \\(a_{2i+2}\\) or nothing\n\n\n\n\nTop-down heapify\nAt the given node \\(a_{i}\\)\n\nExchange the key in the given node \\(a_{i}\\) with the largest key among that node’s children \\(a_{2i+1}\\) and \\(a_{2i+2}\\)\nMove down to that child, and continuing down the tree until we reach the bottom or a point where no child has a larger key.\n\n\n\nImplementation\ntemplate &lt;class Item&gt;\nvoid heapify(Item a[], int n, int i) {\n    Item v = a[i];\n    while (i &lt; n / 2) {\n        int child = 2 * i + 1;\n        if (child &lt; n - 1)\n            if (a[child] &gt; a[child + 1])\n                child++;\n        if (v &gt;= a[child]) break;\n        a[i] = a[child];\n        i = child;\n    }\n    a[i] = v;\n}\n\n\nHeap Sort\n\nBuild max-heap array: use heapify operation to convert an array \\(\\boldsymbol{a}\\) to a max-heap array\n\nAll elements in the range \\(\\left\\{ a_{\\frac{n}{2}},...,a_{n-1}\\right\\}\\) are leaf nodes.\nApply heapify operation for these elements \\(\\left\\{ a_{\\frac{n}{2}-1},...,a_{0}\\right\\}\\)\n\nSort a max-heap array \\(\\boldsymbol{a}\\)\n\nSwap the first and the last element\nRemove the last element\n\nIf \\(|\\boldsymbol{a}|&gt;1\\) then apply heapify operation for \\(a_{0}\\) and repeat actions 1-2\n\ntemplate &lt;class Item&gt;\nvoid heapsort(Item a[], int l, int r) {\n    Item *pa = a + l;\n    int N = r - l + 1;\n    for (int k = N / 2 - 1; k &gt;= 0; k--)\n        heapify(pa, N, k);\n    while (N &gt; 1) {\n        swap(pa[0], pa[N - 1]);\n        N--;\n        heapify(pa, N, 0);\n    }\n}\n\n\nAnalysis\n\nHeapsort uses fewer than \\(2N\\log_{2}N\\) comparisons to sort \\(N\\) elements\n\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: ?\nStability: ?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#merge-sort",
+    "href": "lect03.html#merge-sort",
+    "title": "6  SORTING",
+    "section": "6.6 Merge Sort",
+    "text": "6.6 Merge Sort\n\nTop-Down Merge Sort\n\nIdea Merge sort sorts a subarray a\\([l\\ldots r]\\) as follows:\n\nIf \\(l\\geq r\\), do not do anything, because the subarray is already sorted or empty.\nCalculate the position of the middle element: \\(m=\\lfloor(l+r)/2\\rfloor\\).\nRecursively sort the subarray a\\([l\\ldots m]\\).\nRecursively sort the subarray a\\([m+1\\ldots r]\\).\nMerge the sorted subarrays a\\([l\\ldots m]\\) and a\\([m+1\\ldots r]\\) into a sorted subarray a\\([l\\ldots r]\\).\n\n\nSorting the following array:\n\n\nThe array will be divided into two subarrays as follows:\n\nThen, the subarrays will be sorted recursively as follows:\n\nFinally, the algorithm merges the sorted subarrays and creates the final sorted array:\n\n\n\n\nImplementation\ntemplate &lt;class Item&gt;\nvoid mergesort(Item a[], Item aux[], int l, int r) {\n    if (r &lt;= l) return;\n    int m = (l + r) / 2;\n    mergesort(a, aux, l, m);\n    mergesort(a, aux, m + 1, r);\n    merge(a, aux, l, m, r);\n}\ntemplate &lt;class Item&gt;\nvoid merge(Item a[], Item aux[], int l, int m, int r) {\n    int i, j, k;\n    for (k = l; k &lt;= r; k++) \n        aux[k] = a[k];\n    i = l;  j = m + 1;  k = l;\n    while (i &lt;= m && j &lt;= r) \n        if (aux[i] &lt;= aux[j]) a[k++] = aux[i++];\n        else a[k++] = aux[j++];\n    while (i &lt;= m) \n        a[k++] = aux[i++];\n    while (j &lt;= r) \n        a[k++] = aux[j++];\n}\n\n\nBottom-up Merge Sort\n\nIdea Bottom-up merge sort consists of\n\nA sequence of passes over the whole array doing sz-by-sz merges\nDoubling sz on each pass.\nThe final subarray is of size sz only if the array size is an even multiple of sz, so the final merge is an sz-by-x merge, for some x less than or equal to sz.\n\n\n\n\nImplementation\ntemplate &lt;class Item&gt;\nvoid mergesort(Item a[], Item aux[], int l, int r) {\n    for (int sz = 1; sz &lt;= r - l; sz = sz + sz)\n        for (int i = l; i &lt;= r - sz; i += sz + sz)\n            merge(a, aux, i, i + sz - 1, min(i + sz + sz - 1, r));\n}\n\n\nAnalysis\n\nMergesort requires about \\(N\\log_{2}N\\) comparisons to sort any array of \\(N\\) elements\n\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: ?\nStability: ?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#quick-sort",
+    "href": "lect03.html#quick-sort",
+    "title": "6  SORTING",
+    "section": "6.7 Quick Sort",
+    "text": "6.7 Quick Sort\n\nQuick Sort\n\nIdea Quicksort invented by C. A. R. Hoare in 1960 is a divide-and-conquer method for sorting\n\nSelect a pivot element \\(v\\)\nPartition an array \\(\\boldsymbol{a}\\) into two parts \\(\\boldsymbol{a}_{left}\\) and \\(\\boldsymbol{a}_{right}\\) such that \\(\\forall x\\in\\boldsymbol{a}_{left}\\) and \\(\\forall y\\in\\boldsymbol{a}_{right}\\) then \\(x\\leq v \\leq y\\)\nSort the parts \\(\\boldsymbol{a}_{left}\\) and \\(\\boldsymbol{a}_{right}\\) independently\nJoin \\(\\boldsymbol{a}_{left}\\) and \\(\\boldsymbol{a}_{right}\\) to \\(\\boldsymbol{a}=\\boldsymbol{a}_{left}\\,v\\,\\boldsymbol{a}_{right}\\)\n\n\n\n\nImplementation\ntemplate &lt;class Item&gt;\nvoid quicksort(Item a[], int l, int r) {\n    if (r &lt;= l) return;\n    int i = partition(a, l, r);\n    quicksort(a, l, i - 1);\n    quicksort(a, i + 1, r);\n}\ntemplate &lt;class Item&gt;\nint partition(Item a[], int l, int r) {\n    int i = l - 1, j = r; Item v = a[r];\n    for (;;) {\n        while (a[++i] &lt; v);\n        while (v &lt; a[--j]) if (j == l) break;\n        if (i &gt;= j) break;\n        swap(a[i], a[j]);\n    }\n    swap(a[i], a[r]);\n    return i;\n}\n\n\nAnalysis\n\nQuicksort uses \\(\\sim2N\\log_{2}N\\) compares (and one-sixth that many exchanges) on the average to sort an array of length \\(N\\) with distinct keys.\n\n\nQuicksort uses \\(\\sim N^{2}/2\\) compares in the worst case\n\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: \\(O(1)\\)?\nStability: No\n\n\n\nA lower bound for the worst case\n\nNo compare-based sorting algorithm can guarantee to sort \\(N\\) items with fewer than \\(\\log_{2}(N!)\\sim N\\log_{2}N\\) compares.\n\n\nComparing Sorting Algorithms\n\nPerformance characteristics of sorting algorithms\n\n\n\n\n\n\n\n\n\n\n\nalgorithm\nstable?\nin-place?\nrunning time\nspace\n\n\n\n\nselection\nno\nyes\n\\(N^{2}\\)\n1\n\n\ninsertion\nyes\nyes\nbetween \\(N\\) and \\(N^{2}\\)\n1\n\n\nshell\nno\nyes\n\\(N\\log N\\)?, \\(N^{6/5}\\)?\n1\n\n\nmerge\nyes\nno\n\\(N\\log N\\)\n\\(N\\)\n\n\nquick\nno\nyes\n\\(N\\log N\\)\n\\(\\log N\\)\n\n\n3-way quick\nno\nyes\nbetween \\(N\\) and \\(N\\log N\\)\n\\(\\log N\\)\n\n\nheap\nno\nyes\n\\(N\\log N\\)\n1",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#key-indexed-counting",
+    "href": "lect03.html#key-indexed-counting",
+    "title": "6  SORTING",
+    "section": "6.8 Key-indexed Counting",
+    "text": "6.8 Key-indexed Counting\n\nAssumptions about keys\n\nAssumption.\n\nKeys are integers between 0 and \\(R-1\\).\n\nImplication.\n\nCan use key as an array index.\n\n\n\n\nKey-indexed Counting\n\nProblem.\n\nSort an array a of \\(N\\) items whose keys are integers between 0 and \\(R-1\\).\n\n\n// Compute frequency counts.\nfor (int i = 0; i &lt; N; i++)\n    count[a[i].key() + 1]++;\n// Transform counts to indices.\nfor (int r = 0; r &lt; R; r++)\n    count[r + 1] += count[r];\n// Distribute the items.\nfor (int i = 0; i &lt; N; i++)\n    aux[count[a[i].key()]++] = a[i];\n// Copy back.\nfor (int i = 0; i &lt; N; i++)\n    a[i] = aux[i];\n\n\nAnalysis\n\nKey-indexed counting uses \\(8N+3R+1\\) array accesses to stably sort \\(N\\) items whose keys are integers between 0 and \\(R-1\\).\n\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: ?\nStability: ?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#radix-sort",
+    "href": "lect03.html#radix-sort",
+    "title": "6  SORTING",
+    "section": "6.9 Radix Sort",
+    "text": "6.9 Radix Sort\n\nRadix Sort\n\n\nA byte is a fixed-length sequence of bits.\nA word is a fixed-length sequence of bytes.\nA string is a variable-length sequence of bytes.\n\n\n\nIdea Radix-sorting algorithms treat the keys as numbers represented in a base-\\(R\\) number system, for various values of \\(R\\) (the radix), and work with individual digits of the numbers.\n\n\nA key is a radix-\\(R\\) number, with digits numbered from the right (starting at 0)\n\n\nIn programing, we use the abstract digit operation to access digits of keys\n\nThere are two basic approaches to radix sorting:\n\nThe first class of methods: They examine the digits in the keys in a left-to-right order, working with the most significant digits first. These methods are generally referred to as most-significant-digit (MSD) radix sorts or top-down methods.\nThe second class of methods: They examine the digits in the keys in a right-to-left order, working with the least significant digits first. These methods are generally referred to as least-significant-digit (LSD) radix sorts or bottom-up methods.\n\n\n\nLSD Implementation\ntemplate &lt;class Item&gt;\nvoid radixsort(Item a[], int l, int r) {\n    vector&lt;Item&gt; bins[radix];\n    for (int d = 0; d &lt; max_digit; d++) {\n        // clear bins\n        ...\n        // distribute\n        for (i = l; i &lt;= r; i++)\n            bins[digit(a[i],d,radix)].push_back(a[i]);        \n        // join bins to a[l...r]\n        ...\n    }\n}\n\n\nExample 1\n\nSort an array of integer numbers {170, 45, 75, 90, 802, 2, 24, 66}\nRewrite the numbers in 3-digit format {170, 045, 075, 090, 802, 002, 024, 066}\nDistribute the data into 10 bins on digit \\(d=0\\)\n{170, 045, 075, 090, 802, 002, 024, 066}\nbin 0: 170, 090\nbin 1:\nbin 2: 802, 002\nbin 3:\nbin 4: 024\nbin 5: 045, 075\nbin 6: 066\nbin 7:\nbin 8:\nbin 9:\nJoin the bins\n{170, 090, 802, 002, 024, 045, 075, 066}\nDistribute the data into 10 bins on digit \\(d=1\\)\n{170, 090, 802, 002, 024, 045, 075, 066}\nbin 0: 802, 002\nbin 1:\nbin 2: 024\nbin 3:\nbin 4: 045\nbin 5:\nbin 6: 066\nbin 7: 170, 075\nbin 8:\nbin 9: 090\nJoin the bins\n{802, 002, 024, 045, 066, 170, 075, 090}\nDistribute the data into 10 bins on digit \\(d=2\\)\n{802, 002, 024, 045, 066, 170, 075, 090}\nbin 0: 002, 024, 045, 066, 075, 090\nbin 1: 170\nbin 2:\nbin 3:\nbin 4:\nbin 5:\nbin 6:\nbin 7:\nbin 8: 802\nbin 9:\nJoin the bins\n{002, 024, 045, 066, 075, 090, 170, 802}\n\n\n\n\n\n\n\n\n\n\n\n\n\n170\n\n17 0\n\n8 0 2\n\n0 02\n\n\n045\n\n09 0\n\n0 0 2\n\n0 24\n\n\n075\n\n80 2\n\n0 2 4\n\n0 45\n\n\n090\n\\(\\longrightarrow\\)\n00 2\n\\(\\longrightarrow\\)\n0 4 5\n\\(\\longrightarrow\\)\n0 66\n\n\n802\n\n02 4\n\n0 6 6\n\n0 75\n\n\n002\n\n04 5\n\n1 7 0\n\n0 90\n\n\n024\n\n07 5\n\n0 7 5\n\n1 70\n\n\n066\n\n06 6\n\n0 9 0\n\n8 02\n\n\n\n\n\nExample 2\n\nSort 17 integer numbers\n{6, 7, 1, 3, 5, 2, 0, 4, 2, 1, 7, 2, 1, 3, 5, 2, 7}\nRewrite the numbers in 3-digit binary numbers\n110, 111, 001, 011, 101, 010, 000, 100, 010, 001, 111, 010, 001, 011, 101, 010, 111\n\n\n\nAnalysis\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: ?\nStability: ?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#workshop",
+    "href": "lect03.html#workshop",
+    "title": "6  SORTING",
+    "section": "6.10 Workshop",
+    "text": "6.10 Workshop\n\nQuiz\n\nWhat is a sorting operation?\nWhat is an inversion?\nHow selection sort sorts the sample array E A S Y Q U E S T I O N?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#references",
+    "href": "lect03.html#references",
+    "title": "6  SORTING",
+    "section": "6.11 References",
+    "text": "6.11 References",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  }
+]
