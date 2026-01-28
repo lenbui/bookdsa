@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>11&nbsp; Balanced Binary Search Tree – DATA STRUCTURES AND ALOGRITHMS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./lect08-btree.html" rel="next">
+<link href="./lect06-tree.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-317aa39e225c698ea508ddd136b93e4d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="theme.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">DATA STRUCTURES AND ALOGRITHMS</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lect04-pointer.html">DATA STRUCTURES</a></li><li class="breadcrumb-item"><a href="./lect07-balanced-tree.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Balanced Binary Search Tree</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">INTRODUCTION</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">ALGORITHMS</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Recursion &amp; Divide-and-Conquer</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fractal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">FRACTAL</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dynamic Programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">ANALYSIS OF ALGORITHM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">SORTING</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">DATA STRUCTURES</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect04-pointer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pointers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect05-file.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">FILE &amp; STREAM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect05-element-ds.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Elementary Data Structures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect06-tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Trees &amp; Binary Trees</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect07-balanced-tree.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Balanced Binary Search Tree</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect08-btree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">B-tree</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect09-pq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Priority Queues and Heaps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect10-hashtable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hash Table</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">GRAPHS</span></span>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#balanced-tree" id="toc-balanced-tree" class="nav-link active" data-scroll-target="#balanced-tree"><span class="header-section-number">11.1</span> Balanced Tree</a>
+  <ul class="collapse">
+  <li><a href="#rotations" id="toc-rotations" class="nav-link" data-scroll-target="#rotations">Rotations</a></li>
+  <li><a href="#strategies-in-balancing-tree" id="toc-strategies-in-balancing-tree" class="nav-link" data-scroll-target="#strategies-in-balancing-tree">Strategies in Balancing Tree</a></li>
+  </ul></li>
+  <li><a href="#avl-tree" id="toc-avl-tree" class="nav-link" data-scroll-target="#avl-tree"><span class="header-section-number">11.2</span> AVL Tree</a>
+  <ul class="collapse">
+  <li><a href="#insertion" id="toc-insertion" class="nav-link" data-scroll-target="#insertion">Insertion</a></li>
+  <li><a href="#deletion" id="toc-deletion" class="nav-link" data-scroll-target="#deletion">Deletion</a></li>
+  </ul></li>
+  <li><a href="#red-black-tree" id="toc-red-black-tree" class="nav-link" data-scroll-target="#red-black-tree"><span class="header-section-number">11.3</span> Red-Black Tree</a>
+  <ul class="collapse">
+  <li><a href="#insertion-1" id="toc-insertion-1" class="nav-link" data-scroll-target="#insertion-1">Insertion</a></li>
+  <li><a href="#deletion-1" id="toc-deletion-1" class="nav-link" data-scroll-target="#deletion-1">Deletion</a></li>
+  </ul></li>
+  <li><a href="#optimal-binary-search-trees" id="toc-optimal-binary-search-trees" class="nav-link" data-scroll-target="#optimal-binary-search-trees"><span class="header-section-number">11.4</span> Optimal binary search trees</a>
+  <ul class="collapse">
+  <li><a href="#static" id="toc-static" class="nav-link" data-scroll-target="#static">Static</a></li>
+  <li><a href="#dynamic" id="toc-dynamic" class="nav-link" data-scroll-target="#dynamic">Dynamic</a></li>
+  </ul></li>
+  <li><a href="#workshop" id="toc-workshop" class="nav-link" data-scroll-target="#workshop"><span class="header-section-number">11.5</span> Workshop</a>
+  <ul class="collapse">
+  <li><a href="#quiz" id="toc-quiz" class="nav-link" data-scroll-target="#quiz">Quiz</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises">Exercises</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">11.6</span> References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lect04-pointer.html">DATA STRUCTURES</a></li><li class="breadcrumb-item"><a href="./lect07-balanced-tree.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Balanced Binary Search Tree</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Balanced Binary Search Tree</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="balanced-tree" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="balanced-tree"><span class="header-section-number">11.1</span> Balanced Tree</h2>
+<section id="introduction" class="level4">
+<h4 class="anchored" data-anchor-id="introduction">Introduction</h4>
+<p><strong>Balance</strong> may be defined by:</p>
+<ul>
+<li>Comparing the numbers of nodes of the two subtrees</li>
+<li>Height balancing: comparing the heights of the twosub trees</li>
+<li>Null-path-length balancing: comparing the null-path-length of each of the two sub-trees</li>
+<li>Weight balancing: comparing the number of null sub-trees in each of the two sub trees</li>
+</ul>
+<div class="definition">
+<p>A binary tree is <span style="color:brown"><strong>balanced</strong></span> if the difference in the numbers of nodes of both subtrees of any node in the tree either <strong>zero</strong> or <strong>one</strong>.</p>
+</div>
+<div class="definition">
+<p>A binary tree is <span style="color:brown"><strong>height-balanced</strong></span> if the difference in height of both subtrees of any node in the tree either <strong>zero</strong> or <strong>one</strong>.</p>
+</div>
+<ul>
+<li>A complete binary tree is is height-balanced</li>
+</ul>
+</section>
+<section id="rotations" class="level3">
+<h3 class="anchored" data-anchor-id="rotations">Rotations</h3>
+<section id="rotations-1" class="level4">
+<h4 class="anchored" data-anchor-id="rotations-1">Rotations</h4>
+<ul>
+<li>A <strong>rotation</strong> allows us to interchange the role of the root and one of the root’s children in a tree while still <strong>preserving the BST ordering</strong> among the keys in the nodes.</li>
+<li>There are two kinds of rotations: right rotation and left rotation</li>
+</ul>
+</section>
+<section id="right-rotation" class="level4">
+<h4 class="anchored" data-anchor-id="right-rotation">Right rotation</h4>
+<p>A right rotation involves the root and the left child. The rotation puts the root on the right, essentially reversing the direction of the left link of the root:</p>
+<ul>
+<li>Before the rotation, it points from the root to the left child</li>
+<li>After the rotation, it points from the old left child (the new root) to the old root (the right child of the new root)</li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/rotation-right.svg" alt="" width="90%"></div><p></p>
+</section>
+<section id="example" class="level4">
+<h4 class="anchored" data-anchor-id="example">Example</h4>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_1.svg" alt="" width="90%"></div><p></p>
+<ul>
+<li>Make right rotation at <span class="circle-auto">15</span></li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_2.svg" alt="" width="90%"></div><p></p>
+</section>
+<section id="implementation" class="level4">
+<h4 class="anchored" data-anchor-id="implementation">Implementation</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> rightRotate<span class="op">(</span>link<span class="op">&amp;</span> h<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    link x <span class="op">=</span> h<span class="op">-&gt;</span>left<span class="op">;</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    h<span class="op">-&gt;</span>left <span class="op">=</span> x<span class="op">-&gt;</span>right<span class="op">;</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">-&gt;</span>right <span class="op">=</span> h<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="left-rotation" class="level4">
+<h4 class="anchored" data-anchor-id="left-rotation">Left rotation</h4>
+<p>A left rotation involves the root and the right child.</p>
+<p></p><div style="text-align:center;"><img src="figures/rotation-left.svg" alt="" width="90%"></div><p></p>
+</section>
+<section id="implementation-1" class="level4">
+<h4 class="anchored" data-anchor-id="implementation-1">Implementation</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> leftRotate<span class="op">(</span>link<span class="op">&amp;</span> h<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    link x <span class="op">=</span> h<span class="op">-&gt;</span>right<span class="op">;</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    h<span class="op">-&gt;</span>right <span class="op">=</span> x<span class="op">-&gt;</span>left<span class="op">;</span> </span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    x<span class="op">-&gt;</span>left <span class="op">=</span> h<span class="op">;</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> x<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="strategies-in-balancing-tree" class="level3">
+<h3 class="anchored" data-anchor-id="strategies-in-balancing-tree">Strategies in Balancing Tree</h3>
+<section id="strategies-in-balancing-tree-1" class="level4">
+<h4 class="anchored" data-anchor-id="strategies-in-balancing-tree-1">Strategies in Balancing Tree</h4>
+<ul>
+<li><strong>Global rebalancing</strong>: an approach to producing better balance in BSTs is periodically to rebalance them explicitly.
+<ul>
+<li>costs at least linear time in the size of the tree</li>
+</ul></li>
+<li><strong>Local rebalancing</strong>: balancing BSTs after each operation (insert, delete)</li>
+</ul>
+</section>
+<section id="dsw-algorithm" class="level4">
+<h4 class="anchored" data-anchor-id="dsw-algorithm">DSW algorithm</h4>
+<p>The algorithm was proposed by Colin Day and later improved by Quentin F. Stout and Bette L. Warren. Idea of algorithm:</p>
+<ol type="1">
+<li>Transform an arbitrary BST into a <em>linked-list</em>-like-tree called <span style="color:brown"><strong>backbone</strong></span> or <span style="color:brown"><strong>vine</strong></span> by rotations</li>
+<li>Transform this tree into a <strong>perfectly balanced tree</strong> by rotations</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> CreateBackbone(root)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    p ← root</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">while</span> p ≠ null</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> p has a left chid</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>            make right rotation at p </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            p ← p-&gt;right</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> CreateCompleteTree(root)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    n ← the number of nodes</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    m ← 2^(floor(log_2(n+1))) - 1</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    make n-m left rotations starting from the top of backbone</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">while</span> (m&gt;1)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        m ← m/2</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        make m left rotations starting from the top of backbone</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="illustration" class="level4">
+<h4 class="anchored" data-anchor-id="illustration">Illustration</h4>
+<ul>
+<li><p>BST</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_3.svg" alt="" width="50%"></div><p></p></li>
+<li><p>Backbone</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_4.svg" alt="" width="40%"></div><p></p></li>
+<li><p>Perfect</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_5.svg" alt="" width="60%"></div><p></p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="avl-tree" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="avl-tree"><span class="header-section-number">11.2</span> AVL Tree</h2>
+<section id="avl-tree-1" class="level4">
+<h4 class="anchored" data-anchor-id="avl-tree-1">AVL Tree</h4>
+<div class="definition">
+<p>AVL tree</p>
+<ul>
+<li>proposed by two Soviet scientists G. M. Adelson-Velskii and E. M. Landis</li>
+<li>is BST tree which is <span style="color:brown"><strong>height-balanced</strong></span></li>
+</ul>
+<p><span class="math display">
+\forall p:\left|\boldsymbol{height}(\boldsymbol{LeftSubtree}(p))-\boldsymbol{height}(\boldsymbol{RightSubtree}(p))\right|\le1
+</span></p>
+</div>
+</section>
+<section id="the-height-of-an-avl-tree" class="level4">
+<h4 class="anchored" data-anchor-id="the-height-of-an-avl-tree">The Height of an AVL Tree</h4>
+<p>Consider the worst case,</p>
+<ul>
+<li><p>To determine the maximum height that an AVL tree with <span class="math inline">N</span> nodes can have, we can instead ask what is the minimum number of nodes that an AVL tree of height <span class="math inline">h</span> can have (called AVL tree <span class="math inline">F_{h}</span>).</p></li>
+<li><p>We have the recurrence relation</p>
+<p><span class="math display">
+|F_{h}|=|F_{h-1}|+|F_{h-2}|+1
+</span> where <span class="math inline">|F_{0}|=1</span> and <span class="math inline">|F_{1}|=2</span></p></li>
+<li><p>Solve the equation, we have</p>
+<p><span class="math display">
+|F_{h}|+1\approx\frac{1}{\sqrt{5}}\left[\frac{1+\sqrt{5}}{2}\right]^{h+2}
+</span></p></li>
+<li><p>The height of an AVL tree in the worst case</p>
+<p><span class="math display">
+h\approx1.44\log_{2}|F_{h}|=1.44\log_{2}N
+</span></p></li>
+</ul>
+</section>
+<section id="rebalancing-technique" class="level4">
+<h4 class="anchored" data-anchor-id="rebalancing-technique">Rebalancing technique</h4>
+<ul>
+<li><p>After an insertion/deletion, we may find a node whose new balance violates the AVL condition.</p></li>
+<li><p>Four cases: LL imbalance, LR imbalance, RR imbalance, RL imbalance</p>
+<p></p><div style="text-align:center;"><img src="figures/avl-cases.svg" alt="" width="55%"></div><p></p></li>
+<li><p>Case <span style="color:brown">LL imbalance</span> is corrected by executing a <span style="color:brown">single right rotation</span> at the node with the imbalance.</p>
+<p></p><div style="text-align:center;"><img src="figures/single-right-rotation.svg" alt="" width="80%"></div><p></p></li>
+<li><p>Case <span style="color:brown">LR imbalance</span> is corrected by executing a <span style="color:brown">double rotations</span></p>
+<p></p><div style="text-align:center;"><img src="figures/double-rotation.svg" alt="" width="100%"></div><p></p></li>
+</ul>
+</section>
+<section id="insertion" class="level3">
+<h3 class="anchored" data-anchor-id="insertion">Insertion</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> Insert(root,key) </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> root = null</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        root ← new NODE(key)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> root-&gt;key = key </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> root-&gt;key &lt; key </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        Insert(root-&gt;right,key)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> root-&gt;key &gt; key </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        Insert(root-&gt;left,key)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> unbalanced at root? rebalance at root</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="illustration-1" class="level4">
+<h4 class="anchored" data-anchor-id="illustration-1">Illustration</h4>
+<ul>
+<li><p>An AVL tree</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_6.svg" alt="" width="70%"></div><p></p></li>
+<li><p>Insert node <span class="circle-auto">54</span> into the tree <span class="math inline">\to</span> node <span class="circle-auto">78</span> become unbalanced</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_7.svg" alt="" width="70%"></div><p></p></li>
+<li><p>Case RL imbalance <span class="math inline">\to</span> rebalance by making double rotations</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_8.svg" alt="" width="70%"></div><p></p></li>
+</ul>
+</section>
+</section>
+<section id="deletion" class="level3">
+<h3 class="anchored" data-anchor-id="deletion">Deletion</h3>
+<section id="illustration-2" class="level4">
+<h4 class="anchored" data-anchor-id="illustration-2">Illustration</h4>
+<ul>
+<li><p>An AVL tree</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_9.svg" alt="" width="70%"></div><p></p></li>
+<li><p>Delete node <span class="circle-auto">32</span> from the tree <span class="math inline">\to</span> node <span class="circle-auto">44</span> become unbalanced</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_10.svg" alt="" width="70%"></div><p></p></li>
+<li><p>Case RL imbalance <span class="math inline">\to</span> rebalance by making double rotations</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_11.svg" alt="" width="70%"></div><p></p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="red-black-tree" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="red-black-tree"><span class="header-section-number">11.3</span> Red-Black Tree</h2>
+<section id="red-black-tree-1" class="level4">
+<h4 class="anchored" data-anchor-id="red-black-tree-1">Red-Black Tree</h4>
+<div class="definition">
+<p>A red–black (<strong>RB</strong>) tree is a special type of binary search tree that must statsify</p>
+<ol type="1">
+<li>Each node is either <span style="color:red"><strong>red</strong></span> or <strong>black</strong>.</li>
+<li>The root is <strong>black</strong>. (sometimes omitted)</li>
+<li>If a node is <span style="color:red"><strong>red</strong></span>, then both its children are <strong>black</strong>.</li>
+<li>Every path from a given node to any of its descendant null link has the same number of <strong>black</strong> nodes (balance criteria).</li>
+</ol>
+</div>
+<div class="definition">
+<p>A left-leaning red–black (<strong>LLRB</strong>) tree (leveraging Andersson’s idea AA tree) is a variant of the red–black tree that has only left red children</p>
+</div>
+</section>
+<section id="example-1" class="level4">
+<h4 class="anchored" data-anchor-id="example-1">Example</h4>
+<ul>
+<li><p>A red–black tree</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_12.svg" alt="" width="90%"></div><p></p></li>
+<li><p>A left-leaning red–black tree</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_13.svg" alt="" width="70%"></div><p></p></li>
+<li><p>AA tree</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_14.svg" alt="" width="90%"></div><p></p></li>
+</ul>
+</section>
+<section id="the-height-of-a-rb-tree" class="level4">
+<h4 class="anchored" data-anchor-id="the-height-of-a-rb-tree">The Height of a RB Tree</h4>
+<div class="theorem">
+<p>The height of a red-black BST with <span class="math inline">N</span> nodes is no more than <span class="math inline">2\log_{2}N</span>. It means that the height of an RB tree in the worst case</p>
+<p><span class="math display">
+h\leq2\log_{2}N
+</span></p>
+</div>
+</section>
+<section id="operations" class="level4">
+<h4 class="anchored" data-anchor-id="operations">Operations</h4>
+<ul>
+<li><p>Case 1: Left rotation to orient a right red node to left red node.</p>
+<p></p><div style="text-align:center;"><img src="figures/rb-left-rotation.svg" alt="" width="80%"></div><p></p></li>
+<li><p>Case 2: Right rotation.</p>
+<p></p><div style="text-align:center;"><img src="figures/rb-right-rotation.svg" alt="" width="80%"></div><p></p></li>
+<li><p>Case 3: Color flip.</p>
+<p></p><div style="text-align:center;"><img src="figures/rb-flip-color.svg" alt="" width="80%"></div><p></p></li>
+</ul>
+</section>
+<section id="insertion-1" class="level3">
+<h3 class="anchored" data-anchor-id="insertion-1">Insertion</h3>
+<section id="insertion-2" class="level4">
+<h4 class="anchored" data-anchor-id="insertion-2">Insertion</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> Insert(root,key) </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> root = null</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        root ← new NODE(key)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> root-&gt;key = key </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> root-&gt;key &lt; key </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        Insert(root-&gt;right,key)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> root-&gt;key &gt; key </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        Insert(root-&gt;left,key)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> IsRed(root-&gt;right) and not IsRed(root-&gt;left) RotateLeft(root)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> IsRed(root-&gt;left) and IsRed(root-&gt;left-&gt;left) RotateRight(root)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> IsRed(root-&gt;left) and IsRed(root-&gt;right) FlipColors(root)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="example-2" class="level4">
+<h4 class="anchored" data-anchor-id="example-2">Example</h4>
+<ul>
+<li>Typical left-leaning red-black BST built from random keys</li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/rb-trees.svg" alt="" width="90%"></div><p></p>
+</section>
+<section id="illustration-3" class="level4">
+<h4 class="anchored" data-anchor-id="illustration-3">Illustration</h4>
+<ul>
+<li><p>A left-leaning red–black tree</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_15.svg" alt="" width="90%"></div><p></p></li>
+<li><p>Insert node <span class="circle-auto">7</span> into the tree</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_16.svg" alt="" width="90%"></div><p></p></li>
+<li><p>Flip color at <span class="circle-auto">6</span> into the tree</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_17.svg" alt="" width="90%"></div><p></p></li>
+<li><p>Right rotation at <span class="circle-auto">13</span> into the tree</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_18.svg" alt="" width="90%"></div><p></p></li>
+<li><p>Flip color at root and change root to black color</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-bl_page_19.svg" alt="" width="90%"></div><p></p></li>
+</ul>
+</section>
+</section>
+<section id="deletion-1" class="level3">
+<h3 class="anchored" data-anchor-id="deletion-1">Deletion</h3>
+<section id="cost-summary-for-symbol-table-implementations" class="level4">
+<h4 class="anchored" data-anchor-id="cost-summary-for-symbol-table-implementations">Cost summary for symbol-table implementations</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">implementation</th>
+<th style="text-align: center;">search (worst)</th>
+<th style="text-align: center;">insert (worst)</th>
+<th style="text-align: center;">remove (worst)</th>
+<th style="text-align: center;">search hit (avg)</th>
+<th style="text-align: center;">insert (avg)</th>
+<th style="text-align: center;">remove (avg)</th>
+<th style="text-align: center;">key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>unordered list</strong></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">N/2</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">N/2</span></td>
+<td style="text-align: center;">equal</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>ordered list</strong></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">N/2</span></td>
+<td style="text-align: center;"><span class="math inline">N/2</span></td>
+<td style="text-align: center;"><span class="math inline">N/2</span></td>
+<td style="text-align: center;">compare</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>ordered array</strong></td>
+<td style="text-align: center;"><span class="math inline">\log_{2}N</span></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">\log_{2}N</span></td>
+<td style="text-align: center;"><span class="math inline">N/2</span></td>
+<td style="text-align: center;"><span class="math inline">N/2</span></td>
+<td style="text-align: center;">compare</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>BST</strong></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">c\log_{2}N</span></td>
+<td style="text-align: center;"><span class="math inline">c\log_{2}N</span></td>
+<td style="text-align: center;"><span class="math inline">\sqrt{N}</span></td>
+<td style="text-align: center;">compare</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>AVL</strong></td>
+<td style="text-align: center;"><span class="math inline">c_{a}\log_{2}N</span></td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;"><span class="math inline">\log_{2}N</span></td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">compare</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>RB</strong></td>
+<td style="text-align: center;"><span class="math inline">c_{r}\log_{2}N</span></td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;"><span class="math inline">\log_{2}N</span></td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">-</td>
+<td style="text-align: center;">compare</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>goal?</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: <span class="math inline">c=1.39,c_{a}=1.44,c_{r}=2.0</span></p>
+</section>
+</section>
+</section>
+<section id="optimal-binary-search-trees" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="optimal-binary-search-trees"><span class="header-section-number">11.4</span> Optimal binary search trees</h2>
+<section id="introduction-1" class="level4">
+<h4 class="anchored" data-anchor-id="introduction-1">Introduction</h4>
+<div class="definition">
+<p>An <strong>optimal binary search tree</strong> (optimal BST), sometimes called a weight-balanced binary tree, is a binary search tree which provides the smallest possible search time (or expected search time) for a given sequence of accesses (or access probabilities)</p>
+</div>
+<ul>
+<li>Optimal BSTs are generally divided into two types: <strong>static</strong> and <strong>dynamic</strong>
+<ul>
+<li>In the static optimality problem, the tree cannot be modified after it has been constructed.</li>
+<li>In the dynamic optimality problem, the tree can be modified at any time, typically by permitting tree rotations.</li>
+</ul></li>
+</ul>
+</section>
+<section id="static" class="level3">
+<h3 class="anchored" data-anchor-id="static">Static</h3>
+<section id="introduction-2" class="level4">
+<h4 class="anchored" data-anchor-id="introduction-2">Introduction</h4>
+<ul>
+<li>Suppose that we are designing a binary search tree for a program to translate text from English to Vietnamese, we want words that occur frequently in the text to be placed nearer the root.</li>
+</ul>
+<div class="block">
+<p><strong>Problem</strong></p>
+<p>Given a sequence of of <span class="math inline">n</span> distinct keys in sorted order (<span class="math inline">k_{1}&lt;k_{2}&lt;\\\cdots&lt;k_{n}</span>) and their frequencies <span class="math inline">\mathcal{D}</span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">key</th>
+<th style="text-align: center;"><span class="math inline">k_{1}</span></th>
+<th style="text-align: center;"><span class="math inline">k_{2}</span></th>
+<th style="text-align: center;">…</th>
+<th style="text-align: center;"><span class="math inline">k_{n}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">frequency</td>
+<td style="text-align: center;"><span class="math inline">f_{1}</span></td>
+<td style="text-align: center;"><span class="math inline">f_{2}</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"><span class="math inline">f_{n}</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="search-cost" class="level4">
+<h4 class="anchored" data-anchor-id="search-cost">Search Cost</h4>
+<ul>
+<li>Cost of search for key <span class="math inline">k_{i}</span> <span class="math display">
+\text{Cost}(k_{i})=\text{Depth}(k_{i})
+</span> where <span class="math inline">\text{Depth}(root)=1</span></li>
+<li>Denote <span class="math inline">\text{ExpectCost}(l,r)</span> be expected cost of search for a BST tree containing <span class="math inline">\{k_{l},...,k_{r}\}</span> given <span class="math inline">\mathcal{D}</span></li>
+</ul>
+<p><span class="math display">
+\text{ExpectCost}(l,r) =\sum_{i=l}^{r}\text{Cost}(k_{i})f_{i}
+</span></p>
+<ul>
+<li>Compute the expected cost for the following binary search tree given <span class="math inline">\mathcal{D}</span></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">key</th>
+<th style="text-align: center;"><span class="math inline">k_{1}</span></th>
+<th style="text-align: center;"><span class="math inline">k_{2}</span></th>
+<th style="text-align: center;"><span class="math inline">k_{3}</span></th>
+<th style="text-align: center;"><span class="math inline">k_{4}</span></th>
+<th style="text-align: center;"><span class="math inline">k_{5}</span></th>
+<th style="text-align: center;"><span class="math inline">k_{6}</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">frequency</td>
+<td style="text-align: center;">0.1</td>
+<td style="text-align: center;">0.2</td>
+<td style="text-align: center;">0.1</td>
+<td style="text-align: center;">0.3</td>
+<td style="text-align: center;">0.2</td>
+<td style="text-align: center;">0.1</td>
+</tr>
+</tbody>
+</table>
+<p></p><div style="text-align:center;"><img src="figures/dsa-obst-ex1.svg" alt="" width="50%"></div><p></p>
+</section>
+<section id="optimal-search-cost" class="level4">
+<h4 class="anchored" data-anchor-id="optimal-search-cost">Optimal Search Cost</h4>
+<ul>
+<li>Denote <span class="math inline">\text{OptimalCost}(l,r)</span> be optimal cost of search for a BST tree <span class="math inline">T</span> containing <span class="math inline">\{k_{l},...,k_{r}\}</span> given <span class="math inline">\mathcal{D}</span></li>
+<li>Denote <span class="math inline">\text{OptimalCost}(l,m,r)</span> be optimal cost of search for a BST tree <span class="math inline">T</span> containing <span class="math inline">\{k_{l},...,k_{r}\}</span> and <span class="math inline">k_{m}</span> be the root node given <span class="math inline">\mathcal{D}</span></li>
+<li>We have</li>
+</ul>
+<p><span class="math display">\begin{align*}
+\text{OptimalCost}(l,m,r) = \sum_{i=l}^{r}f_{i} &amp; + \text{OptimalCost}(l,m-1) \\  
+                          &amp; +\text{OptimalCost}(m+1,r)
+\end{align*}</span></p>
+<p><span class="math display">
+\text{OptimalCost}(l,r)=\min_{m\in\{l,...,r\}}\{\text{OptimalCost}(l,m,r)\}
+</span></p>
+<p></p><div style="text-align:center;"><img src="figures/dsa-obst-ex2.svg" alt="" width="75%"></div><p></p>
+</section>
+</section>
+<section id="dynamic" class="level3">
+<h3 class="anchored" data-anchor-id="dynamic">Dynamic</h3>
+<section id="splay-tree" class="level4">
+<h4 class="anchored" data-anchor-id="splay-tree">Splay tree</h4>
+<div class="definition">
+<p>A <strong>splay tree</strong> is a binary search tree with the additional property that recently accessed elements are quick to access again.</p>
+</div>
+<ul>
+<li>All normal operations (<em>insert</em>, <em>look-up</em>) on a binary search tree are combined with one basic operation, called <strong>splaying</strong>.</li>
+<li>For many sequences of non-random operations, splay trees perform better than other binary search trees.</li>
+</ul>
+</section>
+<section id="splaying" class="level4">
+<h4 class="anchored" data-anchor-id="splaying">Splaying</h4>
+<ul>
+<li>When a node <span class="math inline">x</span> is accessed, a splay operation is performed on <span class="math inline">x</span> to move it to the root.</li>
+<li>To perform a splay operation we carry out a sequence of <em>splay steps</em>, each of which moves <span class="math inline">x</span> closer to the root.</li>
+<li>There are three types of splay steps, each of which has two symmetric variants:
+<ul>
+<li>zig step</li>
+<li>zig-zig step</li>
+<li>zig-zag step</li>
+</ul></li>
+</ul>
+</section>
+<section id="zig-step" class="level4">
+<h4 class="anchored" data-anchor-id="zig-step">Zig step</h4>
+<p></p><div style="text-align:center;"><img src="figures/rotation-zig.svg" alt="" width="90%"></div><p></p>
+</section>
+<section id="zig-zig" class="level4">
+<h4 class="anchored" data-anchor-id="zig-zig">Zig-zig</h4>
+<p></p><div style="text-align:center;"><img src="figures/rotation-zig-zig.svg" alt="" width="90%"></div><p></p>
+</section>
+<section id="zig-zag" class="level4">
+<h4 class="anchored" data-anchor-id="zig-zag">Zig-zag</h4>
+<p></p><div style="text-align:center;"><img src="figures/rotation-zig-zag.svg" alt="" width="90%"></div><p></p>
+</section>
+</section>
+</section>
+<section id="workshop" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="workshop"><span class="header-section-number">11.5</span> Workshop</h2>
+<section id="quiz" class="level3">
+<h3 class="anchored" data-anchor-id="quiz">Quiz</h3>
+<ol type="1">
+<li>What is an AVL tree?</li>
+<li>What is a Red-black tree?</li>
+</ol>
+</section>
+<section id="exercises" class="level3">
+<h3 class="anchored" data-anchor-id="exercises">Exercises</h3>
+</section>
+</section>
+<section id="references" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="references"><span class="header-section-number">11.6</span> References</h2>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./lect06-tree.html" class="pagination-link" aria-label="Trees &amp; Binary Trees">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Trees &amp; Binary Trees</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./lect08-btree.html" class="pagination-link" aria-label="B-tree">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">B-tree</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

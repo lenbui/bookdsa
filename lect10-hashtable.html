@@ -1,0 +1,2188 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>14&nbsp; Hash Table – DATA STRUCTURES AND ALOGRITHMS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./lect09-pq.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-317aa39e225c698ea508ddd136b93e4d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="theme.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">DATA STRUCTURES AND ALOGRITHMS</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lect04-pointer.html">DATA STRUCTURES</a></li><li class="breadcrumb-item"><a href="./lect10-hashtable.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hash Table</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">INTRODUCTION</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">ALGORITHMS</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Recursion &amp; Divide-and-Conquer</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fractal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">FRACTAL</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dynamic Programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">ANALYSIS OF ALGORITHM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">SORTING</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">DATA STRUCTURES</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect04-pointer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pointers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect05-file.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">FILE &amp; STREAM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect05-element-ds.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Elementary Data Structures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect06-tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Trees &amp; Binary Trees</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect07-balanced-tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Balanced Binary Search Tree</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect08-btree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">B-tree</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect09-pq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Priority Queues and Heaps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect10-hashtable.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hash Table</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">GRAPHS</span></span>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#modular-arithmetic" id="toc-modular-arithmetic" class="nav-link active" data-scroll-target="#modular-arithmetic"><span class="header-section-number">14.1</span> Modular Arithmetic</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#properties" id="toc-properties" class="nav-link" data-scroll-target="#properties">Properties</a></li>
+  <li><a href="#word-examples" id="toc-word-examples" class="nav-link" data-scroll-target="#word-examples">Word Examples</a></li>
+  <li><a href="#problems" id="toc-problems" class="nav-link" data-scroll-target="#problems">Problems</a></li>
+  <li><a href="#random-generator" id="toc-random-generator" class="nav-link" data-scroll-target="#random-generator">Random generator</a></li>
+  <li><a href="#rsa" id="toc-rsa" class="nav-link" data-scroll-target="#rsa">RSA</a></li>
+  </ul></li>
+  <li><a href="#hash-table" id="toc-hash-table" class="nav-link" data-scroll-target="#hash-table"><span class="header-section-number">14.2</span> Hash Table</a>
+  <ul class="collapse">
+  <li><a href="#hash-functions" id="toc-hash-functions" class="nav-link" data-scroll-target="#hash-functions">Hash functions</a></li>
+  <li><a href="#hash-table-1" id="toc-hash-table-1" class="nav-link" data-scroll-target="#hash-table-1">Hash Table</a></li>
+  <li><a href="#separate-chaining" id="toc-separate-chaining" class="nav-link" data-scroll-target="#separate-chaining">Separate chaining</a></li>
+  <li><a href="#open-addressing" id="toc-open-addressing" class="nav-link" data-scroll-target="#open-addressing">Open addressing</a></li>
+  <li><a href="#linear-probing" id="toc-linear-probing" class="nav-link" data-scroll-target="#linear-probing">Linear probing</a></li>
+  <li><a href="#quadratic-probing" id="toc-quadratic-probing" class="nav-link" data-scroll-target="#quadratic-probing">Quadratic Probing</a></li>
+  <li><a href="#double-hashing" id="toc-double-hashing" class="nav-link" data-scroll-target="#double-hashing">Double hashing</a></li>
+  <li><a href="#dynamic-hash-tables" id="toc-dynamic-hash-tables" class="nav-link" data-scroll-target="#dynamic-hash-tables">Dynamic hash tables</a></li>
+  <li><a href="#cost-summary-for-symbol-table-implementations" id="toc-cost-summary-for-symbol-table-implementations" class="nav-link" data-scroll-target="#cost-summary-for-symbol-table-implementations">Cost summary for symbol-table implementations</a></li>
+  </ul></li>
+  <li><a href="#universal-hashing" id="toc-universal-hashing" class="nav-link" data-scroll-target="#universal-hashing"><span class="header-section-number">14.3</span> Universal hashing</a></li>
+  <li><a href="#advanced-hash-table" id="toc-advanced-hash-table" class="nav-link" data-scroll-target="#advanced-hash-table"><span class="header-section-number">14.4</span> Advanced Hash Table</a>
+  <ul class="collapse">
+  <li><a href="#perfect-hashing" id="toc-perfect-hashing" class="nav-link" data-scroll-target="#perfect-hashing">Perfect hashing</a></li>
+  <li><a href="#cuckoo-hashing" id="toc-cuckoo-hashing" class="nav-link" data-scroll-target="#cuckoo-hashing">Cuckoo hashing</a></li>
+  </ul></li>
+  <li><a href="#workshop" id="toc-workshop" class="nav-link" data-scroll-target="#workshop"><span class="header-section-number">14.5</span> Workshop</a>
+  <ul class="collapse">
+  <li><a href="#quiz" id="toc-quiz" class="nav-link" data-scroll-target="#quiz">Quiz</a></li>
+  <li><a href="#projects" id="toc-projects" class="nav-link" data-scroll-target="#projects">Projects</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">14.6</span> References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lect04-pointer.html">DATA STRUCTURES</a></li><li class="breadcrumb-item"><a href="./lect10-hashtable.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hash Table</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hash Table</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="modular-arithmetic" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="modular-arithmetic"><span class="header-section-number">14.1</span> Modular Arithmetic</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<div class="definition">
+<p>Given integers <span class="math inline">a</span>, <span class="math inline">b</span>, and <span class="math inline">n</span> with <span class="math inline">n&gt;1</span>, we say that <span class="math inline">a</span> is <strong>congruent</strong> to <span class="math inline">b</span> <strong>modulo</strong> <span class="math inline">n</span> if <span class="math inline">n\mid(a-b)</span>, written</p>
+<p><span class="math display">
+a\equiv b\,(\bmod n)
+</span></p>
+<p>Some congruences</p>
+<ul>
+<li><span class="math inline">14\equiv2(\bmod12)</span>, since <span class="math inline">12\mid(14-2)</span>.</li>
+<li><span class="math inline">-4\equiv8(\bmod12)</span>, since <span class="math inline">12\mid(-4-8)</span>.</li>
+<li><span class="math inline">34\equiv6(\bmod7)</span>, since <span class="math inline">7\mid(34-6)</span>.</li>
+<li><span class="math inline">25\equiv0(\bmod5)</span>, since <span class="math inline">5\mid(25-0)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="properties" class="level3">
+<h3 class="anchored" data-anchor-id="properties">Properties</h3>
+<div class="theorem">
+<p><strong>Theorem (Congruence is an Equivalence Relation)</strong></p>
+<p>Let <span class="math inline">a</span>, <span class="math inline">b</span>, and <span class="math inline">n</span> be integers with <span class="math inline">n&gt;1</span>.</p>
+<ol type="1">
+<li><span class="math inline">a\equiv a\,(\bmod n)</span>.</li>
+<li>If <span class="math inline">a\equiv b\,(\bmod n)</span>, then <span class="math inline">b\equiv a\,(\bmod n)</span>.</li>
+<li>If <span class="math inline">a\equiv b\,(\bmod n)</span> and <span class="math inline">b\equiv c\,(\bmod n)</span>, then <span class="math inline">a\equiv c\,(\bmod n)</span>.</li>
+</ol>
+</div>
+<div class="theorem">
+<p><strong>Theorem (Arithmetic Properties of Congruence)</strong></p>
+<p>Let <span class="math inline">a_{1}</span>, <span class="math inline">a_{2}</span>, <span class="math inline">b_{1}</span>, <span class="math inline">b_{2}</span>, and <span class="math inline">n</span> be integers with <span class="math inline">n&gt;1</span>. If <span class="math display">\begin{align*}
+a_{1} &amp; \equiv b_{1}\,(\bmod n)\\a_{2} &amp; \equiv b_{2}\,(\bmod n)\end{align*}</span> then</p>
+<ol type="1">
+<li><span class="math inline">a_{1}+a_{2}\equiv b_{1}+b_{2}\,(\bmod n)</span></li>
+<li><span class="math inline">a_{1}-a_{2}\equiv b_{1}-b_{2}\,(\bmod n)</span></li>
+<li><span class="math inline">a_{1}a_{2}\equiv b_{1}b_{2}\,(\bmod n)</span></li>
+<li><span class="math inline">ka_{1}\equiv kb_{1}\,(\bmod n),\,k\in\mathbb{Z}</span></li>
+<li><span class="math inline">a_{1}^{k}\equiv b_{1}^{k}\,(\bmod n)</span></li>
+</ol>
+</div>
+</section>
+<section id="word-examples" class="level3">
+<h3 class="anchored" data-anchor-id="word-examples">Word Examples</h3>
+<ol type="1">
+<li><p>Compute <span class="math inline">(5162387+83645)\bmod10</span>.</p>
+<ul>
+<li>First solution, <span class="math inline">5162387+83645\equiv5246032\equiv2(\bmod10)</span></li>
+<li>Second solution, since <span class="math inline">5162387\equiv7(\bmod10)</span> and <span class="math inline">83645\equiv5(\bmod10)</span>, we get <span class="math inline">5162387+83645\equiv5+7\equiv12\equiv2(\bmod10)</span></li>
+</ul></li>
+<li><p>Compute <span class="math inline">3^{32}\bmod17</span>.</p>
+<ul>
+<li>First solution, <span class="math inline">3^{32}\equiv1853020188851841\equiv1(\bmod17)</span></li>
+<li>Second solution, We have</li>
+</ul></li>
+</ol>
+<p><span class="math display">\begin{align*}
+3^{32} &amp; \equiv3^{2^{2^{2^{2^{2}}}}}\,(\bmod17)\\
+&amp; \equiv9^{2^{2^{2^{2}}}}\,(\bmod17)\\
+&amp; \equiv81^{2^{2^{2}}}\,(\bmod17)\equiv13^{2^{2^{2}}}\,(\bmod17)\\
+&amp; \equiv169^{2^{2}}\,(\bmod17)\equiv16^{2^{2}}\,(\bmod17)\\
+&amp; \equiv256^{2}\,(\bmod17)\equiv1^{2}\,(\bmod17)\\
+&amp; \equiv1\,(\bmod17)
+\end{align*}</span></p>
+</section>
+<section id="problems" class="level3">
+<h3 class="anchored" data-anchor-id="problems">Problems</h3>
+<ol type="1">
+<li>Find the last two-digits of <span class="math inline">7^{32}</span></li>
+<li>Show that for any integer <span class="math inline">n</span>, <span class="math inline">n^{2}\not\equiv2(\bmod5)</span></li>
+<li>Let <span class="math inline">n</span> be any integer. Show that <span class="math inline">n^{3}\equiv n(\bmod6)</span>.</li>
+</ol>
+</section>
+<section id="random-generator" class="level3">
+<h3 class="anchored" data-anchor-id="random-generator">Random generator</h3>
+<p>A <strong>linear congruential generator</strong> (LCG) is an algorithm that yields a sequence of pseudo-randomized numbers</p>
+<p></p><div style="text-align:center;"><img src="figures/dice.svg" alt="" width="10%"></div><p></p>
+<ul>
+<li><p>The generator is defined by recurrence relation:</p>
+<p><span class="math display">r_{n}\equiv a\times r_{n-1}+c\,(\bmod m)</span></p>
+<p>where <span class="math inline">\{r_{i}\}</span> is the sequence of pseudorandom values, and</p>
+<ul>
+<li><span class="math inline">m&gt;0</span>: the modulus</li>
+<li><span class="math inline">0&lt;a&lt;m</span>: the multiplier</li>
+<li><span class="math inline">0\leq c&lt;m</span>: the increment</li>
+<li><span class="math inline">r_{0}</span>: the <strong>seed</strong></li>
+</ul></li>
+</ul>
+</section>
+<section id="rsa" class="level3">
+<h3 class="anchored" data-anchor-id="rsa">RSA</h3>
+<div class="definition">
+<p><strong>RSA</strong> (Rivest–Shamir–Adleman) is a public-key cryptosystem that is widely used for secure data transmission</p>
+<ul>
+<li>In a public-key cryptosystem, the encryption key is <em>public</em> and distinct from the decryption key, which is kept secret (<em>private</em>)</li>
+</ul>
+</div>
+<p>The RSA algorithm involves four steps:</p>
+<ol type="1">
+<li><p>key generation: generate</p>
+<ul>
+<li>modulus <span class="math inline">n</span></li>
+<li>public key <span class="math inline">e</span></li>
+<li>private key <span class="math inline">d</span></li>
+</ul></li>
+<li><p>key distribution</p></li>
+<li><p>encryption: using public key <span class="math inline">e</span> to encrypt the message <span class="math inline">m</span></p>
+<p><span class="math display"> c=\text{encrypt}(m)=m^{e}\bmod n </span></p></li>
+<li><p>decryption: using private key <span class="math inline">d</span> to decrypt the encrypted message <span class="math inline">c</span></p>
+<p><span class="math display"> m=\text{decrypt}(c)=c^{d}\bmod n </span></p></li>
+</ol>
+<section id="example" class="level4">
+<h4 class="anchored" data-anchor-id="example">Example</h4>
+<p>An internet banking app is set up to receive transactions from many customers of a bank. The bank use a RSA system with <span class="math inline">n=3233,e=17,d=413</span></p>
+<ul>
+<li><p>A client use the app to encrypt the message <span class="math inline">m=65</span></p>
+<p><span class="math display">c=\text{encrypt}(65)=65^{17}\bmod3233=2790,</span></p>
+<p>the encrypted message <span class="math inline">c=2790</span> is sent to the bank.</p></li>
+<li><p>The bank can decrypt <span class="math inline">c=2790</span></p>
+<p><span class="math display">m=\text{decrypt}(2790)=2790^{413}\bmod3233=65,</span></p>
+<p>the decrypted message <span class="math inline">m=65</span> is thus received and interpreted as a “Balance Inquiry”</p></li>
+</ul>
+</section>
+<section id="power-function" class="level4">
+<h4 class="anchored" data-anchor-id="power-function">Power function</h4>
+<ul>
+<li>How to compute <span class="math inline">y\gets x^{k}\bmod n</span></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>BIGINT pow<span class="op">(</span>BIGINT x<span class="op">,</span> BIGINT k<span class="op">,</span> BIGINT n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    BIGINT y <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span>BIGINT i<span class="op">=</span><span class="dv">1</span><span class="op">;</span> i<span class="op">&lt;=</span>k<span class="op">;</span> k<span class="op">++)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        y <span class="op">*=</span> x<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> y <span class="op">%</span> n<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+</section>
+<section id="hash-table" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="hash-table"><span class="header-section-number">14.2</span> Hash Table</h2>
+<section id="hash-functions" class="level3">
+<h3 class="anchored" data-anchor-id="hash-functions">Hash functions</h3>
+<div class="definition">
+<p><strong>Hash function</strong> is a method for computing <strong>array index</strong> from <strong>key</strong> (<strong>object</strong>).</p>
+</div>
+<p></p><div style="text-align:center;"><img src="figures/hash-function.svg" alt="" width="70%"></div><p></p>
+<p>The three principal criteria in selecting a hash function are as follows</p>
+<ul>
+<li>It should be <em>consistent</em>—equal keys must produce the same hash value.</li>
+<li>It should be <em>efficient to compute</em>.</li>
+<li>It should <em>uniformly distributes</em> the keys</li>
+</ul>
+<p>The hash function depends on the <strong>key type</strong>.</p>
+<p>Some popular hash functions: CRC32, MD5, SHA1, SHA2</p>
+<p><strong>Applications.</strong> Digital fingerprint, message digest, storing passwords.</p>
+<section id="uniform-hashing-assumption" class="level4">
+<h4 class="anchored" data-anchor-id="uniform-hashing-assumption">Uniform hashing assumption</h4>
+<p>The hash functions that we use uniformly and independently distribute keys among the integer values between 0 and <span class="math inline">m-1</span>.</p>
+<ul>
+<li>Hash value frequencies for words in “Tale of Two Cities” (10,679 keys, <span class="math inline">m=97</span>)</li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/ht-hist.svg" alt="" width="70%"></div><p></p>
+</section>
+<section id="probability-review-bins-and-balls" class="level4">
+<h4 class="anchored" data-anchor-id="probability-review-bins-and-balls">Probability Review “bins and balls”</h4>
+<p><strong>Events</strong> throw <span class="math inline">n</span> balls uniformly at random into <span class="math inline">m</span> bins.</p>
+<p></p><div style="text-align:center;"><img src="figures/bin-ball.svg" alt="" width="70%"></div><p></p>
+<ul>
+<li><p><strong>Birthday problem</strong>. Expect two balls in the same bin after</p>
+<p><span class="math display"> \sim\sqrt{\frac{\pi m}{2}} </span></p></li>
+<li><p><strong>Coupon collector</strong>. Expect every bin has <span class="math inline">\geq1</span> ball after</p>
+<p><span class="math display"> \sim m\ln m </span></p></li>
+<li><p><strong>Load balancing</strong>. After <span class="math inline">m</span> tosses, expect most loaded bin has</p>
+<p><span class="math display"> \Theta\left(\frac{\log m}{\log\log m}\right) </span></p></li>
+</ul>
+</section>
+<section id="integer-keys" class="level4">
+<h4 class="anchored" data-anchor-id="integer-keys">Integer keys</h4>
+<ul>
+<li>The most commonly used method for hashing integers is called <strong>modular hashing</strong> (<strong>division method</strong>)</li>
+</ul>
+<p><span class="math display"> h(k)=k\bmod m </span></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">key <span class="math inline">k</span></th>
+<th style="text-align: right;">hash (<span class="math inline">m=100</span>)</th>
+<th style="text-align: right;">hash (<span class="math inline">m=97</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>212</code></td>
+<td style="text-align: right;"><code>12</code></td>
+<td style="text-align: right;"><code>18</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>618</code></td>
+<td style="text-align: right;"><code>18</code></td>
+<td style="text-align: right;"><code>36</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>302</code></td>
+<td style="text-align: right;"><code>2</code></td>
+<td style="text-align: right;"><code>11</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>940</code></td>
+<td style="text-align: right;"><code>40</code></td>
+<td style="text-align: right;"><code>67</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>702</code></td>
+<td style="text-align: right;"><code>2</code></td>
+<td style="text-align: right;"><code>23</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>704</code></td>
+<td style="text-align: right;"><code>4</code></td>
+<td style="text-align: right;"><code>25</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>612</code></td>
+<td style="text-align: right;"><code>12</code></td>
+<td style="text-align: right;"><code>30</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>606</code></td>
+<td style="text-align: right;"><code>6</code></td>
+<td style="text-align: right;"><code>24</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>772</code></td>
+<td style="text-align: right;"><code>72</code></td>
+<td style="text-align: right;"><code>93</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>510</code></td>
+<td style="text-align: right;"><code>10</code></td>
+<td style="text-align: right;"><code>25</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>423</code></td>
+<td style="text-align: right;"><code>23</code></td>
+<td style="text-align: right;"><code>35</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>650</code></td>
+<td style="text-align: right;"><code>50</code></td>
+<td style="text-align: right;"><code>68</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>317</code></td>
+<td style="text-align: right;"><code>17</code></td>
+<td style="text-align: right;"><code>26</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>907</code></td>
+<td style="text-align: right;"><code>7</code></td>
+<td style="text-align: right;"><code>34</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>507</code></td>
+<td style="text-align: right;"><code>7</code></td>
+<td style="text-align: right;"><code>22</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>304</code></td>
+<td style="text-align: right;"><code>4</code></td>
+<td style="text-align: right;"><code>13</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>714</code></td>
+<td style="text-align: right;"><code>14</code></td>
+<td style="text-align: right;"><code>35</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>857</code></td>
+<td style="text-align: right;"><code>57</code></td>
+<td style="text-align: right;"><code>81</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>801</code></td>
+<td style="text-align: right;"><code>1</code></td>
+<td style="text-align: right;"><code>25</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>900</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>27</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>413</code></td>
+<td style="text-align: right;"><code>13</code></td>
+<td style="text-align: right;"><code>25</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>701</code></td>
+<td style="text-align: right;"><code>1</code></td>
+<td style="text-align: right;"><code>22</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>418</code></td>
+<td style="text-align: right;"><code>18</code></td>
+<td style="text-align: right;"><code>30</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>601</code></td>
+<td style="text-align: right;"><code>1</code></td>
+<td style="text-align: right;"><code>19</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="floating-point-keys" class="level4">
+<h4 class="anchored" data-anchor-id="floating-point-keys">Floating-point keys</h4>
+<ul>
+<li>If the keys are real numbers between 0 and 1, we might just multiply by <span class="math inline">m</span> and round off to the nearest integer to get an index between 0 and <span class="math inline">m-1</span>.</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">key <span class="math inline">k</span></th>
+<th style="text-align: left;">hash (<span class="math inline">m=100</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>.513870656</code></td>
+<td style="text-align: left;"><code>51</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>.175725579</code></td>
+<td style="text-align: left;"><code>17</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>.308633685</code></td>
+<td style="text-align: left;"><code>30</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>.534531713</code></td>
+<td style="text-align: left;"><code>53</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>.947630227</code></td>
+<td style="text-align: left;"><code>94</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>.171727657</code></td>
+<td style="text-align: left;"><code>17</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>.702230930</code></td>
+<td style="text-align: left;"><code>70</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>.226416826</code></td>
+<td style="text-align: left;"><code>22</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>.494766086</code></td>
+<td style="text-align: left;"><code>49</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>.124698631</code></td>
+<td style="text-align: left;"><code>12</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>.083895385</code></td>
+<td style="text-align: left;"><code>8</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>.389629811</code></td>
+<td style="text-align: left;"><code>38</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>.277230144</code></td>
+<td style="text-align: left;"><code>27</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>.368053228</code></td>
+<td style="text-align: left;"><code>36</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>.983458996</code></td>
+<td style="text-align: left;"><code>98</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>.535386205</code></td>
+<td style="text-align: left;"><code>53</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>.765678883</code></td>
+<td style="text-align: left;"><code>76</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>.646473587</code></td>
+<td style="text-align: left;"><code>64</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>.767143786</code></td>
+<td style="text-align: left;"><code>76</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>.780236185</code></td>
+<td style="text-align: left;"><code>78</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>.822962105</code></td>
+<td style="text-align: left;"><code>82</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>.151921138</code></td>
+<td style="text-align: left;"><code>15</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>.625476837</code></td>
+<td style="text-align: left;"><code>62</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>.314676344</code></td>
+<td style="text-align: left;"><code>31</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>.346903890</code></td>
+<td style="text-align: left;"><code>34</code></td>
+</tr>
+</tbody>
+</table>
+<p>In general, we can use the <strong>multiplication method</strong> for creating hash functions operates in two steps</p>
+<ul>
+<li><p>First, we multiply the key <span class="math inline">k</span> by a constant <span class="math inline">A</span> in the range <span class="math inline">0&lt;A&lt;1</span> and extract the fractional part of <span class="math inline">kA</span>.</p></li>
+<li><p>Then, we multiply this value by <span class="math inline">m</span> and take the floor of the result.</p>
+<p><span class="math display"> h(k)=\left\lfloor m\cdot\left(k\cdot A\bmod1\right)\right\rfloor </span></p>
+<p>where <span class="math inline">k\cdot A\bmod1</span> means the fractional part of <span class="math inline">kA</span>.</p></li>
+<li><p>Knuth suggests that</p>
+<p><span class="math display"> A=\frac{\sqrt{5}-1}{2}\approx0.6180339887... </span></p></li>
+<li><p>The multiplication method of hashing</p>
+<p></p><div style="text-align:center;"><img src="figures/ht-mult-function.svg" alt="" width="70%"></div><p></p></li>
+<li><p>Another multiplication method method</p>
+<p><span class="math display"> h(k)=\left\lfloor k\cdot A\right\rfloor \bmod m </span></p></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">key <span class="math inline">k</span></th>
+<th style="text-align: right;"><span class="math inline">k\%97</span></th>
+<th style="text-align: right;"><span class="math inline">k\%100</span></th>
+<th style="text-align: right;"><span class="math inline">\left\lfloor k\cdot A\right\rfloor \%100</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><code>16838</code></td>
+<td style="text-align: right;"><code>57</code></td>
+<td style="text-align: right;"><code>38</code></td>
+<td style="text-align: right;"><code>6</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>5758</code></td>
+<td style="text-align: right;"><code>35</code></td>
+<td style="text-align: right;"><code>58</code></td>
+<td style="text-align: right;"><code>58</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>10113</code></td>
+<td style="text-align: right;"><code>25</code></td>
+<td style="text-align: right;"><code>13</code></td>
+<td style="text-align: right;"><code>50</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>17515</code></td>
+<td style="text-align: right;"><code>55</code></td>
+<td style="text-align: right;"><code>15</code></td>
+<td style="text-align: right;"><code>24</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>31051</code></td>
+<td style="text-align: right;"><code>11</code></td>
+<td style="text-align: right;"><code>51</code></td>
+<td style="text-align: right;"><code>90</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>5627</code></td>
+<td style="text-align: right;"><code>1</code></td>
+<td style="text-align: right;"><code>27</code></td>
+<td style="text-align: right;"><code>77</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>23010</code></td>
+<td style="text-align: right;"><code>21</code></td>
+<td style="text-align: right;"><code>10</code></td>
+<td style="text-align: right;"><code>20</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>7419</code></td>
+<td style="text-align: right;"><code>47</code></td>
+<td style="text-align: right;"><code>19</code></td>
+<td style="text-align: right;"><code>85</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>16212</code></td>
+<td style="text-align: right;"><code>13</code></td>
+<td style="text-align: right;"><code>12</code></td>
+<td style="text-align: right;"><code>19</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>4086</code></td>
+<td style="text-align: right;"><code>12</code></td>
+<td style="text-align: right;"><code>86</code></td>
+<td style="text-align: right;"><code>25</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>2749</code></td>
+<td style="text-align: right;"><code>33</code></td>
+<td style="text-align: right;"><code>49</code></td>
+<td style="text-align: right;"><code>98</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>12767</code></td>
+<td style="text-align: right;"><code>60</code></td>
+<td style="text-align: right;"><code>67</code></td>
+<td style="text-align: right;"><code>90</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>9084</code></td>
+<td style="text-align: right;"><code>63</code></td>
+<td style="text-align: right;"><code>84</code></td>
+<td style="text-align: right;"><code>14</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>12060</code></td>
+<td style="text-align: right;"><code>32</code></td>
+<td style="text-align: right;"><code>60</code></td>
+<td style="text-align: right;"><code>53</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>32225</code></td>
+<td style="text-align: right;"><code>21</code></td>
+<td style="text-align: right;"><code>25</code></td>
+<td style="text-align: right;"><code>16</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>17543</code></td>
+<td style="text-align: right;"><code>83</code></td>
+<td style="text-align: right;"><code>43</code></td>
+<td style="text-align: right;"><code>42</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>25089</code></td>
+<td style="text-align: right;"><code>63</code></td>
+<td style="text-align: right;"><code>89</code></td>
+<td style="text-align: right;"><code>5</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>21183</code></td>
+<td style="text-align: right;"><code>37</code></td>
+<td style="text-align: right;"><code>83</code></td>
+<td style="text-align: right;"><code>91</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>25137</code></td>
+<td style="text-align: right;"><code>14</code></td>
+<td style="text-align: right;"><code>37</code></td>
+<td style="text-align: right;"><code>35</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>25566</code></td>
+<td style="text-align: right;"><code>55</code></td>
+<td style="text-align: right;"><code>66</code></td>
+<td style="text-align: right;"><code>0</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>26966</code></td>
+<td style="text-align: right;"><code>0</code></td>
+<td style="text-align: right;"><code>66</code></td>
+<td style="text-align: right;"><code>65</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>4978</code></td>
+<td style="text-align: right;"><code>31</code></td>
+<td style="text-align: right;"><code>78</code></td>
+<td style="text-align: right;"><code>76</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>20495</code></td>
+<td style="text-align: right;"><code>28</code></td>
+<td style="text-align: right;"><code>95</code></td>
+<td style="text-align: right;"><code>66</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>10311</code></td>
+<td style="text-align: right;"><code>29</code></td>
+<td style="text-align: right;"><code>11</code></td>
+<td style="text-align: right;"><code>72</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>11367</code></td>
+<td style="text-align: right;"><code>18</code></td>
+<td style="text-align: right;"><code>67</code></td>
+<td style="text-align: right;"><code>25</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="string-keys" class="level4">
+<h4 class="anchored" data-anchor-id="string-keys">String keys</h4>
+<p>We simply treat <strong>strings</strong> as <strong>huge integers</strong> and use modular hashing</p>
+<ul>
+<li>For example, for character data with 7-bit encoding, we treat the key as a base-128 number <span class="math inline">\to</span> the word “now” corresponds to the number 1816567</li>
+</ul>
+<p><span class="math display"> 110\times128^{2}+111\times128^{1}+119\times128^{0} </span></p>
+<ul>
+<li>Modular hash functions for strings</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">key <span class="math inline">k</span></th>
+<th style="text-align: right;">number</th>
+<th style="text-align: right;"><span class="math inline">m=64</span></th>
+<th style="text-align: right;"><span class="math inline">m=31</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">now</td>
+<td style="text-align: right;"><code>1816567</code></td>
+<td style="text-align: right;"><code>55</code></td>
+<td style="text-align: right;"><code>29</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">for</td>
+<td style="text-align: right;"><code>1685490</code></td>
+<td style="text-align: right;"><code>50</code></td>
+<td style="text-align: right;"><code>20</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">tip</td>
+<td style="text-align: right;"><code>1914096</code></td>
+<td style="text-align: right;"><code>48</code></td>
+<td style="text-align: right;"><code>1</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ilk</td>
+<td style="text-align: right;"><code>1734251</code></td>
+<td style="text-align: right;"><code>43</code></td>
+<td style="text-align: right;"><code>18</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">dim</td>
+<td style="text-align: right;"><code>1651949</code></td>
+<td style="text-align: right;"><code>45</code></td>
+<td style="text-align: right;"><code>21</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">tag</td>
+<td style="text-align: right;"><code>1913063</code></td>
+<td style="text-align: right;"><code>39</code></td>
+<td style="text-align: right;"><code>22</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">jot</td>
+<td style="text-align: right;"><code>1751028</code></td>
+<td style="text-align: right;"><code>52</code></td>
+<td style="text-align: right;"><code>24</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sob</td>
+<td style="text-align: right;"><code>1898466</code></td>
+<td style="text-align: right;"><code>34</code></td>
+<td style="text-align: right;"><code>26</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">nob</td>
+<td style="text-align: right;"><code>1816546</code></td>
+<td style="text-align: right;"><code>34</code></td>
+<td style="text-align: right;"><code>8</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sky</td>
+<td style="text-align: right;"><code>1897977</code></td>
+<td style="text-align: right;"><code>57</code></td>
+<td style="text-align: right;"><code>2</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">hut</td>
+<td style="text-align: right;"><code>1719028</code></td>
+<td style="text-align: right;"><code>52</code></td>
+<td style="text-align: right;"><code>16</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ace</td>
+<td style="text-align: right;"><code>1602021</code></td>
+<td style="text-align: right;"><code>37</code></td>
+<td style="text-align: right;"><code>3</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">bet</td>
+<td style="text-align: right;"><code>1618676</code></td>
+<td style="text-align: right;"><code>52</code></td>
+<td style="text-align: right;"><code>11</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">men</td>
+<td style="text-align: right;"><code>1798894</code></td>
+<td style="text-align: right;"><code>46</code></td>
+<td style="text-align: right;"><code>26</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">egg</td>
+<td style="text-align: right;"><code>1668071</code></td>
+<td style="text-align: right;"><code>39</code></td>
+<td style="text-align: right;"><code>23</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">few</td>
+<td style="text-align: right;"><code>1684215</code></td>
+<td style="text-align: right;"><code>55</code></td>
+<td style="text-align: right;"><code>16</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">jay</td>
+<td style="text-align: right;"><code>1749241</code></td>
+<td style="text-align: right;"><code>57</code></td>
+<td style="text-align: right;"><code>4</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">owl</td>
+<td style="text-align: right;"><code>1833964</code></td>
+<td style="text-align: right;"><code>44</code></td>
+<td style="text-align: right;"><code>4</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">joy</td>
+<td style="text-align: right;"><code>1751033</code></td>
+<td style="text-align: right;"><code>57</code></td>
+<td style="text-align: right;"><code>29</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">rap</td>
+<td style="text-align: right;"><code>1880304</code></td>
+<td style="text-align: right;"><code>48</code></td>
+<td style="text-align: right;"><code>30</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">gig</td>
+<td style="text-align: right;"><code>1701095</code></td>
+<td style="text-align: right;"><code>39</code></td>
+<td style="text-align: right;"><code>1</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">wee</td>
+<td style="text-align: right;"><code>1962725</code></td>
+<td style="text-align: right;"><code>37</code></td>
+<td style="text-align: right;"><code>22</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">was</td>
+<td style="text-align: right;"><code>1962227</code></td>
+<td style="text-align: right;"><code>51</code></td>
+<td style="text-align: right;"><code>20</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">cab</td>
+<td style="text-align: right;"><code>1634530</code></td>
+<td style="text-align: right;"><code>34</code></td>
+<td style="text-align: right;"><code>24</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">wad</td>
+<td style="text-align: right;"><code>1962212</code></td>
+<td style="text-align: right;"><code>36</code></td>
+<td style="text-align: right;"><code>5</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>How do we compute the hash function for a word such as “averylongkey” ?</li>
+<li>In 7-bit ASCII, this word corresponds to the 84-bit number</li>
+</ul>
+<p><span class="math display">\begin{align*}
+97\cdot128^{11}+118\cdot128^{10}+101\cdot128^{9}+114\cdot128^{8}+121\cdot128^{7}\\
++108\cdot128^{6}+111\cdot128^{5}+110\cdot128^{4}+103\cdot128^{3}\\
++107\cdot128^{2}+101\cdot128^{1}+121\cdot128^{0} \\
+=14798475217809252997067513
+\end{align*}</span></p>
+<ul>
+<li><p>To compute a modular hash function for long keys, we transform the keys piece by piece.</p></li>
+<li><p>A string <span class="math inline">s=s_{0}s_{1}...s_{n}</span> where each character is encoded by <span class="math inline">r</span>-radix number <span class="math display"> number=s_{0}\cdot r^{n}+s_{1}\cdot r^{n-1}+...+s_{n}\cdot r^{0} </span> can be computed using Horner’s rule <span class="math display"> number=((...((s_{0}\cdot r+s_{1})\cdot r+s_{2})\cdot r+...)\cdot r+s_{n}) </span></p></li>
+<li><p>We can take advantage of arithmetic properties of the <code>mod</code> function and use Horner’s algorithm</p></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">unsigned</span> <span class="dt">int</span> hash<span class="op">(</span>string <span class="op">&amp;</span>s<span class="op">,</span> <span class="dt">int</span> m<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> hash_value <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">unsigned</span> <span class="dt">int</span> r <span class="op">=</span> <span class="dv">127</span><span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;</span> s<span class="op">.</span>length<span class="op">();</span> <span class="op">++</span>k<span class="op">)</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        hash_value <span class="op">=</span> <span class="op">(</span>hash_value <span class="op">*</span> r <span class="op">+</span> s<span class="op">[</span>k<span class="op">])</span> <span class="op">%</span> m<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> hash_value<span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><strong>Challenge</strong>: Can we make any improvement for long strings?</li>
+</ul>
+</section>
+<section id="compound-keys" class="level4">
+<h4 class="anchored" data-anchor-id="compound-keys">Compound keys</h4>
+<ul>
+<li>If the key type has multiple integer fields, we can typically mix them together in the way just described for string values.</li>
+<li>For example, suppose that search keys are of type <code>Date</code>, which has three integer fields:
+<ul>
+<li><code>day</code> (two-digit day)</li>
+<li><code>month</code> (two-digit month)</li>
+<li><code>year</code> (four-digit year)</li>
+</ul></li>
+<li>We compute the number</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> hash_value <span class="op">=</span> <span class="op">(((</span>day <span class="op">*</span> r <span class="op">+</span> month<span class="op">)</span> <span class="op">%</span> m <span class="op">)</span> <span class="op">*</span> r <span class="op">+</span> year<span class="op">)</span> <span class="op">%</span> m<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="hash-table-1" class="level3">
+<h3 class="anchored" data-anchor-id="hash-table-1">Hash Table</h3>
+<section id="introduction-1" class="level4">
+<h4 class="anchored" data-anchor-id="introduction-1">Introduction</h4>
+<div class="definition">
+<p>A <strong>hash table</strong> (<strong>hash map</strong>) is a data structure that implements <strong>an associative array abstract data type</strong>, a structure that can map keys to values. A hash table uses a <strong>hash function</strong> <span class="math inline">h</span> to map <strong>a key</strong> of <span class="math inline">U</span> into <strong>an index</strong> (<strong>hash code</strong>) of an array <span class="math inline">T[0...m-1]</span>. <span class="math display">
+\begin{array}{lccc}
+h: &amp; U &amp; \to &amp; T\\ k &amp; \mapsto &amp; h\left(k\right)
+\end{array}
+</span></p>
+</div>
+<p></p><div style="text-align:center;"><img src="figures/ht-function.svg" alt="" width="70%"></div><p></p>
+<div class="definition">
+<p>Given a hash table <span class="math inline">T</span> with <span class="math inline">m</span> slots that stores <span class="math inline">n</span> elements, we define the <strong>load factor</strong>, for <span class="math inline">T</span> as <span class="math display"> \alpha=\frac{n}{m}, </span> that is, the average number of elements stored in a chain.</p>
+</div>
+<p><strong>In practice.</strong> The load factor <span class="math inline">\dfrac{1}{8}\leq\alpha\leq\dfrac{1}{2}</span> (for open addressing).</p>
+</section>
+<section id="collision" class="level4">
+<h4 class="anchored" data-anchor-id="collision">Collision</h4>
+<div class="defition">
+<p>A <strong>collision</strong> is a situation when two different keys may hash to the same hash code. <span class="math display"> k_{1}\neq k_{2},\qquad h(k_{1})=h(k_{2}) </span></p>
+</div>
+<p>There are two different approaches to collision resolution:</p>
+<ul>
+<li>Separate chaining</li>
+<li>Open addressing</li>
+</ul>
+</section>
+</section>
+<section id="separate-chaining" class="level3">
+<h3 class="anchored" data-anchor-id="separate-chaining">Separate chaining</h3>
+<ul>
+<li>In <strong>chaining</strong>, we put all the elements that hash to the same slot in a linked list</li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/ht-chain.svg" alt="" width="70%"></div><p></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> Chained-Hash-Insert(T, x)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    insert x at the head of list T[h(x.key)]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> Chained-Hash-Search(T, k)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    search <span class="kw">for</span> an element <span class="kw">with</span> key k in list T[h(k)]</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> Chained-Hash-Delete(T, x)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    delete x from the list T[h(x.key)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="theorem">
+<p>In a hash table in which collisions are resolved by chaining, an <strong>unsuccessful search</strong> takes expected time <span class="math inline">\Theta(1+\alpha)</span> (the number of compares), under the assumption of simple uniform hashing.</p>
+</div>
+<div class="theorem">
+<p>In a hash table in which collisions are resolved by chaining, a <strong>successful search</strong> takes time <span class="math inline">\Theta(1+\alpha)</span>, on the average, under the assumption of simple uniform hashing.</p>
+</div>
+</section>
+<section id="open-addressing" class="level3">
+<h3 class="anchored" data-anchor-id="open-addressing">Open addressing</h3>
+<section id="introduction-2" class="level4">
+<h4 class="anchored" data-anchor-id="introduction-2">Introduction</h4>
+<ul>
+<li>Separate chaining hashing has the disadvantage of using linked lists. This could slow the algorithm down a bit because of the time required to <strong>allocate new nodes</strong> and essentially requires the implementation of a second data structure.</li>
+<li>Another approach to implementing hashing is to store <span class="math inline">n</span> key-value pairs in a hash table of size <span class="math display"> m&gt;n, </span> relying on empty entries in the table to help with collision resolution. Such methods are called <strong>open-addressing hashing</strong> methods.</li>
+<li>To perform insertion using open addressing, we successively examine, or <strong>probe</strong>, the hash table until we find an empty slot in which to put the key.</li>
+<li>To determine which slots to probe, we extend the hash function to include the probe number (starting from 0) as a second input. Thus, the hash function becomes <span class="math display"> h:U\times\{0,1,...,m-1\}\to\{0,1,...,m-1\} </span> the <strong>probe sequence</strong> <span class="math display"> \left\langle h(k,0),h(k,1),...,h(k,m-1)\right\rangle </span> be a permutation of <span class="math display"> \left\langle 0,1,...,m-1\right\rangle \qquad\text{(\textbf{constraint})} </span></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> Hash-Insert(T, k)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    i ← 0</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">repeat</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        j ← h(k,i)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> T[j] = null</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>            T[j] ← k</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span> j</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span> i ← i+1</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">until</span> i=m</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    error <span class="st">"hash table overflow"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> Hash-Search(T, k)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    i ← 0</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">repeat</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        j ← h(k,i)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> T[j] = k</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span> j</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        i ← i+1</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">until</span> T[j] = null or i=m</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> null</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="random-probing" class="level4">
+<h4 class="anchored" data-anchor-id="random-probing">Random Probing</h4>
+<ul>
+<li><p><strong>Asssumption</strong>: For every <span class="math inline">k\in U,</span> <span class="math inline">\left\langle h(k,0),h(k,1),...,h(k,m-1)\right\rangle</span> is <strong>random permutation</strong>, independent of all other permutations.</p>
+<p><span class="math inline">\to</span> the probe sequence of each key is equally likely to be any of the <span class="math inline">m!</span> permutations of <span class="math inline">\left\langle 0,1,...,m-1\right\rangle</span></p></li>
+<li><p><strong>Note</strong>: the assumption is difficult to implement.</p></li>
+<li><p><strong>Simple implementation</strong>: pseudo-random probing <span class="math display"> h(k,i)=(h'(k)+r_{i})\bmod m </span> where <span class="math inline">h'(k)</span> be an ordinary hash function and <span class="math inline">r_{i}</span> be the <span class="math inline">i</span>th value in a random permutation of the numbers from 1 to <span class="math inline">m-1</span>. All insertions, deletions and searches use the same sequence of random numbers.</p></li>
+</ul>
+</section>
+<section id="probabilistic-analysis-of-random-probing" class="level4">
+<h4 class="anchored" data-anchor-id="probabilistic-analysis-of-random-probing">Probabilistic analysis of random probing</h4>
+<div class="theorem">
+<p>Given an open-address hash table with load factor <span class="math inline">\alpha=n/m&lt;1</span>,</p>
+<ol type="1">
+<li>the expected number of probes in an unsuccessful search/insert is at most <span class="math display"> \frac{1}{1-\alpha} </span></li>
+<li>the expected number of probes in a successful search is at most <span class="math display"> \frac{1}{\alpha}\ln\frac{1}{1-\alpha} </span></li>
+</ol>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>Proof</em>. </span>In an unsuccessful search, let us define the random variable <span class="math inline">X</span> to be the number of probes made in an unsuccessful search and and let us also define the event <span class="math inline">A_{i}</span>, for <span class="math inline">i=1,2,...</span>, to be the event that an <span class="math inline">i</span>th probe occurs and it is to an occupied slot. <span class="math display">\begin{align}
+Pr(X\geq i) &amp; =\frac{n}{m}\cdot\frac{n-1}{m-1}\cdot\frac{n-2}{m-2}\cdots\frac{n-i+2}{m-i+2}\nonumber \\ &amp; \leq\left(\frac{n}{m}\right)^{i-1}\nonumber \\ &amp; =\alpha^{i-1}
+\end{align}</span> The expected number of probes <span class="math display">\begin{align}
+E[X] &amp; =\sum_{i=1}^{\infty}Pr(X\geq i)\nonumber \\ &amp; \leq\sum_{i=1}^{\infty}\alpha^{i-1}\nonumber \\ &amp; =\frac{1}{1-\alpha}
+\end{align}</span></p>
+</div>
+</section>
+</section>
+<section id="linear-probing" class="level3">
+<h3 class="anchored" data-anchor-id="linear-probing">Linear probing</h3>
+<p>The simplest open-addressing method is called linear probing: when there is a collision, then we just check the next entry in the table. Linear probing is characterized by identifying three possible outcomes:</p>
+<ul>
+<li><p>Key equal to search key: search hit</p></li>
+<li><p>Empty position (null key at indexed position): search miss</p></li>
+<li><p>Key not equal to search key: try next entry</p></li>
+<li><p>Given an ordinary hash function <span class="math display"> h':U\to\{0,1,...,m-1\}, </span> the method of linear probing uses the hash function <span class="math display"> h(k,i)=(h'(k)+i)\bmod m </span></p></li>
+<li><p>Linear probing is easy to implement, but it suffers from a problem known as <strong>primary clustering</strong>.</p></li>
+</ul>
+<section id="clustering" class="level4">
+<h4 class="anchored" data-anchor-id="clustering">Clustering</h4>
+<div class="definition">
+<p><strong>Cluster</strong> is a contiguous block of items.</p>
+</div>
+<p><strong>Observation.</strong> New keys likely to hash into middle of big clusters.</p>
+<ul>
+<li>Clustering in linear probing (<span class="math inline">m=64</span>)</li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/ht-cluster.svg" alt="" width="70%"></div><p></p>
+</section>
+<section id="probabilistic-analysis-of-linear-probing" class="level4">
+<h4 class="anchored" data-anchor-id="probabilistic-analysis-of-linear-probing">Probabilistic analysis of linear probing</h4>
+<div class="theorem">
+<p>Under uniform hashing assumption, the average number of probes in a linear probing hash table of size <span class="math inline">m</span> that contains <span class="math inline">n</span>: <span class="math display"> \sim\frac{1}{2}\left(1+\frac{1}{1-\alpha}\right)\qquad\text{search hit} </span> <span class="math display"> \sim\frac{1}{2}\left(1+\frac{1}{(1-\alpha)^{2}}\right)\qquad\text{search miss/insert} </span></p>
+</div>
+</section>
+<section id="random-vs.-linear-probing" class="level4">
+<h4 class="anchored" data-anchor-id="random-vs.-linear-probing">Random vs.&nbsp;linear probing</h4>
+<ul>
+<li>Assuming random hash functions</li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/probe-uni-linear.svg" alt="" width="70%"></div><p></p>
+</section>
+<section id="comparison-of-hashing-methods" class="level4">
+<h4 class="anchored" data-anchor-id="comparison-of-hashing-methods">Comparison of hashing methods</h4>
+<ul>
+<li>Theoretical comparison of hashing methods</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Load factor <span class="math inline">\alpha</span></th>
+<th style="text-align: right;">0.1</th>
+<th style="text-align: right;">0.5</th>
+<th style="text-align: right;">0.8</th>
+<th style="text-align: right;">0.9</th>
+<th style="text-align: right;">0.99</th>
+<th style="text-align: right;">2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Successful search, expected number of probes:</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chaining</td>
+<td style="text-align: right;">1.05</td>
+<td style="text-align: right;">1.25</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">1.45</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Open, random probes</td>
+<td style="text-align: right;">1.05</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2.6</td>
+<td style="text-align: right;">4.6</td>
+<td style="text-align: right;">-</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Open, linear probes</td>
+<td style="text-align: right;">1.06</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">5.5</td>
+<td style="text-align: right;">50.5</td>
+<td style="text-align: right;">-</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Unsuccessful search, expected number of probes:</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chaining</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">0.99</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Open, random probes</td>
+<td style="text-align: right;">1.1</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">-</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Open, linear probes</td>
+<td style="text-align: right;">1.12</td>
+<td style="text-align: right;">2.5</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">50</td>
+<td style="text-align: right;">5000</td>
+<td style="text-align: right;">-</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Empirical comparison of hashing methods</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Load factor <span class="math inline">\alpha</span></th>
+<th style="text-align: right;">0.1</th>
+<th style="text-align: right;">0.5</th>
+<th style="text-align: right;">0.8</th>
+<th style="text-align: right;">0.9</th>
+<th style="text-align: right;">0.99</th>
+<th style="text-align: right;">2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Successful search, expected number of probes:</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chaining</td>
+<td style="text-align: right;">1.04</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Open, random probes</td>
+<td style="text-align: right;">1.04</td>
+<td style="text-align: right;">1.5</td>
+<td style="text-align: right;">2.1</td>
+<td style="text-align: right;">2.7</td>
+<td style="text-align: right;">5.2</td>
+<td style="text-align: right;">-</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Open, linear probes</td>
+<td style="text-align: right;">1.05</td>
+<td style="text-align: right;">1.6</td>
+<td style="text-align: right;">3.4</td>
+<td style="text-align: right;">6.2</td>
+<td style="text-align: right;">21.3</td>
+<td style="text-align: right;">-</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Unsuccessful search, expected number of probes:</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Chaining</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">0.99</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Open, random probes</td>
+<td style="text-align: right;">1.13</td>
+<td style="text-align: right;">2.2</td>
+<td style="text-align: right;">5.2</td>
+<td style="text-align: right;">11.9</td>
+<td style="text-align: right;">126</td>
+<td style="text-align: right;">-</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Open, linear probes</td>
+<td style="text-align: right;">1.13</td>
+<td style="text-align: right;">2.7</td>
+<td style="text-align: right;">15.4</td>
+<td style="text-align: right;">59.8</td>
+<td style="text-align: right;">430</td>
+<td style="text-align: right;">-</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="quadratic-probing" class="level3">
+<h3 class="anchored" data-anchor-id="quadratic-probing">Quadratic Probing</h3>
+<ul>
+<li><strong>Quadratic probing</strong> uses a hash function of the form <span class="math display"> h(k,i)=(h'(k)+c_{1}i+c_{2}i^{2})\bmod m </span> where <span class="math inline">h'</span> is an auxiliary hash function, <span class="math inline">c_{1}</span> and <span class="math inline">c_{2}\neq0</span> are auxiliary constants <span class="math display"> h(k,i)=(h'(k)+i^{2})\bmod m\qquad\text{(simple form)} </span></li>
+<li><strong>Note</strong>: to make full use of the hash table, the values of <span class="math inline">c_{1}</span>, <span class="math inline">c_{2}</span>, and <span class="math inline">m</span> are constrained</li>
+<li>This method works much better than linear probing. It still suffers from another problem known as <strong>secondary clustering</strong>.</li>
+</ul>
+<div class="theorem">
+<p>If quadratic probing is used, and the table size <span class="math inline">m</span> is prime, then a new element can always be inserted if the table is at least half empty.</p>
+</div>
+</section>
+<section id="double-hashing" class="level3">
+<h3 class="anchored" data-anchor-id="double-hashing">Double hashing</h3>
+<ul>
+<li><strong>Double hashing</strong> uses a hash function of the form <span class="math display"> h(k,i)=(h_{1}(k)+ih_{2}(k))\bmod m </span> where <span class="math inline">h_{1}</span> and <span class="math inline">h_{2}</span> are auxiliary hash functions.</li>
+<li><strong>Note</strong>: The value <span class="math inline">h_{2}(k)</span> must be relatively prime to the hash-table size <span class="math inline">m</span> for the entire hash table to be searched.</li>
+<li>It is one of the best methods because the permutations produced have many of the characteristics of randomly chosen permutations.</li>
+</ul>
+</section>
+<section id="dynamic-hash-tables" class="level3">
+<h3 class="anchored" data-anchor-id="dynamic-hash-tables">Dynamic hash tables</h3>
+<p><strong>Parameter</strong> table size <span class="math inline">m</span></p>
+<p><span class="math inline">m</span> too small <span class="math inline">\Rightarrow</span> search time blows up.</p>
+<ul>
+<li>As the number of keys in a hash table increases, search performance degrades.</li>
+</ul>
+<p><span class="math inline">m</span> too large <span class="math inline">\Rightarrow</span> too many empty array entries.</p>
+<ul>
+<li><p>Waste memory.</p></li>
+<li><p>If <span class="math inline">\alpha&gt;1/2</span> then double the table’s size <span class="math display"> m\gets2m </span> Doubling the table is an <strong>expensive</strong> operation because everything in the table has to be reinserted, but it is an operation that is performed infrequently.</p></li>
+<li><p>If <span class="math inline">\alpha&lt;1/8</span> then halve the the table’s size <span class="math display"> m\gets\frac{m}{2} </span></p></li>
+</ul>
+</section>
+<section id="cost-summary-for-symbol-table-implementations" class="level3">
+<h3 class="anchored" data-anchor-id="cost-summary-for-symbol-table-implementations">Cost summary for symbol-table implementations</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">implementation</th>
+<th style="text-align: left;">worst case</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">average case</th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"></td>
+<td style="text-align: left;">search</td>
+<td style="text-align: left;">insert</td>
+<td style="text-align: left;">remove</td>
+<td style="text-align: left;">search hit</td>
+<td style="text-align: left;">insert</td>
+<td style="text-align: left;">remove</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>BST</strong></td>
+<td style="text-align: left;"><span class="math inline">N</span></td>
+<td style="text-align: left;"><span class="math inline">N</span></td>
+<td style="text-align: left;"><span class="math inline">N</span></td>
+<td style="text-align: left;"><span class="math inline">c\log_{2}N</span></td>
+<td style="text-align: left;"><span class="math inline">c\log_{2}N</span></td>
+<td style="text-align: left;"><span class="math inline">\sqrt{N}</span></td>
+<td style="text-align: left;">compare</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>AVL</strong></td>
+<td style="text-align: left;"><span class="math inline">c_{a}\log_{2}N</span></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;"><span class="math inline">\log_{2}N</span></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">compare</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>RB</strong></td>
+<td style="text-align: left;"><span class="math inline">c_{r}\log_{2}N</span></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;"><span class="math inline">\log_{2}N</span></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">compare</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>chain</strong> hash</td>
+<td style="text-align: left;"><span class="math inline">N</span> or <span class="math inline">\ln N</span></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">equal</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>linear</strong> hash</td>
+<td style="text-align: left;"><span class="math inline">N</span> or <span class="math inline">\ln N</span></td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">-</td>
+<td style="text-align: left;">equal</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note</strong>: <span class="math inline">c=1.39,c_{a}=1.44,c_{r}=2.0</span></p>
+</section>
+</section>
+<section id="universal-hashing" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="universal-hashing"><span class="header-section-number">14.3</span> Universal hashing</h2>
+<div class="block">
+<p><strong>Problem</strong> Any <em>fixed</em> hash function is vulnerable to such terrible worst-case behavior.</p>
+</div>
+<p><strong>Solution</strong> Choose the hash function <em>randomly</em> in a way that is independent of the keys that are actually going to be stored.</p>
+<div class="defintion">
+<p>Let <span class="math inline">\mathcal{H}</span> be a finite collection of hash functions that map a given universe <span class="math inline">U</span> of keys into the range {0,1,…,m-1}. <span class="math inline">\mathcal{H}</span> is said to be <strong>universal</strong> <strong>if</strong> for each pair of distinct keys <span class="math inline">k,l\in U</span>, <span class="math display"> \left|\{h\in\mathcal{H}\mid h(k)=h(l)\}\right|\leq\frac{|\mathcal{H}|}{m} </span></p>
+</div>
+<ul>
+<li>In other words, the chance of a collision between <span class="math inline">k</span> and <span class="math inline">l</span> is <span class="math inline">1/m</span> if we choose <span class="math inline">h</span> randomly from <span class="math inline">\mathcal{H}</span>.</li>
+</ul>
+<div class="theorem">
+<p>Suppose that a hash function <span class="math inline">h</span> is chosen from a universal collection of hash functions and is used to hash <span class="math inline">n</span> keys into a table <span class="math inline">T</span> of size <span class="math inline">m</span>, for a given key <span class="math inline">k</span>, we have <span class="math display"> E[\text{\# collision with }k]\leq\frac{n}{m} </span></p>
+</div>
+<section id="designing-a-universal-class-of-hash-functions" class="level4">
+<h4 class="anchored" data-anchor-id="designing-a-universal-class-of-hash-functions">Designing a universal class of hash functions</h4>
+<ul>
+<li><p>Choose a prime number <span class="math inline">p</span> large enough so that every possible key k is in the range 0 to <span class="math inline">p-1</span>.</p></li>
+<li><p>We define the hash function <span class="math inline">h_{ab}</span>, <span class="math inline">a\in\mathbb{Z}_{p}^{\ast}</span> and <span class="math inline">b\in\mathbb{Z}_{p}</span> (<span class="math inline">\mathbb{Z}_{p}=\{0,1,2...,p-1\}</span> and <span class="math inline">\mathbb{Z}_{p}^{\ast}=\{1,2...,p-1\}</span>) <span class="math display"> h_{ab}(k)=((ak+b)\bmod p)\bmod m </span></p></li>
+<li><p>The family of all such hash functions is <span class="math display"> \mathcal{H}_{pm}=\{h_{ab}:a\in\mathbb{Z}_{p}^{\ast}\text{ and }b\in\mathbb{Z}_{p}\} </span></p></li>
+</ul>
+<div class="theorem">
+<p>The class <span class="math inline">\mathcal{H}_{pm}</span> of hash functions is universal.</p>
+</div>
+</section>
+</section>
+<section id="advanced-hash-table" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="advanced-hash-table"><span class="header-section-number">14.4</span> Advanced Hash Table</h2>
+<section id="perfect-hashing" class="level3">
+<h3 class="anchored" data-anchor-id="perfect-hashing">Perfect hashing</h3>
+<div class="block">
+<p><strong>Problem</strong> Given a set of <span class="math inline">n</span> keys, construct a <strong>static</strong> hash table of size <span class="math inline">m</span> such that <strong>Search</strong> action takes <span class="math inline">O(1)</span> time in the worst case.</p>
+</div>
+<section id="solution-on2-space" class="level4">
+<h4 class="anchored" data-anchor-id="solution-on2-space">Solution <span class="math inline">O(n^{2})</span> space</h4>
+<div class="theorem">
+<p>Suppose that we store <span class="math inline">n</span> keys in a hash table of size <span class="math inline">m=n^{2}</span> using a hash function <span class="math inline">h</span> randomly chosen from a universal class of hash functions. Then, the probability is less than <span class="math inline">1/2</span> that there are any collisions.</p>
+</div>
+</section>
+<section id="example-1" class="level4">
+<h4 class="anchored" data-anchor-id="example-1">Example 1</h4>
+<ul>
+<li>Using perfect hashing to store the set <span class="math inline">K=\{10,22,37,52,60,70,72\}</span>.</li>
+<li>The hash table <span class="math inline">T</span> with size of <span class="math inline">m=n^{2}=49</span> and the hash function <span class="math inline">h(k)=((ak+b)\bmod p)\bmod m</span> where <span class="math inline">a=1</span>, <span class="math inline">b=0</span>, <span class="math inline">p=73</span></li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/ht-perfect-ex-a.svg" alt="" width="70%"></div><p></p>
+</section>
+<section id="solution-on-space" class="level4">
+<h4 class="anchored" data-anchor-id="solution-on-space">Solution <span class="math inline">O(n)</span> space</h4>
+<p><strong>Idea</strong>: We use two levels of hashing, with universal hashing at each level.</p>
+<ul>
+<li><strong>The first level</strong>: it is the same as for hashing with chaining</li>
+<li><strong>The second level</strong>: we use a small secondary hash table <span class="math inline">S_{j}</span> with an associated hash function <span class="math inline">h_{j}</span>. By <em>choosing the hash functions</em> <span class="math inline">h_{j}</span> carefully, we can guarantee that there are <strong>no collisions</strong> at the secondary level.</li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/ht-perfect.svg" alt="" width="70%"></div><p></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> CreatePerfectTable(T, {k1,k2,...,kn}, H)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    Carefully choose h and {h0, h1, ... hm-1} from H</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    count[0,...,m-1] ← {0,...,0}</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i ← 1 to n</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        count[h(ki)] ← count[h(ki)] + 1</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i ← 0 to m-1</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>        allocate count[i]^2 memory slots to secondary table Si and T[i] -&gt; Si</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">for</span> i ← 1 to n</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        j ← h(ki)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        p ← hj(ki)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        Sj[p] ← ki</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> SearchPerfectTable(T, k)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    j ← h(k)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> T[j] = null <span class="kw">return</span> null</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    p ← hj(k)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> Sj[p]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="example-2" class="level4">
+<h4 class="anchored" data-anchor-id="example-2">Example 2</h4>
+<p>Using perfect hashing to store the set <span class="math inline">K=\{10,22,37,52,60,70,72\}</span>.</p>
+<ul>
+<li>The table <span class="math inline">T</span> uses the outer hash function <span class="math inline">h(k)=((ak+b)\bmod p)\bmod m</span> where <span class="math inline">a=3</span>, <span class="math inline">b=42</span>, <span class="math inline">p=101</span> and <span class="math inline">m=9</span></li>
+<li>A secondary table <span class="math inline">S_{j}</span> uses the hash function <span class="math inline">h_{i}(k)=((a_{i}k+b_{i})\bmod p)\bmod m_{i}</span> where <span class="math inline">m_{i}=count_{i}^{2}</span></li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/ht-perfect-ex.svg" alt="" width="70%"></div><p></p>
+</section>
+</section>
+<section id="cuckoo-hashing" class="level3">
+<h3 class="anchored" data-anchor-id="cuckoo-hashing">Cuckoo hashing</h3>
+<p>In cuckoo hashing, we maintain - <strong>two</strong> tables, each more than half empty. - <strong>two</strong> independent hash functions randomly chosen from a universal class of hash functions that can assign each item to a position in each table.</p>
+<p></p><div style="text-align:center;"><img src="figures/ht-cuckoo.svg" alt="" width="70%"></div><p></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> InsertCuckooTable(T1, h1, T2, h2, k)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">repeat</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        Insert into the first table T1</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> there was a collision <span class="kw">then</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>            move the current key l to the second table T2</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>            insert the new key k</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        The displaced key l is inserted in its alternative location,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>            again kicking out any key that might reside there.</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">until</span> success</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> SearchCuckooTable(T, k)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> search in two tables T1 and T2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="workshop" class="level2" data-number="14.5">
+<h2 data-number="14.5" class="anchored" data-anchor-id="workshop"><span class="header-section-number">14.5</span> Workshop</h2>
+<section id="quiz" class="level3">
+<h3 class="anchored" data-anchor-id="quiz">Quiz</h3>
+<ol type="1">
+<li>What is a hash function?</li>
+<li>What is a hash table?</li>
+</ol>
+</section>
+<section id="projects" class="level3">
+<h3 class="anchored" data-anchor-id="projects">Projects</h3>
+</section>
+</section>
+<section id="references" class="level2" data-number="14.6">
+<h2 data-number="14.6" class="anchored" data-anchor-id="references"><span class="header-section-number">14.6</span> References</h2>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./lect09-pq.html" class="pagination-link" aria-label="Priority Queues and Heaps">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Priority Queues and Heaps</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
