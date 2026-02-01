@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>13&nbsp; Priority Queues and Heaps – DATA STRUCTURES AND ALOGRITHMS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./lect10-hashtable.html" rel="next">
+<link href="./lect08-btree.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-317aa39e225c698ea508ddd136b93e4d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="theme.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">DATA STRUCTURES AND ALOGRITHMS</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lect04-pointer.html">DATA STRUCTURES</a></li><li class="breadcrumb-item"><a href="./lect09-pq.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Priority Queues and Heaps</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">INTRODUCTION</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">ALGORITHMS</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Recursion &amp; Divide-and-Conquer</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fractal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">FRACTAL</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dynamic Programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">ANALYSIS OF ALGORITHM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">SORTING</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">DATA STRUCTURES</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect04-pointer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pointers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect05-file.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">FILE &amp; STREAM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect05-element-ds.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Elementary Data Structures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect06-tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Trees &amp; Binary Trees</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect07-balanced-tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Balanced Binary Search Tree</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect08-btree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">B-tree</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect09-pq.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Priority Queues and Heaps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect10-hashtable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hash Table</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">GRAPHS</span></span>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#priority-queue-applications" id="toc-priority-queue-applications" class="nav-link active" data-scroll-target="#priority-queue-applications">Priority queue applications</a></li>
+  <li><a href="#priority-queue" id="toc-priority-queue" class="nav-link" data-scroll-target="#priority-queue">Priority queue</a></li>
+  <li><a href="#unordered-and-ordered-array-implementation" id="toc-unordered-and-ordered-array-implementation" class="nav-link" data-scroll-target="#unordered-and-ordered-array-implementation">Unordered and ordered array implementation</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
+  <li><a href="#binary-heaps" id="toc-binary-heaps" class="nav-link" data-scroll-target="#binary-heaps"><span class="header-section-number">13.1</span> Binary Heaps</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#binary-heap-representations" id="toc-binary-heap-representations" class="nav-link" data-scroll-target="#binary-heap-representations">Binary heap representations</a></li>
+  <li><a href="#binary-heap-properties" id="toc-binary-heap-properties" class="nav-link" data-scroll-target="#binary-heap-properties">Binary heap properties</a></li>
+  <li><a href="#insert-key" id="toc-insert-key" class="nav-link" data-scroll-target="#insert-key">Insert Key</a></li>
+  <li><a href="#promotion-in-a-heap" id="toc-promotion-in-a-heap" class="nav-link" data-scroll-target="#promotion-in-a-heap">Promotion in a heap</a></li>
+  <li><a href="#insertion-in-a-heap" id="toc-insertion-in-a-heap" class="nav-link" data-scroll-target="#insertion-in-a-heap">Insertion in a heap</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#remove-max" id="toc-remove-max" class="nav-link" data-scroll-target="#remove-max">Remove Max</a></li>
+  <li><a href="#demotion-in-a-heap" id="toc-demotion-in-a-heap" class="nav-link" data-scroll-target="#demotion-in-a-heap">Demotion in a heap</a></li>
+  <li><a href="#delete-the-maximum-in-a-heap" id="toc-delete-the-maximum-in-a-heap" class="nav-link" data-scroll-target="#delete-the-maximum-in-a-heap">Delete the maximum in a heap</a></li>
+  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example</a></li>
+  <li><a href="#analysis-1" id="toc-analysis-1" class="nav-link" data-scroll-target="#analysis-1">Analysis</a></li>
+  <li><a href="#increase-key" id="toc-increase-key" class="nav-link" data-scroll-target="#increase-key">Increase Key</a></li>
+  </ul></li>
+  <li><a href="#d-heaps" id="toc-d-heaps" class="nav-link" data-scroll-target="#d-heaps"><span class="header-section-number">13.2</span> d-Heaps</a>
+  <ul class="collapse">
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a></li>
+  <li><a href="#analysis-2" id="toc-analysis-2" class="nav-link" data-scroll-target="#analysis-2">Analysis</a></li>
+  </ul></li>
+  <li><a href="#application" id="toc-application" class="nav-link" data-scroll-target="#application"><span class="header-section-number">13.3</span> Application</a>
+  <ul class="collapse">
+  <li><a href="#simulation" id="toc-simulation" class="nav-link" data-scroll-target="#simulation">Simulation</a></li>
+  <li><a href="#molecular-dynamics-simulation-of-hard-discs" id="toc-molecular-dynamics-simulation-of-hard-discs" class="nav-link" data-scroll-target="#molecular-dynamics-simulation-of-hard-discs">Molecular dynamics simulation of hard discs</a></li>
+  <li><a href="#bouncing-balls" id="toc-bouncing-balls" class="nav-link" data-scroll-target="#bouncing-balls">Bouncing balls</a></li>
+  <li><a href="#time-driven-simulation" id="toc-time-driven-simulation" class="nav-link" data-scroll-target="#time-driven-simulation">Time-driven Simulation</a></li>
+  <li><a href="#event-driven-simulation" id="toc-event-driven-simulation" class="nav-link" data-scroll-target="#event-driven-simulation">Event-driven simulation</a></li>
+  <li><a href="#particle-wall-collision" id="toc-particle-wall-collision" class="nav-link" data-scroll-target="#particle-wall-collision">Particle-wall collision</a></li>
+  <li><a href="#particle-particle-collision-prediction" id="toc-particle-particle-collision-prediction" class="nav-link" data-scroll-target="#particle-particle-collision-prediction">Particle-particle collision prediction</a></li>
+  <li><a href="#particle-particle-collision-resolution" id="toc-particle-particle-collision-resolution" class="nav-link" data-scroll-target="#particle-particle-collision-resolution">Particle-particle collision resolution</a></li>
+  <li><a href="#collision-system-event-driven-simulation-main-loop" id="toc-collision-system-event-driven-simulation-main-loop" class="nav-link" data-scroll-target="#collision-system-event-driven-simulation-main-loop">Collision system: event-driven simulation main loop</a></li>
+  </ul></li>
+  <li><a href="#workshop" id="toc-workshop" class="nav-link" data-scroll-target="#workshop"><span class="header-section-number">13.4</span> Workshop</a>
+  <ul class="collapse">
+  <li><a href="#quiz" id="toc-quiz" class="nav-link" data-scroll-target="#quiz">Quiz</a></li>
+  <li><a href="#projects" id="toc-projects" class="nav-link" data-scroll-target="#projects">Projects</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">13.5</span> References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lect04-pointer.html">DATA STRUCTURES</a></li><li class="breadcrumb-item"><a href="./lect09-pq.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Priority Queues and Heaps</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Priority Queues and Heaps</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="priority-queue-applications" class="level3">
+<h3 class="anchored" data-anchor-id="priority-queue-applications">Priority queue applications</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td>Event-driven simulation.</td>
+<td>(customers in a line, colliding particles)</td>
+</tr>
+<tr class="even">
+<td>Numerical computation.</td>
+<td>(reducing roundoff error)</td>
+</tr>
+<tr class="odd">
+<td>Data compression.</td>
+<td>(Huffman codes)</td>
+</tr>
+<tr class="even">
+<td>Graph searching.</td>
+<td>(Dijkstra’s algorithm, Prim’s algorithm)</td>
+</tr>
+<tr class="odd">
+<td>Number theory.</td>
+<td>(sum of powers)</td>
+</tr>
+<tr class="even">
+<td>Artificial intelligence.</td>
+<td>(A* search)</td>
+</tr>
+<tr class="odd">
+<td>Statistics.</td>
+<td>(maintain largest <span class="math inline">M</span> values in a sequence)</td>
+</tr>
+<tr class="even">
+<td>Operating systems.</td>
+<td>(load balancing, interrupt handling)</td>
+</tr>
+<tr class="odd">
+<td>Discrete optimization.</td>
+<td>(bin packing, scheduling)</td>
+</tr>
+<tr class="even">
+<td>Spam filtering.</td>
+<td>(Bayesian spam filter)</td>
+</tr>
+</tbody>
+</table>
+<p></p><div style="text-align:center;"><img src="figures/pq-intro.svg" alt="" width="23%"></div><p></p>
+</section>
+<section id="priority-queue" class="level3">
+<h3 class="anchored" data-anchor-id="priority-queue">Priority queue</h3>
+<div class="definition">
+<p>A <strong>priority queue</strong> is a data structure for maintaining a set <span class="math inline">S</span> of elements, each with an associated value called a <strong>key</strong>. There are two kinds of priority queues: <strong>max-priority queues</strong> and <strong>min-priority queues</strong>.</p>
+<p><strong>Max-priority queue</strong> supports the following operations.</p>
+<ul>
+<li><code>Insert</code>(<span class="math inline">S</span>, <span class="math inline">x</span>): insert the element <span class="math inline">x</span> into the set <span class="math inline">S</span> or <span class="math inline">S\gets S\cup\{x\}</span>.</li>
+<li><code>Max</code>(<span class="math inline">S</span>): return the element of <span class="math inline">S</span> with the largest key.</li>
+<li><code>Remove-Max</code>(<span class="math inline">S</span>): remove and return the element of <span class="math inline">S</span> with the largest key.</li>
+<li><code>Increase-Key</code>(<span class="math inline">S</span>, <span class="math inline">x</span>, <span class="math inline">\Delta k</span>): increase the value of element <span class="math inline">x</span>’s key by the <span class="math inline">\Delta k</span>.</li>
+</ul>
+</div>
+</section>
+<section id="unordered-and-ordered-array-implementation" class="level3">
+<h3 class="anchored" data-anchor-id="unordered-and-ordered-array-implementation">Unordered and ordered array implementation</h3>
+<ul>
+<li>A sequence of operations on a max-priority queue</li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/pq-max-ex.svg" alt="" width="95%"></div><p></p>
+</section>
+<section id="analysis" class="level3">
+<h3 class="anchored" data-anchor-id="analysis">Analysis</h3>
+<div class="block">
+<p><strong>Challenge</strong>: Implement <strong>all</strong> operations efficiently.</p>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>implementation</strong></th>
+<th style="text-align: center;"><strong>insert</strong></th>
+<th style="text-align: center;"><strong>remove max</strong></th>
+<th style="text-align: center;"><strong>max</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">unordered array</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">ordered array</td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">goal</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="binary-heaps" class="level2" data-number="13.1">
+<h2 data-number="13.1" class="anchored" data-anchor-id="binary-heaps"><span class="header-section-number">13.1</span> Binary Heaps</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<div class="definition">
+<ul>
+<li><strong>Max heap</strong>: A tree is heap-ordered if the key in each node is larger than or equal to the keys in all of that node’s children (if any)</li>
+<li><strong>Min heap</strong>: A tree is heap-ordered if the key in each node is smaller than or equal to the keys in all of that node’s children (if any)</li>
+</ul>
+</div>
+<div class="theorem">
+<ul>
+<li>Max heap: No node in a heap-ordered tree has a key larger than the key at the root</li>
+<li>Min heap: No node in a heap-ordered tree has a key smaller than the key at the root</li>
+</ul>
+</div>
+</section>
+<section id="binary-heap-representations" class="level3">
+<h3 class="anchored" data-anchor-id="binary-heap-representations">Binary heap representations</h3>
+<div class="definition">
+<p>A <strong>binary heap</strong> data structure is a complete binary tree that can be represented by <strong>an array object</strong>.</p>
+</div>
+<ul>
+<li><p>Complete binary tree is perfectly balanced, except for bottom level.</p></li>
+<li><p>Height of complete binary tree with <span class="math inline">N</span> nodes is <span class="math inline">\log_{2}(N+1)</span>.</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-q_page_1.svg" alt="" width="85%"></div><p></p></li>
+<li><p>Array representation of a max binary heap.</p>
+<p></p><div style="text-align:center;"><img src="figures/pq-rep.svg" alt="" width="90%"></div><p></p></li>
+</ul>
+</section>
+<section id="binary-heap-properties" class="level3">
+<h3 class="anchored" data-anchor-id="binary-heap-properties">Binary heap properties</h3>
+<ul>
+<li>Largest key is <span class="math inline">a[0]</span>, which is root of max binary heap.</li>
+<li>Can use array indices to move through tree.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> Parent(i)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> floor((i - 1) / 2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> LeftChild(i)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> 2 * i + 1</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> RightChild(i)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> 2 * i + 2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="insert-key" class="level3">
+<h3 class="anchored" data-anchor-id="insert-key">Insert Key</h3>
+</section>
+<section id="promotion-in-a-heap" class="level3">
+<h3 class="anchored" data-anchor-id="promotion-in-a-heap">Promotion in a heap</h3>
+<ul>
+<li><strong>Scenario</strong>. Child’s key becomes larger key than its parent’s key. (violation)</li>
+<li>To eliminate the violation:
+<ul>
+<li>Exchange key in child with key in parent.</li>
+<li>Repeat until heap order restored.</li>
+</ul></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> Up-Heap(a, i)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">while</span> i &gt; 0 <span class="kw">do</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        p ← Parent(i)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> a[i] &gt; a[p] <span class="kw">then</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>            Swap(a, i, p)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>            i ← p</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="insertion-in-a-heap" class="level3">
+<h3 class="anchored" data-anchor-id="insertion-in-a-heap">Insertion in a heap</h3>
+<div class="block">
+<dl>
+<dt>Insert.</dt>
+<dd>
+Add node at end, then percolate it up.
+</dd>
+<dt>Cost.</dt>
+<dd>
+At most <span class="math inline">\log_{2}N+1</span> compares.
+</dd>
+</dl>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> Insert(a, k)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    n ← a.size</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    a[n] ← k</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    Up-Heap(a, n)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    a.size ← a.size + 1</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example</h3>
+<ul>
+<li><p>Given a max binary heap</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-q_page_2.svg" alt="" width="65%"></div><p></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">8</th>
+<th style="text-align: center;">9</th>
+<th style="text-align: center;">10</th>
+<th style="text-align: center;">11</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">68</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">31</td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Insert key <span class="circle-auto">66</span> into the heap</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-q_page_3.svg" alt="" width="65%"></div><p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">8</th>
+<th style="text-align: center;">9</th>
+<th style="text-align: center;">10</th>
+<th style="text-align: center;">11</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">68</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">31</td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;"><span class="math inline">\textcolor{red}{66}</span></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Swap <span class="circle-auto">66</span> and <span class="circle-auto">26</span></p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-q_page_4.svg" alt="" width="65%"></div><p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">8</th>
+<th style="text-align: center;">9</th>
+<th style="text-align: center;">10</th>
+<th style="text-align: center;">11</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">68</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">31</td>
+<td style="text-align: center;"><span class="math inline">\textcolor{red}{66}</span></td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;"><span class="math inline">\textcolor{blue}{26}</span></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Swap <span class="circle-auto">66</span> and <span class="circle-auto">65</span></p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-q_page_5.svg" alt="" width="65%"></div><p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">8</th>
+<th style="text-align: center;">9</th>
+<th style="text-align: center;">10</th>
+<th style="text-align: center;">11</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">68</td>
+<td style="text-align: center;"><span class="math inline">\textcolor{red}{66}</span></td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">31</td>
+<td style="text-align: center;"><span class="math inline">\textcolor{blue}{65}</span></td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;"><span class="math inline">\textcolor{blue}{26}</span></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+</section>
+<section id="remove-max" class="level3">
+<h3 class="anchored" data-anchor-id="remove-max">Remove Max</h3>
+</section>
+<section id="demotion-in-a-heap" class="level3">
+<h3 class="anchored" data-anchor-id="demotion-in-a-heap">Demotion in a heap</h3>
+<ul>
+<li><strong>Scenario</strong>. Parent’s key becomes smaller than one (or both) of its children’s. (vilolation)</li>
+<li>To eliminate the violation:
+<ul>
+<li>Exchange key in parent with key in larger child.</li>
+<li>Repeat until heap order restored.</li>
+</ul></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> Down-Heap(a, i)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    l ← LeftChild(i)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    r ← RightChild(i)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    largest ← i</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> l &lt; a.size and a[l] &gt; a[largest] <span class="kw">then</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        largest ← l</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> r &lt; a.size and a[r] &gt; a[largest] <span class="kw">then</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        largest ← r</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> largest ≠ i <span class="kw">then</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        Swap(a, i, largest)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        Down-Heap(a, largest)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="delete-the-maximum-in-a-heap" class="level3">
+<h3 class="anchored" data-anchor-id="delete-the-maximum-in-a-heap">Delete the maximum in a heap</h3>
+<ul>
+<li><strong>Delete max</strong>. Exchange root with node at end, then sink it down.</li>
+<li><strong>Cost</strong>. At most <span class="math inline">2\log_{2}N</span> compares.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> Remove-Max(a)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    n ← a.size</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    Swap(a, 0, n - 1)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    a.size ← a.size - 1</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    Down-Heap(a, 0)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> a[n]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="example-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1">Example</h3>
+<ul>
+<li><p>Given a max binary heap</p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-q_page_6.svg" alt="" width="65%"></div><p></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">8</th>
+<th style="text-align: center;">9</th>
+<th style="text-align: center;">10</th>
+<th style="text-align: center;">11</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">68</td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">31</td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;">13</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Delete max : swap <span class="circle-auto">68</span> and <span class="circle-auto">13</span> , delete <span class="circle-auto">68</span></p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-q_page_7.svg" alt="" width="65%"></div><p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">8</th>
+<th style="text-align: center;">9</th>
+<th style="text-align: center;">10</th>
+<th style="text-align: center;">11</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\textcolor{red}{13}</span></td>
+<td style="text-align: center;">65</td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">31</td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;"><span class="math inline">\textcolor{lightgray}{68}</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Swap <span class="circle-auto">13</span> and <span class="circle-auto">65</span></p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-q_page_8.svg" alt="" width="65%"></div><p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">8</th>
+<th style="text-align: center;">9</th>
+<th style="text-align: center;">10</th>
+<th style="text-align: center;">11</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\textcolor{blue}{65}</span></td>
+<td style="text-align: center;"><span class="math inline">\textcolor{red}{13}</span></td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;">31</td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;"><span class="math inline">\textcolor{lightgray}{68}</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Swap <span class="circle-auto">13</span> and <span class="circle-auto">31</span></p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-q_page_9.svg" alt="" width="65%"></div><p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">8</th>
+<th style="text-align: center;">9</th>
+<th style="text-align: center;">10</th>
+<th style="text-align: center;">11</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\textcolor{blue}{65}</span></td>
+<td style="text-align: center;"><span class="math inline">\textcolor{blue}{31}</span></td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;"><span class="math inline">\textcolor{red}{13}</span></td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;"><span class="math inline">\textcolor{lightgray}{68}</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Swap <span class="circle-auto">13</span> and <span class="circle-auto">20</span></p>
+<p></p><div style="text-align:center;"><img src="figures/svg_pages/tree-q_page_10.svg" alt="" width="65%"></div><p></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+<th style="text-align: center;">6</th>
+<th style="text-align: center;">7</th>
+<th style="text-align: center;">8</th>
+<th style="text-align: center;">9</th>
+<th style="text-align: center;">10</th>
+<th style="text-align: center;">11</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><span class="math inline">\textcolor{blue}{65}</span></td>
+<td style="text-align: center;"><span class="math inline">\textcolor{blue}{31}</span></td>
+<td style="text-align: center;">32</td>
+<td style="text-align: center;"><span class="math inline">\textcolor{blue}{20}</span></td>
+<td style="text-align: center;">26</td>
+<td style="text-align: center;">24</td>
+<td style="text-align: center;">21</td>
+<td style="text-align: center;"><span class="math inline">\textcolor{red}{13}</span></td>
+<td style="text-align: center;">19</td>
+<td style="text-align: center;"><span class="math inline">\textcolor{lightgray}{68}</span></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table></li>
+</ul>
+</section>
+<section id="analysis-1" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-1">Analysis</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>implementation</strong></th>
+<th style="text-align: center;"><strong>insert</strong></th>
+<th style="text-align: center;"><strong>remove max</strong></th>
+<th style="text-align: center;"><strong>max</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">unordered array</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">ordered array</td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">binary heap</td>
+<td style="text-align: center;"><span class="math inline">\log_{2}N</span></td>
+<td style="text-align: center;"><span class="math inline">\log_{2}N</span></td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="increase-key" class="level3">
+<h3 class="anchored" data-anchor-id="increase-key">Increase Key</h3>
+<ul>
+<li>To increase the value of a certain key inside the max-heap, we need to reach this key first. In ordinary heaps, we can’t search for a specific key inside the heap.</li>
+<li>Therefore, we’ll keep a <strong>map</strong> (<strong>hash table</strong>) beside the original array. This map will store the index of each key inside the heap.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> Increase-Key(a, k, Δk, map)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    i ← map[k]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    map.Remove(k)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    a[i] ← a[i] + Δk</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    map[a[i]] ← i</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    Up-Heap(a, i, map)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="d-heaps" class="level2" data-number="13.2">
+<h2 data-number="13.2" class="anchored" data-anchor-id="d-heaps"><span class="header-section-number">13.2</span> d-Heaps</h2>
+<section id="introduction-1" class="level3">
+<h3 class="anchored" data-anchor-id="introduction-1">Introduction</h3>
+<div class="definition">
+<p>a <span class="math inline">d</span>-<strong>heap</strong> is a heap, each node of which has <span class="math inline">d</span> children.</p>
+</div>
+<ul>
+<li><p>A min 3-heap</p>
+<p></p><div style="text-align:center;"><img src="figures/heap-3.svg" alt="" width="100%"></div><p></p></li>
+</ul>
+</section>
+<section id="analysis-2" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-2">Analysis</h3>
+<ul>
+<li>A <span class="math inline">d</span>-heap is much shallower than a binary heap</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>implementation</strong></th>
+<th style="text-align: center;"><strong>insert</strong></th>
+<th style="text-align: center;"><strong>remove max</strong></th>
+<th style="text-align: center;"><strong>max</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">unordered array</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">ordered array</td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">binary heap</td>
+<td style="text-align: center;"><span class="math inline">\log_{2}N</span></td>
+<td style="text-align: center;"><span class="math inline">\log_{2}N</span></td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><span class="math inline">d</span>-heap</td>
+<td style="text-align: center;"><span class="math inline">\log_{d}N</span></td>
+<td style="text-align: center;"><span class="math inline">\log_{d}N</span></td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="application" class="level2" data-number="13.3">
+<h2 data-number="13.3" class="anchored" data-anchor-id="application"><span class="header-section-number">13.3</span> Application</h2>
+<section id="simulation" class="level3">
+<h3 class="anchored" data-anchor-id="simulation">Simulation</h3>
+</section>
+<section id="molecular-dynamics-simulation-of-hard-discs" class="level3">
+<h3 class="anchored" data-anchor-id="molecular-dynamics-simulation-of-hard-discs">Molecular dynamics simulation of hard discs</h3>
+<div class="block">
+<dl>
+<dt>Goal.</dt>
+<dd>
+Simulate the motion of <span class="math inline">N</span> moving particles that behave according to the laws of elastic collision.
+</dd>
+<dt>Problem.</dt>
+<dd>
+<span class="math inline">N</span> bouncing balls in the unit square.
+</dd>
+</dl>
+</div>
+<ul>
+<li>Moving particles interact via elastic collisions with each other and walls.</li>
+<li>Each particle is a disc with known position, velocity, mass, and radius.</li>
+<li>No other forces.</li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/pq-n-balls.svg" alt="" width="30%"></div><p></p>
+</section>
+<section id="bouncing-balls" class="level3">
+<h3 class="anchored" data-anchor-id="bouncing-balls">Bouncing balls</h3>
+<ul>
+<li><p>Check for balls colliding with each other.</p>
+<ul>
+<li>Physics problems: when? what effect?</li>
+<li>CS problems: which object does the check? too many checks?</li>
+</ul></li>
+</ul>
+</section>
+<section id="time-driven-simulation" class="level3">
+<h3 class="anchored" data-anchor-id="time-driven-simulation">Time-driven Simulation</h3>
+<p>Discretize time in quanta of size <span class="math inline">dt</span>.</p>
+<ul>
+<li>Update the position of each particle after every <span class="math inline">dt</span> units of time, and check for overlaps.</li>
+<li>If overlap, roll back the clock to the time of the collision, update the velocities of the colliding particles, and continue the simulation.</li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/pq-time-sim.svg" alt="" width="90%"></div><p></p>
+<p><strong>Main drawbacks</strong></p>
+<ul>
+<li><span class="math inline">\sim N^{2}/2</span> overlap checks per time quantum.</li>
+<li>Simulation is too slow if <span class="math inline">dt</span> is very small.</li>
+<li>May miss collisions if <span class="math inline">dt</span> is too large. (if colliding particles fail to overlap when we are looking)</li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/pq-time-sim-problem.svg" alt="" width="90%"></div><p></p>
+</section>
+<section id="event-driven-simulation" class="level3">
+<h3 class="anchored" data-anchor-id="event-driven-simulation">Event-driven simulation</h3>
+<p>Change <strong>state</strong> only when something happens.</p>
+<ul>
+<li>Between collisions, particles move in straight-line trajectories.</li>
+<li>Focus only on times when collisions occur.</li>
+<li>Maintain <span class="math inline">\textcolor{blue}{PQ}</span> of collision events, prioritized by time.</li>
+<li>Remove the min = get next collision.</li>
+</ul>
+<p><strong>Collision prediction</strong>. Given position, velocity, and radius of a particle. When will it collide next with a wall or another particle?</p>
+<p><strong>Collision resolution</strong>. If collision occurs, update colliding particle(s) according to laws of elastic collisions.</p>
+<p></p><div style="text-align:center;"><img src="figures/pq-event-sim.svg" alt="" width="90%"></div><p></p>
+</section>
+<section id="particle-wall-collision" class="level3">
+<h3 class="anchored" data-anchor-id="particle-wall-collision">Particle-wall collision</h3>
+<p>Collision prediction and resolution.</p>
+<ul>
+<li>Particle of radius <span class="math inline">s</span> at position <span class="math inline">(r_{x},r_{y})</span>.</li>
+<li>Particle moving in unit box with velocity <span class="math inline">(v_{x},v_{y})</span>.</li>
+<li>Will it collide with a vertical wall? If so, when?</li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/pq-event-sim-p-w.svg" alt="" width="90%"></div><p></p>
+</section>
+<section id="particle-particle-collision-prediction" class="level3">
+<h3 class="anchored" data-anchor-id="particle-particle-collision-prediction">Particle-particle collision prediction</h3>
+<p><strong>Collision prediction</strong></p>
+<ul>
+<li>Particle <span class="math inline">i</span>: radius <span class="math inline">s_{i}</span>, position <span class="math inline">(rx_{i},ry_{i})</span>, velocity <span class="math inline">(vx_{i},vy_{i})</span>.</li>
+<li>Particle <span class="math inline">j</span>: radius <span class="math inline">s_{j}</span>, position <span class="math inline">(rx_{j},ry_{j})</span>, velocity <span class="math inline">(vx_{j},vy_{j})</span>.</li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/pq-event-sim-p-p.svg" alt="" width="55%"></div><p></p>
+<ul>
+<li>Will particles <span class="math inline">i</span> and <span class="math inline">j</span> collide? If so, when? <span class="math display">\begin{align}
+\Delta t &amp; =\begin{cases}
+\infty &amp; \text{if }\Delta v\Delta r\geq0\\
+\infty &amp; \text{if }d&lt;0\\
+-\dfrac{\Delta v\Delta r}{\Delta v\Delta v} &amp; \text{otherwise}
+\end{cases}\\
+\sigma &amp; =\sigma_{i}+\sigma_{j}\\d &amp; =(\Delta v\Delta r)^{2}-(\Delta v\Delta v)(\Delta r\Delta r-\sigma^{2})
+\end{align}</span> where <span class="math display">\begin{align}
+\Delta v &amp; =(\Delta vx,\Delta vy)=(vx_{i}-vx_{j},vy_{i}-vy_{j})\\
+\Delta r &amp; =(\Delta rx,\Delta ry)=(rx_{i}-rx_{j},ry_{i}-ry_{j})
+\end{align}</span></li>
+</ul>
+</section>
+<section id="particle-particle-collision-resolution" class="level3">
+<h3 class="anchored" data-anchor-id="particle-particle-collision-resolution">Particle-particle collision resolution</h3>
+<p><strong>Collision resolution</strong></p>
+<ul>
+<li>When two particles collide, how does velocity change?</li>
+</ul>
+<p><span class="math display">
+\begin{array}{ccl}
+vx_{i}^{\prime} &amp; = &amp; vx_{i}+\dfrac{Jx}{m_{i}}\ \
+vy_{i}^{\prime} &amp; = &amp; vy_{i}+\dfrac{Jy}{m_{i}}\ \
+vx_{j}^{\prime} &amp; = &amp; vx_{j}-\dfrac{Jx}{m_{j}}\ \
+vy_{j}^{\prime} &amp; = &amp; vy_{j}-\dfrac{Jy}{m_{j}}
+\end{array}
+</span></p>
+<p>where</p>
+<p><span class="math display">
+\begin{array}{ccl}
+J &amp; = &amp; \dfrac{2m_{i}m_{j}(\Delta v\Delta r)}{\sigma(m_{i}+m_{j})}\ \
+Jx &amp; = &amp; \dfrac{J\Delta rx}{\sigma}\ \
+Jy &amp; = &amp; \dfrac{J\Delta ry}{\sigma}
+\end{array}
+</span></p>
+</section>
+<section id="collision-system-event-driven-simulation-main-loop" class="level3">
+<h3 class="anchored" data-anchor-id="collision-system-event-driven-simulation-main-loop">Collision system: event-driven simulation main loop</h3>
+<div class="block">
+<p>Initialization</p>
+<ul>
+<li>Fill <strong>PQ</strong> with all <em>potential</em> particle-wall collisions. (“potential” since collision may not happen if some other collision intervenes)</li>
+<li>Fill <strong>PQ</strong> with all <em>potential</em> particle-particle collisions.</li>
+</ul>
+<p>Main loop</p>
+<ul>
+<li>Delete the impending event from <strong>PQ</strong> (min priority = <span class="math inline">t</span>).</li>
+<li>If the event has been invalidated, ignore it.</li>
+<li>Advance all particles to time <span class="math inline">t</span>, on a straight-line trajectory.</li>
+<li>Update the velocities of the colliding particle(s).</li>
+<li>Predict future particle-wall and particle-particle collisions involving the colliding particle(s) and insert events onto <strong>PQ</strong>.</li>
+</ul>
+</div>
+</section>
+</section>
+<section id="workshop" class="level2" data-number="13.4">
+<h2 data-number="13.4" class="anchored" data-anchor-id="workshop"><span class="header-section-number">13.4</span> Workshop</h2>
+<section id="quiz" class="level3">
+<h3 class="anchored" data-anchor-id="quiz">Quiz</h3>
+<ol type="1">
+<li>What is a priority queue?</li>
+<li>What is a binary heap?</li>
+<li>What is a <span class="math inline">d</span>-heap?</li>
+</ol>
+</section>
+<section id="projects" class="level3">
+<h3 class="anchored" data-anchor-id="projects">Projects</h3>
+</section>
+</section>
+<section id="references" class="level2" data-number="13.5">
+<h2 data-number="13.5" class="anchored" data-anchor-id="references"><span class="header-section-number">13.5</span> References</h2>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./lect08-btree.html" class="pagination-link" aria-label="B-tree">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">B-tree</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./lect10-hashtable.html" class="pagination-link" aria-label="Hash Table">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hash Table</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

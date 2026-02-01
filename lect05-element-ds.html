@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>9&nbsp; Elementary Data Structures – DATA STRUCTURES AND ALOGRITHMS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./lect06-tree.html" rel="next">
+<link href="./lect05-file.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-317aa39e225c698ea508ddd136b93e4d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="theme.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">DATA STRUCTURES AND ALOGRITHMS</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lect04-pointer.html">DATA STRUCTURES</a></li><li class="breadcrumb-item"><a href="./lect05-element-ds.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Elementary Data Structures</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">INTRODUCTION</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">ALGORITHMS</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Recursion &amp; Divide-and-Conquer</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fractal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">FRACTAL</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dynamic Programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">ANALYSIS OF ALGORITHM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">SORTING</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">DATA STRUCTURES</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect04-pointer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pointers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect05-file.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">FILE &amp; STREAM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect05-element-ds.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Elementary Data Structures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect06-tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Trees &amp; Binary Trees</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect07-balanced-tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Balanced Binary Search Tree</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect08-btree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">B-tree</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect09-pq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Priority Queues and Heaps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect10-hashtable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hash Table</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">GRAPHS</span></span>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#data-abstraction" id="toc-data-abstraction" class="nav-link active" data-scroll-target="#data-abstraction">Data Abstraction</a></li>
+  <li><a href="#array" id="toc-array" class="nav-link" data-scroll-target="#array"><span class="header-section-number">9.1</span> Array</a></li>
+  <li><a href="#linked-lists" id="toc-linked-lists" class="nav-link" data-scroll-target="#linked-lists"><span class="header-section-number">9.2</span> Linked Lists</a>
+  <ul class="collapse">
+  <li><a href="#linked-lists-1" id="toc-linked-lists-1" class="nav-link" data-scroll-target="#linked-lists-1">Linked Lists</a></li>
+  <li><a href="#singly-linked-lists" id="toc-singly-linked-lists" class="nav-link" data-scroll-target="#singly-linked-lists">Singly Linked Lists</a></li>
+  <li><a href="#ordered-linked-list" id="toc-ordered-linked-list" class="nav-link" data-scroll-target="#ordered-linked-list">Ordered Linked List</a></li>
+  </ul></li>
+  <li><a href="#variations-on-linked-list" id="toc-variations-on-linked-list" class="nav-link" data-scroll-target="#variations-on-linked-list"><span class="header-section-number">9.3</span> Variations on Linked List</a>
+  <ul class="collapse">
+  <li><a href="#circular-linked-lists" id="toc-circular-linked-lists" class="nav-link" data-scroll-target="#circular-linked-lists">Circular Linked Lists</a></li>
+  <li><a href="#doubly-linked-lists" id="toc-doubly-linked-lists" class="nav-link" data-scroll-target="#doubly-linked-lists">Doubly Linked Lists</a></li>
+  <li><a href="#generalized-lists" id="toc-generalized-lists" class="nav-link" data-scroll-target="#generalized-lists">Generalized Lists</a></li>
+  </ul></li>
+  <li><a href="#stack" id="toc-stack" class="nav-link" data-scroll-target="#stack"><span class="header-section-number">9.4</span> Stack</a>
+  <ul class="collapse">
+  <li><a href="#stack-1" id="toc-stack-1" class="nav-link" data-scroll-target="#stack-1">Stack</a></li>
+  <li><a href="#stack-api" id="toc-stack-api" class="nav-link" data-scroll-target="#stack-api">Stack API</a></li>
+  <li><a href="#stack-applications" id="toc-stack-applications" class="nav-link" data-scroll-target="#stack-applications">Stack applications</a></li>
+  <li><a href="#function-calls" id="toc-function-calls" class="nav-link" data-scroll-target="#function-calls">Function calls</a></li>
+  <li><a href="#remove-recursion" id="toc-remove-recursion" class="nav-link" data-scroll-target="#remove-recursion">Remove recursion</a></li>
+  <li><a href="#arithmetic-expression" id="toc-arithmetic-expression" class="nav-link" data-scroll-target="#arithmetic-expression">Arithmetic expression</a></li>
+  <li><a href="#conversion-of-an-infix-expression-to-postfix" id="toc-conversion-of-an-infix-expression-to-postfix" class="nav-link" data-scroll-target="#conversion-of-an-infix-expression-to-postfix">Conversion of an infix expression to postfix</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#arithmetic-expression-evaluation" id="toc-arithmetic-expression-evaluation" class="nav-link" data-scroll-target="#arithmetic-expression-evaluation">Arithmetic expression evaluation</a></li>
+  <li><a href="#implementation-simple" id="toc-implementation-simple" class="nav-link" data-scroll-target="#implementation-simple">Implementation (simple)</a></li>
+  </ul></li>
+  <li><a href="#queue" id="toc-queue" class="nav-link" data-scroll-target="#queue"><span class="header-section-number">9.5</span> Queue</a>
+  <ul class="collapse">
+  <li><a href="#queue-1" id="toc-queue-1" class="nav-link" data-scroll-target="#queue-1">Queue</a></li>
+  <li><a href="#queue-api" id="toc-queue-api" class="nav-link" data-scroll-target="#queue-api">Queue API</a></li>
+  <li><a href="#queue-applications" id="toc-queue-applications" class="nav-link" data-scroll-target="#queue-applications">Queue applications</a></li>
+  </ul></li>
+  <li><a href="#deque" id="toc-deque" class="nav-link" data-scroll-target="#deque"><span class="header-section-number">9.6</span> Deque</a>
+  <ul class="collapse">
+  <li><a href="#deque-1" id="toc-deque-1" class="nav-link" data-scroll-target="#deque-1">Deque</a></li>
+  <li><a href="#deque-api" id="toc-deque-api" class="nav-link" data-scroll-target="#deque-api">Deque API</a></li>
+  </ul></li>
+  <li><a href="#symbol-tables" id="toc-symbol-tables" class="nav-link" data-scroll-target="#symbol-tables"><span class="header-section-number">9.7</span> Symbol Tables</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#symbol-table-applications" id="toc-symbol-table-applications" class="nav-link" data-scroll-target="#symbol-table-applications">Symbol table applications</a></li>
+  <li><a href="#abstract-data-type" id="toc-abstract-data-type" class="nav-link" data-scroll-target="#abstract-data-type">Abstract Data Type</a></li>
+  <li><a href="#elementary-implementations" id="toc-elementary-implementations" class="nav-link" data-scroll-target="#elementary-implementations">Elementary Implementations</a></li>
+  <li><a href="#cost-summary-for-basic-symbol-table-implementations" id="toc-cost-summary-for-basic-symbol-table-implementations" class="nav-link" data-scroll-target="#cost-summary-for-basic-symbol-table-implementations">Cost summary for basic symbol-table implementations</a></li>
+  </ul></li>
+  <li><a href="#workshop" id="toc-workshop" class="nav-link" data-scroll-target="#workshop"><span class="header-section-number">9.8</span> Workshop</a>
+  <ul class="collapse">
+  <li><a href="#quiz" id="toc-quiz" class="nav-link" data-scroll-target="#quiz">Quiz</a></li>
+  <li><a href="#projects" id="toc-projects" class="nav-link" data-scroll-target="#projects">Projects</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">9.9</span> References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./lect04-pointer.html">DATA STRUCTURES</a></li><li class="breadcrumb-item"><a href="./lect05-element-ds.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Elementary Data Structures</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Elementary Data Structures</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="data-abstraction" class="level3">
+<h3 class="anchored" data-anchor-id="data-abstraction">Data Abstraction</h3>
+<div class="definition">
+<p>Data abstraction is a process of hiding the implementation details of data structures and operations, while exposing only the essential features and functionalities to the user.</p>
+</div>
+<p></p><div style="text-align:center;"><img src="images/dsa-data-abstraction.svg" alt="" width="70%"></div><p></p>
+</section>
+<section id="array" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="array"><span class="header-section-number">9.1</span> Array</h2>
+<section id="array-1" class="level4">
+<h4 class="anchored" data-anchor-id="array-1">Array</h4>
+<div class="definition">
+<p>An <strong>array</strong> is a fixed collection of same-type data that are stored <strong>contiguously</strong> and that are accessible by an <strong>index</strong>.</p>
+</div>
+<div class="definition">
+<p>A <strong>dynamic array</strong> is an array whose size can be changed during the execution of the program.</p>
+</div>
+<p></p><div style="text-align:center;"><img src="images/dsa-da-array.svg" alt="" width="80%"></div><p></p>
+</section>
+<section id="example-of-the-sieve-of-eratosthenes" class="level4">
+<h4 class="anchored" data-anchor-id="example-of-the-sieve-of-eratosthenes">Example of The sieve of Eratosthenes</h4>
+<ul>
+<li>A simple program prints out all prime numbers less than <span class="math inline">N</span>.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> sieve<span class="op">(</span><span class="dt">int</span> N<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> <span class="op">*</span>a <span class="op">=</span> <span class="kw">new</span> <span class="dt">int</span><span class="op">[</span>N<span class="op">];</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">2</span><span class="op">;</span> i <span class="op">&lt;</span> N<span class="op">;</span> i<span class="op">++)</span> a<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">2</span><span class="op">;</span> i <span class="op">&lt;</span> N<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>a<span class="op">[</span>i<span class="op">])</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> i<span class="op">;</span> i<span class="op">*</span>j <span class="op">&lt;</span> N<span class="op">;</span> j<span class="op">++)</span> a<span class="op">[</span>i<span class="op">*</span>j<span class="op">]</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> <span class="dv">2</span><span class="op">;</span> i <span class="op">&lt;</span> N<span class="op">;</span> i<span class="op">++)</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>a<span class="op">[</span>i<span class="op">])</span> cout <span class="op">&lt;&lt;</span> <span class="st">" "</span> <span class="op">&lt;&lt;</span> i<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">delete</span><span class="op">[]</span> a<span class="op">;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><strong>Challenge</strong>: analysis the program</li>
+</ul>
+</section>
+</section>
+<section id="linked-lists" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="linked-lists"><span class="header-section-number">9.2</span> Linked Lists</h2>
+<section id="linked-lists-1" class="level3">
+<h3 class="anchored" data-anchor-id="linked-lists-1">Linked Lists</h3>
+<div class="definition">
+<p>A <strong>linked list</strong> is a set of items where each item is part of a <strong>node</strong> that also contains a <strong>link</strong> to a node. It allows the items be arranged in a linear order.</p>
+</div>
+<p></p><div style="text-align:center;"><img src="images/dsa-da-list.svg" alt="" width="80%"></div><p></p>
+<p></p><div style="text-align:center;"><img src="images/list-01.svg" alt="" width="90%"></div><p></p>
+<section id="example-of-josephus-election" class="level4">
+<h4 class="anchored" data-anchor-id="example-of-josephus-election">Example of Josephus Election</h4>
+<ul>
+<li>Imagine that <span class="math inline">N</span> people have decided to elect a leader by arranging themselves in a circle and eliminating every <span class="math inline">M</span>th person around the circle, closing ranks as each person drops out. The problem is to find out which person will be the last one remaining</li>
+<li>If <span class="math inline">N=9</span> and <span class="math inline">M=5</span></li>
+</ul>
+<p></p><div style="text-align:center;"><img src="images/ex-Josephus.svg" alt="" width="35%"></div><p></p>
+</section>
+</section>
+<section id="singly-linked-lists" class="level3">
+<h3 class="anchored" data-anchor-id="singly-linked-lists">Singly Linked Lists</h3>
+<section id="data-structure-for-list-node" class="level4">
+<h4 class="anchored" data-anchor-id="data-structure-for-list-node">Data Structure for List Node</h4>
+<ul>
+<li>We use pointers for links and structures for nodes</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> ListNode <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    DataType data<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    ListNode <span class="op">*</span>next<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    ListNode<span class="op">(</span>DataType data<span class="op">,</span> ListNode <span class="op">*</span>next<span class="op">=</span><span class="kw">nullptr</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">-&gt;</span>data <span class="op">=</span> data<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">-&gt;</span>next <span class="op">=</span> next<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">typedef</span> ListNode <span class="op">*</span>Link<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="create-a-list-node" class="level4">
+<h4 class="anchored" data-anchor-id="create-a-list-node">Create a List Node</h4>
+<ul>
+<li>Creating a new node</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ListNode <span class="op">*</span>p <span class="op">=</span> <span class="kw">new</span> ListNode<span class="op">(...);</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>We so often need to use the phrase “the node referenced by link <code>p</code>” that we simply say “node <code>p</code>”</li>
+<li>It is a null link that points to no node.</li>
+<li>It refers to a dummy node that contains no data.</li>
+</ul>
+</section>
+<section id="delete-a-list-node" class="level4">
+<h4 class="anchored" data-anchor-id="delete-a-list-node">Delete a List Node</h4>
+<ul>
+<li>Deleting a node</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ListNode <span class="op">*</span>p<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">...</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">delete</span> p<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Writing a function to delete a node</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> deleteNode<span class="op">(</span>ListNode <span class="op">*</span>p<span class="op">)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="deep-deletion" class="level4">
+<h4 class="anchored" data-anchor-id="deep-deletion">Deep Deletion</h4>
+<ul>
+<li>Deleting a node and its link</li>
+<li>Writing a function to delete a node deeply</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> deepDeleteNode<span class="op">(</span>ListNode <span class="op">*</span>p<span class="op">)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="organize-a-linked-list" class="level4">
+<h4 class="anchored" data-anchor-id="organize-a-linked-list">Organize a Linked List</h4>
+<p></p><div style="text-align:center;"><img src="figures/llist1.1.svg" alt="" width="70%"></div><p></p>
+<p></p><div style="text-align:center;"><img src="figures/llist1.2.svg" alt="" width="70%"></div><p></p>
+<p></p><div style="text-align:center;"><img src="figures/llist1.3.svg" alt="" width="70%"></div><p></p>
+</section>
+<section id="data-structure-for-linked-list" class="level4">
+<h4 class="anchored" data-anchor-id="data-structure-for-linked-list">Data Structure for Linked List</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> LinkedList <span class="op">{</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    ListNode <span class="op">*</span>first<span class="op">;</span> <span class="co">// or ListNode *head;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    LinkedList<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">-&gt;</span>first <span class="op">=</span> <span class="kw">nullptr</span><span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="insert-at-the-beginning" class="level4">
+<h4 class="anchored" data-anchor-id="insert-at-the-beginning">Insert at The Beginning</h4>
+<p></p><div style="text-align:center;"><img src="figures/llist2.1.svg" alt="" width="70%"></div><p></p>
+<p></p><div style="text-align:center;"><img src="figures/llist2.2.svg" alt="" width="70%"></div><p></p>
+<p></p><div style="text-align:center;"><img src="figures/llist2.3.svg" alt="" width="70%"></div><p></p>
+</section>
+<section id="traversing-a-linked-list" class="level4">
+<h4 class="anchored" data-anchor-id="traversing-a-linked-list">Traversing a Linked List</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Assign List head to node pointer.</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">while</span> node pointer is not null</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    Display the value member of the node pointed to by node pointer.</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    Assign node pointer to its own next member.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="another-data-structure-for-linked-list" class="level4">
+<h4 class="anchored" data-anchor-id="another-data-structure-for-linked-list">Another Data Structure for Linked List</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> LinkedList <span class="op">{</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    ListNode <span class="op">*</span>first<span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    ListNode <span class="op">*</span>last<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    LinkedList<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">-&gt;</span>first <span class="op">=</span> <span class="kw">nullptr</span><span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">-&gt;</span>last <span class="op">=</span> <span class="kw">nullptr</span><span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="insert-at-the-end" class="level4">
+<h4 class="anchored" data-anchor-id="insert-at-the-end">Insert at The End</h4>
+<p></p><div style="text-align:center;"><img src="figures/llist4.1.svg" alt="" width="70%"></div><p></p>
+<p></p><div style="text-align:center;"><img src="figures/llist4.2.svg" alt="" width="70%"></div><p></p>
+<p></p><div style="text-align:center;"><img src="figures/llist4.3.svg" alt="" width="70%"></div><p></p>
+</section>
+<section id="remove-from-the-beginning" class="level4">
+<h4 class="anchored" data-anchor-id="remove-from-the-beginning">Remove from The Beginning</h4>
+<p></p><div style="text-align:center;"><img src="figures/llist3.svg" alt="" width="70%"></div><p></p>
+</section>
+<section id="search" class="level4">
+<h4 class="anchored" data-anchor-id="search">Search</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ListNode <span class="op">*</span>search<span class="op">(</span>ListNode <span class="op">*</span>first<span class="op">,</span> DataType k<span class="op">)</span>  <span class="op">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    ListNode <span class="op">*</span>current <span class="op">=</span> first<span class="op">;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span><span class="op">(</span>current<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>current<span class="op">-&gt;</span>data <span class="op">==</span> k<span class="op">)</span> then <span class="cf">return</span> current<span class="op">;</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        current <span class="op">=</span> current<span class="op">-&gt;</span>next<span class="op">;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="kw">nullptr</span><span class="op">;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="ordered-linked-list" class="level3">
+<h3 class="anchored" data-anchor-id="ordered-linked-list">Ordered Linked List</h3>
+<section id="ordered-linked-list-1" class="level4">
+<h4 class="anchored" data-anchor-id="ordered-linked-list-1">Ordered Linked List</h4>
+<div class="definition">
+<p>An ordered linked list is a data structure that maintains a collection of elements in a linear sequence. The elements in an ordered linked list are arranged in a specific order, such as ascending or descending, based on the values of the elements.</p>
+</div>
+</section>
+<section id="insert" class="level4">
+<h4 class="anchored" data-anchor-id="insert">Insert</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>Create a new node.</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>Store data in the new node.</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> there are no nodes in the list <span class="kw">then</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    Make the new node the first node.</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="kw">else</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    Find the first node whose value is greater than or equal to the new</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        value, or the end of the list (whichever is first).</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    Insert the new node before the found node, or at the end of the list </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> no such node was found.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="dummy-head-node" class="level4">
+<h4 class="anchored" data-anchor-id="dummy-head-node">Dummy Head Node</h4>
+<div class="definition">
+<p>A dummy head node is a head node that does not store any actual data related to the problem.</p>
+</div>
+<p></p><div style="text-align:center;"><img src="images/dsa-dummy-head.svg" alt="" width="80%"></div><p></p>
+</section>
+<section id="sort" class="level4">
+<h4 class="anchored" data-anchor-id="sort">Sort</h4>
+<div class="definition">
+<p>Sorting an unordered linked list is arranging the elements of the list in a specific order, typically ascending or descending</p>
+</div>
+</section>
+</section>
+</section>
+<section id="variations-on-linked-list" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="variations-on-linked-list"><span class="header-section-number">9.3</span> Variations on Linked List</h2>
+<section id="circular-linked-lists" class="level3">
+<h3 class="anchored" data-anchor-id="circular-linked-lists">Circular Linked Lists</h3>
+<section id="circular-linked-lists-1" class="level4">
+<h4 class="anchored" data-anchor-id="circular-linked-lists-1">Circular Linked Lists</h4>
+<div class="definition">
+<p>Circular linked list is a variation of linked list in which the last element points to the first element (or the first element points to the last element and).</p>
+</div>
+<p></p><div style="text-align:center;"><img src="images/list-02.svg" alt="" width="90%"></div><p></p>
+</section>
+</section>
+<section id="doubly-linked-lists" class="level3">
+<h3 class="anchored" data-anchor-id="doubly-linked-lists">Doubly Linked Lists</h3>
+<section id="doubly-linked-lists-1" class="level4">
+<h4 class="anchored" data-anchor-id="doubly-linked-lists-1">Doubly Linked Lists</h4>
+<div class="definition">
+<p>Doubly linked is a variation of linked list in that it has two pointers. One points to the next node as before, while the other points to the previous node.</p>
+</div>
+<p></p><div style="text-align:center;"><img src="images/list-03.svg" alt="" width="90%"></div><p></p>
+</section>
+</section>
+<section id="generalized-lists" class="level3">
+<h3 class="anchored" data-anchor-id="generalized-lists">Generalized Lists</h3>
+<section id="how-to-extend-linked-list" class="level4">
+<h4 class="anchored" data-anchor-id="how-to-extend-linked-list">How to Extend Linked List</h4>
+<p>We can extend a data structure of linked list by abstracting - Data field - Link field</p>
+</section>
+<section id="multi-linked-list" class="level4">
+<h4 class="anchored" data-anchor-id="multi-linked-list">Multi-Linked List</h4>
+<div class="definition">
+<p>A multi-linked list is a variation of the traditional linked list data structure where each node can have multiple pointers, or references, to other nodes, creating a hierarchical structure.</p>
+</div>
+<ul>
+<li>Skip List</li>
+</ul>
+<p></p><div style="text-align:center;"><img src="images/Skip_list.svg" alt="" width="90%"></div><p></p>
+</section>
+<section id="multi-linked-list-1" class="level4">
+<h4 class="anchored" data-anchor-id="multi-linked-list-1">Multi-Linked List</h4>
+<p></p><div style="text-align:center;"><img src="images/dsa-multi-links.svg" alt="" width="100%"></div><p></p>
+</section>
+<section id="generalized-lists-1" class="level4">
+<h4 class="anchored" data-anchor-id="generalized-lists-1">Generalized Lists</h4>
+<div class="definition">
+<p>A generalized list <span class="math inline">l</span> is a finite sequence of <span class="math inline">n\geq0</span> elements, <span class="math inline">\{e_{0},e_{1},\ldots,e_{n-1}\}</span>, where <span class="math inline">e_{i}</span> is either an element or a generalized list.</p>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> GenListNode <span class="op">{</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">bool</span> tag<span class="op">;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    GenListNode<span class="op">*</span> next<span class="op">;</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">union</span> <span class="op">{</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        DataType data<span class="op">;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        GenListNode<span class="op">*</span> down<span class="op">;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Consider the generalized list <span class="math inline">L=((a,b,c),((d,e),f),g)</span></li>
+</ul>
+<p></p><div style="text-align:center;"><img src="images/list-04.svg" alt="" width="90%"></div><p></p>
+</section>
+</section>
+</section>
+<section id="stack" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="stack"><span class="header-section-number">9.4</span> Stack</h2>
+<section id="stack-1" class="level3">
+<h3 class="anchored" data-anchor-id="stack-1">Stack</h3>
+<div class="definition">
+<p>A <strong>stack</strong> is a data structure that stores and retrieves items in a last-in-first- out (LIFO) manner.</p>
+</div>
+<p></p><div style="text-align:center;"><img src="figures/pic-stack.svg" alt="" width="20%"></div><p></p>
+</section>
+<section id="stack-api" class="level3">
+<h3 class="anchored" data-anchor-id="stack-api">Stack API</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>method</strong></th>
+<th style="text-align: left;"><strong>description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>boolean isEmpty()</code></td>
+<td style="text-align: left;">is the stack empty?</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>int size()</code></td>
+<td style="text-align: left;">number of items in the stack</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>void push(Item item)</code></td>
+<td style="text-align: left;">add <span class="math inline">item</span> to the stack</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Item top()</code></td>
+<td style="text-align: left;">most recently added item</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>void pop()</code></td>
+<td style="text-align: left;">remove the most recently added item</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="stack-applications" class="level3">
+<h3 class="anchored" data-anchor-id="stack-applications">Stack applications</h3>
+<ul>
+<li>Parsing in a compiler.</li>
+<li>Java virtual machine.</li>
+<li>Undo in a word processor.</li>
+<li>Back button in a Web browser.</li>
+<li>PostScript language for printers.</li>
+<li>Implementing function calls in a compiler.</li>
+<li>…</li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/pic-stack-queue-apps.png" alt="" width="70%"></div><p></p>
+</section>
+<section id="function-calls" class="level3">
+<h3 class="anchored" data-anchor-id="function-calls">Function calls</h3>
+<ul>
+<li>How a compiler implements a function.
+<ul>
+<li>Function call: <strong>push</strong> local environment and return address.</li>
+<li>Return: <strong>pop</strong> return address and local environment.</li>
+</ul></li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/stack-function-call.svg" alt="" width="70%"></div><p></p>
+</section>
+<section id="remove-recursion" class="level3">
+<h3 class="anchored" data-anchor-id="remove-recursion">Remove recursion</h3>
+<ul>
+<li><strong>Recursive function</strong>: Function that calls itself.</li>
+<li>Can always use an explicit stack to remove recursion.</li>
+<li><strong>Challenge</strong>: reimplement quicksort without using recursion</li>
+</ul>
+</section>
+<section id="arithmetic-expression" class="level3">
+<h3 class="anchored" data-anchor-id="arithmetic-expression">Arithmetic expression</h3>
+<p>Arithmetic expression can be represented in</p>
+<ul>
+<li><p>infix</p>
+<p><code>⟨operand 1⟩ ⟨operator⟩ ⟨operand 2⟩</code></p></li>
+<li><p>prefix (Polish Notation)</p>
+<p><code>⟨operator⟩ ⟨operand 1⟩ ⟨operand 2⟩</code></p></li>
+<li><p>postfix (Reverse-Polish Notation)</p>
+<p><code>⟨operand 1⟩ ⟨operand 2⟩ ⟨operator⟩</code></p></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>infix</strong></th>
+<th style="text-align: center;"><strong>prefix</strong></th>
+<th style="text-align: center;"><strong>postfix</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><code>A+B*C</code></td>
+<td style="text-align: center;"><code>+*BCA</code></td>
+<td style="text-align: center;"><code>BC*+A</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>(A-B)/C</code></td>
+<td style="text-align: center;"><code>/-ABC</code></td>
+<td style="text-align: center;"><code>AB-C/</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>(A+B)*(C-D)</code></td>
+<td style="text-align: center;"><code>*+AB-CD</code></td>
+<td style="text-align: center;"><code>AB+CD-*</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="conversion-of-an-infix-expression-to-postfix" class="level3">
+<h3 class="anchored" data-anchor-id="conversion-of-an-infix-expression-to-postfix">Conversion of an infix expression to postfix</h3>
+<ul>
+<li>Convert <code>infixExp</code> to <code>postfixExp</code></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>stackOps.push('(')</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>infixExp.append(')')</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">while</span> not infixExp.end()?</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    tok ← infixExp.nextToken()</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> tok is operand <span class="kw">then</span> postfixExp.append(tok)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> tok is <span class="st">"("</span> <span class="kw">then</span> stackOps.push(tok)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> tok is operator <span class="kw">then</span> </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">while</span> precedence of stackOps.top() is higher than or equal tok?</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>            postfixExp.append(stackOps.pop())</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>            stackOps.push(tok)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> tok is <span class="st">")"</span> <span class="kw">then</span> </span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">while</span> stackOps.top() is not <span class="st">"("</span>?</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>            postfixExp.append(stackOps.pop())</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        stackOps.pop()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="example" class="level3">
+<h3 class="anchored" data-anchor-id="example">Example</h3>
+<ul>
+<li>Convert the infix expression <code>(A+B)*(C-(D+A))</code> into a postfix expression</li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><code>tok</code></th>
+<th style="text-align: left;"><code>stackOps</code></th>
+<th style="text-align: left;"><code>postfixExp</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"> </td>
+<td style="text-align: left;"> </td>
+<td style="text-align: left;"> </td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"> </td>
+<td style="text-align: left;"> </td>
+<td style="text-align: left;"> </td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="arithmetic-expression-evaluation" class="level3">
+<h3 class="anchored" data-anchor-id="arithmetic-expression-evaluation">Arithmetic expression evaluation</h3>
+<ul>
+<li>A <em>simple version</em> of two-stack algorithm proposed by E. W. Dijkstra</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode pseudo code-with-copy"><code class="sourceCode pseudo"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Scan tokens from the expression (fully parenthesized)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">if</span> token is</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    - Value: push onto the value stack.</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    - Operator: push onto the operator stack.</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    - Left parenthesis: ignore.</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    - Right parenthesis: </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        - pop operator and two values.</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        - push the result of applying that operator to those values onto the</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        operand stack.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Evaluate the expression <code>( 1 + ( ( 2 + 3 ) * ( 4 * 5 ) ) )</code></li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/stack-dijkstra.svg" alt="" width="35%"></div><p></p>
+</section>
+<section id="implementation-simple" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-simple">Implementation (simple)</h3>
+<ul>
+<li>Input <code>in</code> is a arithmetic expression that is fully parenthesized and contains delimiters (space characters)</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="dt">double</span> evaluate<span class="op">(</span>istream<span class="op">&amp;</span> in<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    stack<span class="op">&lt;</span>string<span class="op">&gt;</span> ops<span class="op">;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    stack<span class="op">&lt;</span><span class="dt">double</span><span class="op">&gt;</span> vals<span class="op">;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    string tok<span class="op">;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(!</span>in<span class="op">.</span>eof<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        in <span class="op">&gt;&gt;</span> tok<span class="op">;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>tok <span class="op">==</span> <span class="st">"("</span><span class="op">);</span>        </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>tok <span class="op">==</span> <span class="st">"+"</span> <span class="op">||</span> tok <span class="op">==</span> <span class="st">"*"</span><span class="op">)</span> ops<span class="op">.</span>push<span class="op">(</span>tok<span class="op">);</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>tok <span class="op">==</span> <span class="st">")"</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>            string op <span class="op">=</span> ops<span class="op">.</span>top<span class="op">();</span> ops<span class="op">.</span>pop<span class="op">();</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>            <span class="dt">double</span> val2 <span class="op">=</span> vals<span class="op">.</span>top<span class="op">();</span> vals<span class="op">.</span>pop<span class="op">();</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>            <span class="dt">double</span> val1 <span class="op">=</span> vals<span class="op">.</span>top<span class="op">();</span> vals<span class="op">.</span>pop<span class="op">();</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>op <span class="op">==</span> <span class="st">"+"</span><span class="op">)</span> vals<span class="op">.</span>push<span class="op">(</span>val1 <span class="op">+</span> val2<span class="op">);</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>op <span class="op">==</span> <span class="st">"*"</span><span class="op">)</span> vals<span class="op">.</span>push<span class="op">(</span>val1 <span class="op">*</span> val2<span class="op">);</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> vals<span class="op">.</span>push<span class="op">(</span>stod<span class="op">(</span>tok<span class="op">));</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> vals<span class="op">.</span>top<span class="op">();</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="queue" class="level2" data-number="9.5">
+<h2 data-number="9.5" class="anchored" data-anchor-id="queue"><span class="header-section-number">9.5</span> Queue</h2>
+<section id="queue-1" class="level3">
+<h3 class="anchored" data-anchor-id="queue-1">Queue</h3>
+<div class="definition">
+<p>A <strong>queue</strong> is a data structure that stores and retrieves items in a first-in- first-out (FIFO) manner.</p>
+</div>
+<p></p><div style="text-align:center;"><img src="figures/pic-queue.svg" alt="" width="90%"></div><p></p>
+</section>
+<section id="queue-api" class="level3">
+<h3 class="anchored" data-anchor-id="queue-api">Queue API</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>method</strong></th>
+<th style="text-align: left;"><strong>description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>boolean isEmpty()</code></td>
+<td style="text-align: left;">is the queue empty?</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>int size()</code></td>
+<td style="text-align: left;">number of items in the queue</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>void enqueue(Item item)</code></td>
+<td style="text-align: left;">add <span class="math inline">item</span> to the queue</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>void dequeue()</code></td>
+<td style="text-align: left;">remove the least recently added item</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Item front()</code></td>
+<td style="text-align: left;">the least recently added item</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="queue-applications" class="level3">
+<h3 class="anchored" data-anchor-id="queue-applications">Queue applications</h3>
+<ul>
+<li>Operating systems (queuing messages, IO requests, mouse movements, etc),</li>
+<li>Web servers (queuing incoming requests, file operations, etc)</li>
+<li>Ticket counter line where people who come first will get his ticket first</li>
+<li>Bank line where people who come first will done his transaction first</li>
+<li>…</li>
+</ul>
+</section>
+</section>
+<section id="deque" class="level2" data-number="9.6">
+<h2 data-number="9.6" class="anchored" data-anchor-id="deque"><span class="header-section-number">9.6</span> Deque</h2>
+<section id="deque-1" class="level3">
+<h3 class="anchored" data-anchor-id="deque-1">Deque</h3>
+<div class="definition">
+<p>The <strong>deque</strong> stands for <strong>Double Ended Queue</strong>. Deque is a linear data structure where the insertion and deletion operations are performed from both ends. We can say that deque is a generalized version of the queue.</p>
+</div>
+<p></p><div style="text-align:center;"><img src="figures/deque-01.svg" alt="" width="90%"></div><p></p>
+<p>Some restricted deques</p>
+<ul>
+<li>If we insert at the end and remove at the end, we get a stack</li>
+<li>if we insert at the end and remove at the beginning, we get a FIFO queue</li>
+</ul>
+<p>Array-based deque</p>
+<p></p><div style="text-align:center;"><img src="images/dsa-array-deque.svg" alt="" width="90%"></div><p></p>
+</section>
+<section id="deque-api" class="level3">
+<h3 class="anchored" data-anchor-id="deque-api">Deque API</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>method</strong></th>
+<th style="text-align: left;"><strong>description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>void push_front(Item item)</code></td>
+<td style="text-align: left;">Insert item at the front</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>void push_back(Item item)</code></td>
+<td style="text-align: left;">Insert item at the back</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>void pop_front()</code></td>
+<td style="text-align: left;">Remove at the front</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>void pop_back()</code></td>
+<td style="text-align: left;">Remove at the back</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">…</td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="symbol-tables" class="level2" data-number="9.7">
+<h2 data-number="9.7" class="anchored" data-anchor-id="symbol-tables"><span class="header-section-number">9.7</span> Symbol Tables</h2>
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<div class="definition">
+<p>A <strong>symbol table</strong> is a data structure of <strong>key</strong>-<strong>value</strong> pair abstraction that supports two basic operations:</p>
+<ul>
+<li><strong>Insert</strong> a value (item) with specified key.</li>
+<li>Given a key, <strong>search</strong> for the corresponding value.</li>
+</ul>
+</div>
+<ul>
+<li>For example, DNS lookup.
+<ul>
+<li>Insert domain name with specified IP address.</li>
+<li>Given domain name, find corresponding IP address.</li>
+</ul></li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/op-search.svg" alt="" width="55%"></div><p></p>
+</section>
+<section id="symbol-table-applications" class="level3">
+<h3 class="anchored" data-anchor-id="symbol-table-applications">Symbol table applications</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>Application</strong></th>
+<th style="text-align: center;"><strong>Purpose Of Search</strong></th>
+<th style="text-align: center;"><strong>Key</strong></th>
+<th style="text-align: center;"><strong>Value</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">dictionary</td>
+<td style="text-align: center;">find definition</td>
+<td style="text-align: center;">word</td>
+<td style="text-align: center;">definition</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">book index</td>
+<td style="text-align: center;">find relevant pages</td>
+<td style="text-align: center;">term</td>
+<td style="text-align: center;">list of page numbers</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">file share</td>
+<td style="text-align: center;">find song to download</td>
+<td style="text-align: center;">name of song</td>
+<td style="text-align: center;">computer ID</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">financial account</td>
+<td style="text-align: center;">process transactions</td>
+<td style="text-align: center;">account number</td>
+<td style="text-align: center;">transaction details</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">web search</td>
+<td style="text-align: center;">find relevant web pages</td>
+<td style="text-align: center;">keyword</td>
+<td style="text-align: center;">list of page names</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">compiler</td>
+<td style="text-align: center;">find properties of variables</td>
+<td style="text-align: center;">variable name</td>
+<td style="text-align: center;">type and value</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">routing table</td>
+<td style="text-align: center;">route Internet packets</td>
+<td style="text-align: center;">destination</td>
+<td style="text-align: center;">best route</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">DNS</td>
+<td style="text-align: center;">find IP address</td>
+<td style="text-align: center;">domain name</td>
+<td style="text-align: center;">IP address</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">reverse DNS</td>
+<td style="text-align: center;">find domain name</td>
+<td style="text-align: center;">IP address</td>
+<td style="text-align: center;">domain name</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">genomics</td>
+<td style="text-align: center;">find markers</td>
+<td style="text-align: center;">DNA string</td>
+<td style="text-align: center;">known positions</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">file system</td>
+<td style="text-align: center;">find file on disk</td>
+<td style="text-align: center;">filename</td>
+<td style="text-align: center;">location on disk</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="abstract-data-type" class="level3">
+<h3 class="anchored" data-anchor-id="abstract-data-type">Abstract Data Type</h3>
+<section id="symbol-table-abstract-data-type" class="level4">
+<h4 class="anchored" data-anchor-id="symbol-table-abstract-data-type">Symbol-Table Abstract Data Type</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> Key<span class="op">,</span> <span class="kw">class</span> Value<span class="op">&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SymbolTable <span class="op">{</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span><span class="op">:</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Implementation-dependent code</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> count<span class="op">()</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    Value search<span class="op">(</span>Key<span class="op">)</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> insert<span class="op">(</span>Key<span class="op">,</span> Value<span class="op">)</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> remove<span class="op">(</span>Key<span class="op">)</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    Key select<span class="op">(</span><span class="dt">int</span><span class="op">)</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="conventions" class="level4">
+<h4 class="anchored" data-anchor-id="conventions">Conventions</h4>
+<ul>
+<li>Value type:
+<ul>
+<li>Any generic type.</li>
+<li>Values are not null. (<code>nullValue</code>)</li>
+</ul></li>
+<li>Key type:
+<ul>
+<li>Keys are any generic type.</li>
+<li>Keys are Comparable.</li>
+<li>Keys are unique and not null. (<code>nullKey</code>)</li>
+</ul></li>
+</ul>
+</section>
+<section id="ordered-symbol-table-abstract-data-type" class="level4">
+<h4 class="anchored" data-anchor-id="ordered-symbol-table-abstract-data-type">Ordered Symbol-Table Abstract Data Type</h4>
+<ul>
+<li>For ordered symbol-table, we need the following additional methods</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Methods</strong></th>
+<th style="text-align: left;"><strong>Meanings</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>Key min()</code></td>
+<td style="text-align: left;">smallest key</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Key max()</code></td>
+<td style="text-align: left;">largest key</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Key floor(Key key)</code></td>
+<td style="text-align: left;">largest key less than or equal to key</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>Key ceiling(Key key)</code></td>
+<td style="text-align: left;">smallest key greater than or equal to key</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>Key select(int k)</code></td>
+<td style="text-align: left;">key of rank k</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>int rank(Key key)</code></td>
+<td style="text-align: left;">number of keys less than key</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>vector&lt;Key&gt; range(int l, int r)</code></td>
+<td style="text-align: left;">keys in sorted set of keys [l..r]</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>vector&lt;Key&gt; keys(Key lo, Key hi)</code></td>
+<td style="text-align: left;">keys in [lo..hi], in sorted order</td>
+</tr>
+</tbody>
+</table>
+<section id="examples-of-ordered-symbol-table-api" class="level5">
+<h5 class="anchored" data-anchor-id="examples-of-ordered-symbol-table-api">Examples of ordered symbol table API</h5>
+<p></p><div style="text-align:center;"><img src="figures/op-st.svg" alt="" width="58%"></div><p></p>
+</section>
+</section>
+</section>
+<section id="elementary-implementations" class="level3">
+<h3 class="anchored" data-anchor-id="elementary-implementations">Elementary Implementations</h3>
+<section id="array-based-symbol-table" class="level4">
+<h4 class="anchored" data-anchor-id="array-based-symbol-table">Array-based Symbol Table</h4>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> Key<span class="op">,</span> <span class="kw">class</span> Value<span class="op">&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ArraySymbolTable<span class="op">:</span> <span class="kw">public</span> SymbolTable<span class="op">&lt;</span>Key<span class="op">,</span> Value<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span><span class="op">:</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    Value <span class="op">*</span>values<span class="op">;</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    Key <span class="op">*</span>keys<span class="op">;</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> N<span class="op">;</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span><span class="op">:</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    ArraySymbolTable<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">...</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="sequential-search" class="level4">
+<h4 class="anchored" data-anchor-id="sequential-search">Sequential Search</h4>
+<ul>
+<li>The <code>search</code> function can scan through the array of <code>keys</code> to look for an item with the specified <code>key</code>, returning <code>nullValue</code> when encountering an item with a larger key</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Value seqsearch<span class="op">(</span><span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> r<span class="op">,</span> Key key<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span><span class="dt">int</span> i<span class="op">=</span>l<span class="op">;</span> i<span class="op">&lt;=</span>r<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>keys<span class="op">[</span>i<span class="op">]</span> <span class="op">==</span> key<span class="op">)</span> <span class="cf">return</span> values<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> nullValue<span class="op">;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>Value search<span class="op">(</span>Key key<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> seqsearch<span class="op">(</span><span class="dv">0</span><span class="op">,</span> N<span class="op">-</span><span class="dv">1</span><span class="op">,</span> key<span class="op">);</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><p><strong>Challenge</strong>: Can we make any improvement?</p></li>
+<li><p>Analysis</p></li>
+</ul>
+<div class="theorem">
+<p>Sequential search in a symbol table with <span class="math inline">N</span> ordered items uses about <span class="math inline">N/2</span> comparisons for <strong>search hits</strong> andh <strong>search misses</strong> (on the average)</p>
+</div>
+</section>
+<section id="binary-search" class="level4">
+<h4 class="anchored" data-anchor-id="binary-search">Binary Search</h4>
+<blockquote class="blockquote">
+<p><strong>Idea</strong></p>
+<p>Given that the array <code>keys</code> is sorted, the search checks the middle element of the active region.</p>
+<ul>
+<li>If the middle element is the target element, the search terminates.</li>
+<li>Otherwise, the search recursively continues to the left or right half of the region, depending on the value of the middle element.</li>
+</ul>
+</blockquote>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>Value binsearch<span class="op">(</span><span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> r<span class="op">,</span> Key key<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> m<span class="op">;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">do</span> <span class="op">{</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> <span class="op">(</span>l <span class="op">+</span> r<span class="op">)</span> <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>keys<span class="op">[</span>m<span class="op">]</span> <span class="op">==</span> key<span class="op">)</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> values<span class="op">[</span>m<span class="op">];</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>keys<span class="op">[</span>m<span class="op">]</span> <span class="op">&gt;</span> key<span class="op">)</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>            r <span class="op">=</span> m <span class="op">-</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>            l <span class="op">=</span> m <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">while</span> <span class="op">(</span>l <span class="op">&lt;=</span> r<span class="op">);</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> nullValue<span class="op">;</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><p><strong>Challenge</strong>: Reimplement the function using recursion.</p></li>
+<li><p>Analysis</p></li>
+</ul>
+<div class="theorem">
+<p>Binary search never uses more than <span class="math inline">\log_{2}(N+1)</span> comparisons for a search (hit or miss)</p>
+</div>
+</section>
+<section id="interpolation-search" class="level4">
+<h4 class="anchored" data-anchor-id="interpolation-search">Interpolation Search</h4>
+<ul>
+<li>We can replace the formula <span class="math display">
+m\gets l+\frac{1}{2}(r-l)
+</span> with <span class="math display">
+m\gets l+\frac{key-keys[l]}{keys[r]-keys[l]}(r-l)
+</span></li>
+</ul>
+</section>
+<section id="selection" class="level4">
+<h4 class="anchored" data-anchor-id="selection">Selection</h4>
+<p><strong>Problem.</strong> Finding the <span class="math inline">k</span>-th smallest of a set of keys without required full sort.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> Item<span class="op">&gt;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> select<span class="op">(</span>Item a<span class="op">[],</span> <span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> r<span class="op">,</span> <span class="dt">int</span> k<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>r <span class="op">&lt;=</span> l<span class="op">)</span> <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i <span class="op">=</span> partition<span class="op">(</span>a<span class="op">,</span> l<span class="op">,</span> r<span class="op">);</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>i <span class="op">&gt;</span> k<span class="op">)</span> select<span class="op">(</span>a<span class="op">,</span> l<span class="op">,</span> i <span class="op">-</span> <span class="dv">1</span><span class="op">,</span> k<span class="op">);</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>i <span class="op">&lt;</span> k<span class="op">)</span> select<span class="op">(</span>a<span class="op">,</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> r<span class="op">,</span> k<span class="op">);</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><p><strong>Challenge</strong>: reimplement the function without using recursion</p></li>
+<li><p>Analysis</p></li>
+</ul>
+<div class="theorem">
+<p>Quicksort-based selection is linear time on the average</p>
+</div>
+</section>
+</section>
+<section id="cost-summary-for-basic-symbol-table-implementations" class="level3">
+<h3 class="anchored" data-anchor-id="cost-summary-for-basic-symbol-table-implementations">Cost summary for basic symbol-table implementations</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">implementation</th>
+<th style="text-align: center;">search (worst)</th>
+<th style="text-align: center;">insert (worst)</th>
+<th style="text-align: center;">remove (worst)</th>
+<th style="text-align: center;">search hit (avg)</th>
+<th style="text-align: center;">insert (avg)</th>
+<th style="text-align: center;">remove (avg)</th>
+<th style="text-align: center;">ordered iteration</th>
+<th style="text-align: center;">key</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>unordered list</strong></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">N/2</span></td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><span class="math inline">N/2</span></td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">equal</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>ordered list</strong></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">N/2</span></td>
+<td style="text-align: center;"><span class="math inline">N/2</span></td>
+<td style="text-align: center;"><span class="math inline">N/2</span></td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">compare</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>ordered array</strong></td>
+<td style="text-align: center;"><span class="math inline">\log_{2}N</span></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+<td style="text-align: center;"><span class="math inline">\log_{2}N</span></td>
+<td style="text-align: center;"><span class="math inline">N/2</span></td>
+<td style="text-align: center;"><span class="math inline">N/2</span></td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">compare</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>goal?</strong></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="workshop" class="level2" data-number="9.8">
+<h2 data-number="9.8" class="anchored" data-anchor-id="workshop"><span class="header-section-number">9.8</span> Workshop</h2>
+<section id="quiz" class="level3">
+<h3 class="anchored" data-anchor-id="quiz">Quiz</h3>
+<ol type="1">
+<li><p>What is a linked list?</p></li>
+<li><p>What is a stack?</p></li>
+<li><p>What is a queue?</p></li>
+<li><p>A letter means push and an asterisk means pop in the sequence <code>EAS*Y*QUE***ST***IO*N***</code></p>
+<p>Give the sequence of values returned by the pop operations.</p></li>
+<li><p>An uppercase letter means put at the beginning, a lowercase letter means put at the end, a plus sign means get from the beginning, and an asterisk means get from the end in the sequence <code>EAs+Y+QUE**+st+*+IO*n++*</code></p>
+<p>Give the sequence of values returned by the get operations when this sequence of operations is performed on an initially empty deque.</p></li>
+</ol>
+</section>
+<section id="projects" class="level3">
+<h3 class="anchored" data-anchor-id="projects">Projects</h3>
+<ol type="1">
+<li><p>Design and implement class <code>Polynomial</code></p></li>
+<li><p>Design and implement class <code>Tensor</code></p></li>
+<li><p>Design and implement class <code>SparseMatrix</code></p></li>
+<li><p>Design and implement class <code>Expression</code></p></li>
+<li><p>(Big project) Design and implement a tiny relational database project.</p>
+<p></p><div style="text-align:center;"><img src="figures/ds-database.svg" alt="" width="60%"></div><p></p></li>
+</ol>
+</section>
+</section>
+<section id="references" class="level2" data-number="9.9">
+<h2 data-number="9.9" class="anchored" data-anchor-id="references"><span class="header-section-number">9.9</span> References</h2>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./lect05-file.html" class="pagination-link" aria-label="FILE &amp; STREAM">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">FILE &amp; STREAM</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./lect06-tree.html" class="pagination-link" aria-label="Trees &amp; Binary Trees">
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Trees &amp; Binary Trees</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

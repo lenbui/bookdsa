@@ -1,0 +1,1064 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "DATA STRUCTURES AND ALOGRITHMS",
+    "section": "",
+    "text": "About the book\nData Structure and Algorithms",
+    "crumbs": [
+      "About the book"
+    ]
+  },
+  {
+    "objectID": "lect01.html",
+    "href": "lect01.html",
+    "title": "1  INTRODUCTION",
+    "section": "",
+    "text": "Introduction",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>INTRODUCTION</span>"
+    ]
+  },
+  {
+    "objectID": "lect01.html#c-data-type",
+    "href": "lect01.html#c-data-type",
+    "title": "1  INTRODUCTION",
+    "section": "1.1 C++ Data Type",
+    "text": "1.1 C++ Data Type\n\nData Type\n\nDefinition: Data type T = \\langle V, O \\rangle\n\nV is a set of values\nO is a set of operations or methods\n\n\n\nExample: Consider short int T\n\nV = {-32768, ..., 32767}\nO = {+, -, *, /}\n\n\n\n\nC++ Primitive Data Types\n\n\n\nData Type\nSize\nOperations\n\n\n\n\nbool\n1\n…\n\n\nchar, unsigned char\n1\n…\n\n\nshort, unsigned short\n2\n…\n\n\nint, unsigned int\n4\n…\n\n\nlong, unsigned long\n4\n…\n\n\nlong long, unsigned long long\n8\n…\n\n\nfloat\n4\n…\n\n\ndouble\n8\n…\n\n\n\n\n\nC++ Structured Data Types\n\nstring\nstruct\nclass\narray",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>INTRODUCTION</span>"
+    ]
+  },
+  {
+    "objectID": "lect01.html#abstract-data-type",
+    "href": "lect01.html#abstract-data-type",
+    "title": "1  INTRODUCTION",
+    "section": "1.2 Abstract Data Type",
+    "text": "1.2 Abstract Data Type\n\nAbstract Data Type (ADT)\n\nDefinition:\n\nAn abstract data type (ADT) is a specification for a group of values and the operations on those values.\nA data structure is an implementation of an ADT within a programming language.\n\n\n\nExample: A Stack is an iterable collection of items that is based on the last-in-first-out (LIFO) policy.\n\n\n\nMethod\nDescription\n\n\n\n\npush\nadd an item to the stack\n\n\npop\nremove the most recently added item",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>INTRODUCTION</span>"
+    ]
+  },
+  {
+    "objectID": "lect01.html#references",
+    "href": "lect01.html#references",
+    "title": "1  INTRODUCTION",
+    "section": "1.3 References",
+    "text": "1.3 References",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>INTRODUCTION</span>"
+    ]
+  },
+  {
+    "objectID": "recursion.html",
+    "href": "recursion.html",
+    "title": "2  Recursion & Divide-and-Conquer",
+    "section": "",
+    "text": "2.1 Recursion",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Recursion & Divide-and-Conquer</span>"
+    ]
+  },
+  {
+    "objectID": "recursion.html#recursion",
+    "href": "recursion.html#recursion",
+    "title": "2  Recursion & Divide-and-Conquer",
+    "section": "",
+    "text": "Introduction to Recursion?\n\nRecursion occurs when a function calls itself.\n\n\nRecursion can be direct (when the function calls itself) or indirect (when the function calls some other function that then calls the first function).\nRecursion can also be single (when the function calls itself once) or multiple (when the function calls itself multiple times).\n\n\n\nRecursive Algorithm\nWhen designing a recursive algorithm, We must identify\n\nThe base case, which is the part of the problem that we can solve without recursion.\nThe recursive case, or the part of the problem that we use recursion to solve.\n\n\nFactorial\nThe factorial of a number n is written n! and pronounced “N factorial.”\n\nThe base case: if n=0 then factorial(0)=1\nThe recursive case: if n&gt;0 then factorial(n)=factorial(n-1)\\times n\n\nint factorial(int n) { \n    if(n==0) \n        return 1; \n    else\n        return n * factorial(n-1); \n} \n\n\nFibonacci Numbers\nThe Fibonacci numbers are defined by these equations:\n\nf_{0}=1 and f_{1}=1\nf_{n}=f_{n-1}+f_{n-2} for n&gt;1\n\nint fibonacci(int n)  { \n    if(n &lt;= 1)\n        return 1;\n    else\n        return fibonacci(n-1) + fibonacci(n-2);\n} \n\n\nTower of Hanoi\n\nThe Tower of Hanoi puzzle has three pegs.\nOne peg holds a stack of disks of different sizes, ordered from smallest to largest.\nYou cannot place a disk on top of another disk that has a smaller radius.\nThe goal: move disks from one peg to another without placing a disk on top of a smaller disk.\n\nTo move n disks, recursively move the upper n-1 disks to the temporary peg.\nThen move the remaining disk to the destination peg.\nFinally, move the n-1 upper disks from the temporary peg to the destination peg.\n\n\nvoid TowerOfHanoi(int n, char A, char B, char C)  { \n    if(n==1) \n        printf(\"Di chuyen dia tren cung tu %d den %d\\n\", A, C);\n    else {\n        TowerOfHanoi(n-1, A, C, B);\n        printf(\"Di chuyen dia tren cung tu %d den %d\\n\", A, C);\n        TowerOfHanoi(n-1, B, A, C);\n    }\n}",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Recursion & Divide-and-Conquer</span>"
+    ]
+  },
+  {
+    "objectID": "recursion.html#divide-and-conquer",
+    "href": "recursion.html#divide-and-conquer",
+    "title": "2  Recursion & Divide-and-Conquer",
+    "section": "2.2 Divide-and-Conquer",
+    "text": "2.2 Divide-and-Conquer\n\nIntroduction to Divide-and-Conquer\n\nThe divide-and-conquer approach employs this same strategy on an instance of a problem.\n\nIt divides an instance of a problem into two or more smaller instances.\nThe smaller instances are usually instances of the original problem, solves them recursively\n\nIf solutions to the smaller instances can be obtained readily, the solution to the original instance can be obtained by combining these solutions.\nIf the smaller instances are still too large to be solved readily, they can be divided into still smaller instances.\n\nThe divide-and-conquer can be top-down or bottom-up approach.\n\n\n\n\nBinary Search\nLocates a key x in a sorted (nondecreasing order) array \\boldsymbol{a}\n\nIf x equals the middle item, quit. Otherwise:\n\nDivide the array into two subarrays about half as large. If x is smaller than the middle item, choose the left subarray. If x is larger than the middle item, choose the right subarray.\nConquer (solve) the subarray by determining whether x is in that subarray. Unless the subarray is sufficiently small, use recursion to do this.\nObtain the solution to the array from the solution to the subarray.\n\n\nint binarySearch(int a[], int l, int r, int x) {\n    int m = (l+r)/2; \n    if(l&gt;r) return -1; \n    if(a[m]==x)\n        return m; \n    if(a[m]&gt;x) \n        return binarySearch(a, l, m-1, x); \n    if(a[m]&lt;x) \n        return binarySearch(a, m+1, r, x);  \n}",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Recursion & Divide-and-Conquer</span>"
+    ]
+  },
+  {
+    "objectID": "recursion.html#workshop",
+    "href": "recursion.html#workshop",
+    "title": "2  Recursion & Divide-and-Conquer",
+    "section": "2.3 Workshop",
+    "text": "2.3 Workshop\n\nQuiz\n\nWhat is the recursion?\n\n\n\nExercises\n\nWrite a program that solves the Tower of Hanoi puzzle and then displays the moves by graphically drawing disks moving between the pegs",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Recursion & Divide-and-Conquer</span>"
+    ]
+  },
+  {
+    "objectID": "recursion.html#references",
+    "href": "recursion.html#references",
+    "title": "2  Recursion & Divide-and-Conquer",
+    "section": "2.4 References",
+    "text": "2.4 References",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Recursion & Divide-and-Conquer</span>"
+    ]
+  },
+  {
+    "objectID": "fractal.html",
+    "href": "fractal.html",
+    "title": "3  FRACTAL",
+    "section": "",
+    "text": "3.1 Overview of Fractals\nFractal is a branch of geometry that studies objects with the property of self-similarity. This is a property where if we zoom in on a small part of the object, that part looks exactly like the whole object. This characteristic appears frequently in the natural world, such as the shapes of trees, coastlines, mountain ranges, or leaf veins.",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>FRACTAL</span>"
+    ]
+  },
+  {
+    "objectID": "fractal.html#overview-of-fractals",
+    "href": "fractal.html#overview-of-fractals",
+    "title": "3  FRACTAL",
+    "section": "",
+    "text": "Applications of Fractals\nFractal graphics have many practical applications:\n\nImage Generation: Used to create complex natural images such as clouds, mountains, water surfaces, trees.\nImage Compression: Fractal-based image compression algorithms exploit structural repetition in images to reduce storage size.\nScientific Research: Modeling chaotic phenomena, material structures, and complex dynamic systems.\n\n\n\nClassic Fractal Examples\nMany fractals are constructed by repeatedly applying a simple generation rule:\n\nVon Koch Curve (Koch Curve):\n\nBase set (n=0): A line segment.\nGeneration rule: Divide the line segment into 3 equal parts. Remove the middle segment and replace it with two line segments forming an equilateral triangle.\nRepetition: Apply this rule to all new line segments.\n\n\n\n\nMinkowski Curve:\n\nBase set (n=0): A line segment.\nGeneration rule: Divide the line segment into 4 parts. Remove the 2 middle segments and replace them with 6 new line segments.\n\n\n\n\nVon Koch Snowflake (Koch Snowflake):\n\nBase set (n=0): An equilateral triangle.\nGeneration rule: Apply the generation rule of the Von Koch curve to all three sides of the triangle.\n\n\n\nMinkowski Island:\n\nBase set (n=0): A square.\nGeneration rule: Apply the generation rule of the Minkowski curve to all four sides of the square.\n\n\nSierpinski Triangle:\n\nBase set (n=0): A solid equilateral triangle.\nGeneration rule: Divide the triangle into 4 smaller equilateral triangles by connecting the midpoints of the 3 sides. Remove the middle triangle.\nRepetition: Apply this rule to the 3 remaining equilateral triangles.\n\n\n\n\n\n\n\n\nFractal Dimension (Self-similarity Dimension)\nAn important characteristic of fractals is that their “dimension” is not always an integer (like 1D, 2D, 3D). The self-similarity dimension (D) is defined based on the relationship between the number of self-similar copies (N) and the scaling factor (s).\n\nIf a shape H is divided into N parts, each part being a copy of H scaled down by a factor s, then the dimension D is calculated as:\nD = \\frac{\\log(N)}{\\log(1/s)}\n\n\nLine segment (1D): Divided into N small segments, scaling factor s = 1/N. D = \\frac{\\log(N)}{\\log(1 / (1/N))} = \\frac{\\log(N)}{\\log(N)} = 1\n\nSquare (2D): Divided into N \\times N = N^2 small squares, scaling factor s = 1/N. D = \\frac{\\log(N^2)}{\\log(1 / (1/N))} = \\frac{2 \\log(N)}{\\log(N)} = 2\n\nCube (3D): Divided into N \\times N = N^3 small cubes, scaling factor s = 1/N. D = \\frac{\\log(N^3)}{\\log(1 / (1/N))} = \\frac{3 \\log(N)}{\\log(N)} = 3\n\nVon Koch Curve: Each segment is replaced by 4 smaller segments (N=4), each new segment has a length equal to 1/3 of the old segment (s=1/3). D = \\frac{\\log(4)}{\\log(1 / (1/3))} = \\frac{\\log(4)}{\\log(3)} \\approx 1.26 The value 1.26 (greater than 1D of a line but less than 2D of a square) is its “fractal dimension”.",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>FRACTAL</span>"
+    ]
+  },
+  {
+    "objectID": "fractal.html#iterated-function-systems-ifs",
+    "href": "fractal.html#iterated-function-systems-ifs",
+    "title": "3  FRACTAL",
+    "section": "3.2 Iterated Function Systems (IFS)",
+    "text": "3.2 Iterated Function Systems (IFS)\nIFS (Iterated Function Systems) is a solid mathematical foundation for defining and creating fractal shapes.\n\nMathematical Basis\n\nHausdorff Space (H(X)):\n\nThis is a special space where each “element” of it is a subset (specifically a compact, non-empty set) from X.\nOne defines the Hausdorff distance h(A, B) between two sets A and B.\n\n\n\n\nContraction Mapping:\n\nIn a complete Metric space (X, d) (where we can measure distance d).\nA mapping T is called a contraction mapping if it always pulls points closer together.\nThat is, there exists k (with 0 &lt; k &lt; 1) such that: d(T(x'), T(x'')) \\le k \\cdot d(x', x'') for all points x', x'' in X.\n\n\n\n\nImportant Property: Every contraction mapping has a unique fixed point. If we start from any point c and iterate x_{n+1} = T(x_n), the sequence x_n will always converge to that fixed point.\n\n\n\n\n\nAn Iterated Function System (IFS) is a set of contraction mappings {T_1, T_2, \\dots, T_N} on X.\nWe define a new contraction mapping T on the Hausdorff space H(X) as follows: T(A) = T_1(A) \\cup T_2(A) \\cup \\dots \\cup T_N(A) (where T_i(A) = \\{T_i(x) \\mid x \\in A\\}).\nSince T is also a contraction mapping (in the Hausdorff space), it also has a unique “fixed point”. This “fixed point” is a set, and it is the attractor, or fractal shape, of the IFS system.\n\n\n\n\n\nAlgorithm for Generating Fractals from IFS\nThere are two main algorithms to draw the attractor of an IFS:\n\nDeterministic Algorithm:\n\nStart with any initial shape S (e.g., a triangle).\nIterate n times: S = T(S) = T_1(S) \\cup T_2(S) \\cup \\dots \\cup T_N(S)\nThe image will converge to the fractal.\n\n\nExample Equilateral Triangle (Sierpinski Triangle): Using 3 affine transformations (scaling + translation)\n\nT_1: Scale (0.5, 0.5)\nT_2: Scale (0.5, 0.5) + Translate (0.5, 0)\nT_3: Scale (0.5, 0.5) + Translate (0.25, 0.433)\n\n\n\nExample Right Triangle: Using 3 affine transformations (scaling + translation)\n\nT_1: Scale (0.5, 0.5)\nT_2: Scale (0.5, 0.5) + Translate (0.5, 0)\nT_3: Scale (0.5, 0.5) + Translate (0.0, 0.5)\n\n\n\n\nRandom Algorithm:\n\nInput: Transformations {T_1, \\dots, T_N}, a starting point P_0 = (x_0, y_0), and number of iterations k.\n\nDraw point P_0.\nLoop i from 0 to k:\n\nRandomly select a transformation T from the IFS set.\nCalculate the next point: P_{i+1} = T(P_i).\nDraw point P_{i+1}.\n\n\nAfter a number of iterations (e.g., k=10000), the set of drawn points will reveal the shape of the fractal.",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>FRACTAL</span>"
+    ]
+  },
+  {
+    "objectID": "fractal.html#l-system",
+    "href": "fractal.html#l-system",
+    "title": "3  FRACTAL",
+    "section": "3.3 L-System",
+    "text": "3.3 L-System\nL-System (Lindenmayer System) is a formal grammar system, originally developed to model the growth of plants. It creates fractals by string rewriting.\n\nTurtle Graphics\nL-System is often drawn using Turtle Graphics. A “turtle” (drawing pen) has 3 attributes:\n\nPosition (p)\nDirection (\\alpha)\nDrawing parameters: step size \\Delta d and turning angle \\Delta \\alpha.\n\nThe symbols in the L-System string are interpreted as commands controlling the “turtle”:\n\n\n\n\n\n\n\nCommand\nContent\n\n\n\n\nF\nMove forward a segment \\Delta d.\n\n\n+\nTurn the drawing pen left by an angle \\Delta \\alpha.\n\n\n-\nTurn the drawing pen right by an angle \\Delta \\alpha.\n\n\n[\nSave the current position (p) and direction (\\alpha) of the turtle (push to stack).\n\n\n]\nRestore the saved position (p) and direction (\\alpha) (pop from stack).\n\n\n\n\n\n\n\nL-System Definition\nAn L-System includes:\n\nSymbol Set: Characters that the turtle understands (e.g., F, +, -, [, ]).\nAxiom s_0: The initial character string.\nProduction Rules: Rules for replacing characters. Example: F \\to F+F-F.\n\n\n\nExecution Process:\n\nStart from the axiom s_0.\nIterate n times: At each step, simultaneously apply the production rules to all characters in the current string to create a new string (s_0 \\to s_1 \\to s_2 \\to \\dots \\to s_n).\nUse Turtle Graphics to draw the final string s_n.\n\n\n\n\n\nL-System Examples\n\nExample 1\n\nAxiom s_0 = F++F++F\nProduction Rules\n\nF \\to F-F++F-F\n\n\\Delta\\alpha = 60.0^\\circ\n\n\n\n\nExample 2\n\nAxiom s_0 = F\nProduction Rules\n\nF \\to FF+[+F-F-F]-[-F+F+F]\n\n\\Delta\\alpha = 22.5^\\circ\n\n\n\n\nExample 3\n\nAxiom s_0 = X\nProduction Rules\n\nF \\to FF\nX \\to F[+X]F[-X]+X\n\n\\Delta\\alpha = 20.0^\\circ\n\n\n\n\nExample 4\n\nAxiom s_0 = X\nProduction Rules\n\nF \\to FF\nX \\to F-[[X]+X]+F[+FX]-X\n\n\\Delta\\alpha = 22.5^\\circ",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>FRACTAL</span>"
+    ]
+  },
+  {
+    "objectID": "fractal.html#mandelbrot-set",
+    "href": "fractal.html#mandelbrot-set",
+    "title": "3  FRACTAL",
+    "section": "3.4 Mandelbrot Set",
+    "text": "3.4 Mandelbrot Set\nThe Mandelbrot set is one of the most famous fractals, defined in the complex plane.\n\nDefinition\n\nThe Mandelbrot set is defined based on a simple recursive expression:\n\nStart with z_0 = 0 + 0i.\nIterate: z_{n+1} = z_n^2 + c.\n\nWhere c is a complex number. The Mandelbrot set is the set of all complex numbers c such that the sequence {z_n} does not diverge to infinity (i.e., the sequence is bounded).\n\n\n\nConvergence Property\nA key property for drawing the Mandelbrot set: If there exists a k such that the modulus (magnitude) of z_k exceeds 2 (i.e., |z_k| &gt; 2), then the sequence {z_n} will definitely diverge to infinity.\n\n\n\nAlgorithm for Drawing Mandelbrot Set\nThis algorithm checks each point c on the complex plane (corresponding to each pixel on the screen) to see if it belongs to the set.\nFor each pixel (x, y) on the screen:\n\nMapping: Convert pixel coordinates (x, y) into a complex number c = x + yi in a region of the complex plane.\nConvergence Check:\n\nInitialize z = 0.\nSet a maximum number of iterations (e.g., N = 100).\nLoop i from 0 to N:\n\nCalculate z = z^2 + c.\nIf |z| &gt; 2: Sequence diverges to infinity. Point c does not belong to the Mandelbrot set. Stop loop.\n\nIf the loop finishes and |z| is still \\le 2: Sequence does not diverge to infinity (within the limit of N iterations). Point c belongs to the Mandelbrot set.\n\nColoring:\n\nIf c belongs to the Mandelbrot set, color pixel (x, y) black.\nIf c does not belong to the Mandelbrot set, do not color (leave white) (or color based on the number of iterations i before |z| &gt; 2 to create colorful Mandelbrot images).",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>FRACTAL</span>"
+    ]
+  },
+  {
+    "objectID": "fractal.html#references",
+    "href": "fractal.html#references",
+    "title": "3  FRACTAL",
+    "section": "References",
+    "text": "References\n\nMathigon\nThe nature of code",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>FRACTAL</span>"
+    ]
+  },
+  {
+    "objectID": "dp.html",
+    "href": "dp.html",
+    "title": "4  Dynamic Programming",
+    "section": "",
+    "text": "4.1 Dynamic Programming",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Dynamic Programming</span>"
+    ]
+  },
+  {
+    "objectID": "dp.html#dynamic-programming",
+    "href": "dp.html#dynamic-programming",
+    "title": "4  Dynamic Programming",
+    "section": "",
+    "text": "Problems in Recursion\n\nThe number of terms computed by the recursive algorithm for determining the nth Fibonacci term is exponential in n\nint fibonacci(int n)  { \n    if(n &lt;= 1)\n        return 1;\n    else\n        return fibonacci(n-1) + fibonacci(n-2);\n} \nThe figure shows the Fibonacci algorithm’s call tree when it evaluates fibonacci(6)\n\n\n\n\nDynamic Programming\n\nDynamic programming is a method for solving complex problems by breaking them down into simpler, overlapping subproblems, solving each subproblem only once, and storing their solutions for future use.\n\n\n\nDynamic programming is similar to divide-and-conquer in that an instance of a problem is divided into smaller instances.\nHowever, in this approach we solve small instances first, store the results, and later, whenever we need a result, look it up instead of recomputing it.\nDynamic programming is a bottom-up approach\n\n\nint fibonacci(int n) {\n    int f[100];\n\n    f[0] = 1;\n    f[1] = 1;\n    for (int i = 2; i &lt;= n; i++)\n        f[i] = f[i - 1] + f[i - 2];\n    return f[n];\n}\n\n\nThe Binomial Coefficient\n\nThe binomial coefficient is given by \\begin{equation}\n\\binom{n}{k}=\\frac{n!}{k!(n-k)!}\\quad\\text{for}\\quad0\\leq k\\leq n\n\\end{equation}\nWe have recursive formula \\begin{equation}\n\\binom{n}{k}=\\begin{cases}\n1 & k=0\\text{ or }k=n\\\\\n\\binom{n-1}{k-1}+\\binom{n-1}{k} & 0&lt;k&lt;n\n\\end{cases}\n\\end{equation}\n\n\n\nRecursive solution\nThe recursive function below calculates the binomial coefficient by directly applying the recursive formula.\nint bin(int n, int k) {  \n    if ( k == 0 || k == n)\n        return 1;\n    else\n        return bin(n-1, k - 1) + bin(n - 1, k);\n}\n\nThis algorithm is very inefficient.\n\n\n\nDP solution\n\nWe define an array B[i][j] containing \\binom{i}{j}\n\n\nEstablish a recursive property. \\begin{equation}\nB[i][j]=\\begin{cases}\n1 & j=0\\text{ or }j=i\\\\\nB[i-1][j-1]+B[i-1][j] & 0&lt;j&lt;i\n\\end{cases}\n\\end{equation}\nSolve an instance of the problem in a bottom-up fashion by computing the rows in B in sequence starting with the first row.\n\nint bin(int n, int k) {  \n    int B[1000][100];\n\n    for (int i = 0; i &lt;= n; i++) {\n        for (int j = 0; j &lt;= i; j++) {\n            if (j == 0 || j == i)\n                B[i][j] = 1;\n            else\n                B[i][j] = B[i-1][j-1] + B[i-1][j];\n        }\n    }\n    return B[n][k];\n}",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Dynamic Programming</span>"
+    ]
+  },
+  {
+    "objectID": "dp.html#optimization-problems",
+    "href": "dp.html#optimization-problems",
+    "title": "4  Dynamic Programming",
+    "section": "4.2 Optimization Problems",
+    "text": "4.2 Optimization Problems\n\nPrinciple of Optimality\n\nA problem is said to satisfy the Principle of Optimality if the subsolutions of an optimal solution of the problem are themesleves optimal solutions for their subproblems.\n\n\nIn practice, it is necessary to show that the principle applies before assuming that an optimal solution can be obtained using dynamic programming.\n\n\n\nLongest Path Problem\nFinding the longest simple paths from each vertex to all other vertices.\n\n\nThe optimal (longest) simple path from v_{1} to v_{4} is {v_{1} \\to v_{3} \\to v_{2} \\to v_{4}}.\nHowever, the subpath {v_{1} \\to v_{3}} is not an optimal (longest) path from v_{1} to v_{3}\n\n\n\nDynamic Programming\n\nEstablish a recursive property that gives the optimal solution to an instance of the problem.\nCompute the value of an optimal solution in a bottom-up fashion.\nConstruct an optimal solution in a bottom-up fashion.\n\n\n\nChained Matrix Multiplication\n\nMultiply a 2\\times3 matrix times a 3\\times4 matrix, the resultant matrix is a 2\\times4 matrix \\left[\\begin{array}{ccc}\n1 & 2 & 3\\\\\n4 & 5 & 6\n\\end{array}\\right]\\left[\\begin{array}{cccc}\n7 & 8 & 9 & 1\\\\\n2 & 3 & 4 & 5\\\\\n6 & 7 & 8 & 9\n\\end{array}\\right]=\\left[\\begin{array}{cccc}\n29 & 35 & 41 & 38\\\\\n74 & 89 & 104 & 83\n\\end{array}\\right] the total number of elementary multiplication is 2\\times3\\times4=24.\nIn general, to multiply an m\\times n matrix times a n\\times p matrix using the standard method, it is necessary to do \\begin{equation}\nm\\times n\\times p\\quad\\text{elementary multiplications}\n\\end{equation}\nConsider the multiplication of the following four matrices:\n\n\\underset{20\\times2}{\\underbrace{A}}\\times\\underset{2\\times30}{\\underbrace{B}}\\times\\underset{30\\times12}{\\underbrace{C}}\\times\\underset{12\\times8}{\\underbrace{D}}\n\nMatrix multiplication is an associative operation, meaning that the order in which we multiply does not matter. There are five different orders in which we can multiply four matrices, each possibly resulting in a different number of elementary multiplications. \\begin{array}{lll}\nA(B(CD)) & 30\\times12\\times8+2\\times30\\times8+20\\times2\\times8 & =3680\\\\\n(AB)(CD) & 20\\times2\\times30+30\\times12\\times8+20\\times30\\times8 & =8880\\\\\nA((BC)D) & 2\\times30\\times12+2\\times12\\times8+20\\times2\\times8 & =1232\\\\\n(AB)C)D & 20\\times2\\times30+20\\times30\\times12+20\\times12\\times8 & =10320\\\\\n(A(BC))D & 2\\times30\\times12+20\\times2\\times12+20\\times12\\times8 & =3120\n\\end{array}\n\nMultiply n matrices: A_{1},A_{2},\\ldots,A_{n}.\n\nIt is not hard to see that the principle of optimality applies in this problem.\n\nLet\n\nd_{0} be the number of rows in A_{1} and\nd_{k} be the number of columns in A_{k} for 1\\leq k\\leq n, the dimension of A_{k} is d_{k-1}\\times d_{k}\n\n\n\n\nSolution to Chained Matrix Multiplication\n\nLet M[i][j] = minimum number of multiplications needed to multiply A_{i} through A_{j}, if i\\leq j.\nPrinciple of optimality \\begin{equation}\n\\begin{array}{lll}\nM[i][i] & = & 0\\\\\nM[i][j] & = & \\min_{i\\leq k\\leq j-1}\\left(M[i][k]+M[k+1][j]+d_{i-1}d_{k}d_{j}\\right)\\quad\\text{if }i&lt;j\n\\end{array}\n\\end{equation}\nConsider the multiplication of the following six matrices \\underset{5\\times2}{\\underbrace{A_{1}}}\\times\\underset{2\\times3}{\\underbrace{A_{2}}}\\times\\underset{3\\times4}{\\underbrace{A_{3}}}\\times\\underset{4\\times6}{\\underbrace{A_{4}}}\\times\\underset{6\\times7}{\\underbrace{A_{5}}}\\times\\underset{7\\times8}{\\underbrace{A_{6}}} we have d_{0}=5,d_{1}=2,d_{2}=3,d_{3}=4,d_{4}=6,d_{5}=7,d_{6}=8\nThe table M is:\n\n\n\n\n1\n2\n3\n4\n5\n6\n\n\n\n\n1\n0\n30\n64\n132\n226\n348\n\n\n2\n\n0\n24\n72\n156\n268\n\n\n3\n\n\n0\n72\n198\n366\n\n\n4\n\n\n\n0\n168\n392\n\n\n5\n\n\n\n\n0\n336\n\n\n6\n\n\n\n\n\n0",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Dynamic Programming</span>"
+    ]
+  },
+  {
+    "objectID": "dp.html#workshop",
+    "href": "dp.html#workshop",
+    "title": "4  Dynamic Programming",
+    "section": "4.3 Workshop",
+    "text": "4.3 Workshop\n\nQuiz\n\nWhat is the dynamic programming?\n\n\n\nExercises\n\nWrite a program",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Dynamic Programming</span>"
+    ]
+  },
+  {
+    "objectID": "dp.html#references",
+    "href": "dp.html#references",
+    "title": "4  Dynamic Programming",
+    "section": "4.4 References",
+    "text": "4.4 References",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Dynamic Programming</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html",
+    "href": "lect02.html",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "",
+    "text": "5.1 Introduction",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html#introduction",
+    "href": "lect02.html#introduction",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "",
+    "text": "Analysis of Algorithms\n\nDefinition: Analysing an algorithm means predicting the resources that the algorithm requires.\n\nTime Complexity: How long it takes the algorithm to run\nSpace Complexity: The extra memory space the algorithm needs besides the input data itself.\n\n\n\n\nWhy Analyze Algorithms?\n\nComparison: To compare different algorithms and choose the most efficient one for a given task.\nOptimization: To optimize an algorithm.\nPredictability: To predict how an algorithm will behave with different input sizes and under various conditions.\nResource Management: To ensure algorithms are efficient in terms of computational resources, such as CPU time and memory.\n\n\n\nMethods of Analysis\nThere are two methods of analysis:\n\nEmpirical analysis\nTheoretical analysis\n\n\n\nTime Complexity\n\nDefinition: The time complexity of an algorithm estimates how much time the algorithm will use given an input.\n\\text{time complexity} = T(\\text{input size})\n\nInput size depends on the problem’s input data:\n\nNumber of items in the input.\nTotal number of bits needed to represent the input.\nSometimes described by two or more numbers.\n\nTime complexity measures how many basic operations are executed, rather than direct time in seconds.\n\nDefinition: Basic Operations can be:\n\nMachine operations: assignments, arithmetic operations, etc.\nHuman operations: move, carry, etc.\nGeneral operations.\n\n\n\n\nSpace Complexity\nDefinition: The space complexity of an algorithm estimates the amount of extra memory space the algorithm needs to perform its operations on an input data.\n\\text{space complexity} = T(\\text{input size})\n\n\nExample: Maximum Subarray Sum\n\nGiven an array of n numbers, calculate the maximum subarray sum (largest possible sum of a sequence of consecutive values).\nAn empty subarray is allowed, so the sum is at least 0.\n\nExample array:\n\nMaximum sum (10):\n\n\n\nAlgorithm 1\nGo through all possible subarrays, calculate the sum of each, and maintain the maximum.\nint best = 0;\nfor (int a = 0; a &lt; n; a++) {\n    for (int b = a; b &lt; n; b++) {\n        int sum = 0;\n        for (int k = a; k &lt;= b; k++) {\n            sum += array[k];\n        }\n        best = max(best, sum);\n    }\n}\ncout &lt;&lt; best &lt;&lt; \"\\n\";\n\n\nAlgorithm 2\nOptimize Algorithm 1 by calculating the sum as the right end of the subarray moves.\nint best = 0;\nfor (int a = 0; a &lt; n; a++) {\n    int sum = 0;\n    for (int b = a; b &lt; n; b++) {\n        sum += array[b];\n        best = max(best, sum);\n    }\n}\ncout &lt;&lt; best &lt;&lt; \"\\n\";\n\n\nAlgorithm 3\nCalculate the maximum subarray sum for each ending position from left to right.\n\nThe subarray only contains the element at position k.\nThe subarray consists of a subarray ending at k-1 followed by the element at k.\n\nint best = 0, sum = 0;\nfor (int k = 0; k &lt; n; k++) {\n    sum = max(array[k], sum + array[k]);\n    best = max(best, sum);\n}\ncout &lt;&lt; best &lt;&lt; \"\\n\";",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html#types-of-problem",
+    "href": "lect02.html#types-of-problem",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "5.2 Types Of Problem",
+    "text": "5.2 Types Of Problem\n\nDefinitions\n\nDecision Problem: A problem with a yes or no answer (e.g., “is this number prime?”).\nSearch Problem: Requires identifying a solution from a set of possible solutions (e.g., “finding a path”).\nCounting Problem: Requires the total number of solutions to a search problem (e.g., “how many primes in first 100 integers?”).\nOptimization Problem: Requires identifying the best solution to a search problem (e.g., “finding the shortest path”).\n\n\n\nTractable & Intractable Problems\n\nTractable: A problem that can be solved in polynomial time.\nIntractable: A problem where execution time grows too quickly for polynomial time solutions (e.g., Travelling Salesperson Problem).\n\n\n\nApproximate Solutions\n\nHeuristic Algorithm: Produces usable solutions in reasonable (polynomial) time. These may not be optimal but are “good enough”.\n\n\n\nDecidable/Undecidable Problems\n\nUncomputable Problems: Problems that cannot be solved by algorithms even with unlimited time.\nUndecidable: A decision problem that is uncomputable.\n\n\nThe Halting Problem: Given a program code and input, is it possible to tell if it will halt or loop forever without running it?\n\n\n\nComplexity Classes\n\nP: Decision problems solvable in polynomial time on a deterministic machine.\nNP: Decision problems whose positive solutions can be verified in polynomial time.\nNP-complete: A problem in NP such that every problem in NP is reducible to it in polynomial time.\nNP-hard: Satisfies the reduction property of NP-complete, but might not be in NP.\n\n\n\nSome NP-complete Problems\n\nClique problem\nn-Queens completion\nBoolean satisfiability problem\nSubset sum problem\nTraveling salesman problem\n\n\n\nP = NP?\nThe question of whether P = NP remains unsolved.",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html#asymptotic-notation",
+    "href": "lect02.html#asymptotic-notation",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "5.3 Asymptotic Notation",
+    "text": "5.3 Asymptotic Notation\n\nBig O Notation\n\nHistory:\n\nSymbol O introduced by Paul Bachmann in 1894.\no notation introduced by Edmund Landau in 1909.\nPopularized in CS by Donald Knuth in the 1970s.\n\n\n\nDefinition: O(g(n)) = \\{f(n) : \\exists c, n_0 &gt; 0 \\text{ s.t. } 0 \\leq f(n) \\leq cg(n) \\forall n \\geq n_0\\}.\n\n\nRepresents the upper bound on growth rate.\nPronounced “big-oh of g of n”.\n\n\n\n\nName\nOrder-of-growth function\n\n\n\n\nconstant\n1\n\n\nlogarithm\n\\log n\n\n\nlinear\nn\n\n\nn-log-n\nn \\log n\n\n\nquadratic\nn^2\n\n\ncubic\nn^3\n\n\nexponential\n2^n\n\n\npermutation\nn!\n\n\n\n\n\nExamples\n\nExample: Prove T(n) = 2n^4 + 3n^3 + 5n^2 + 2n + 3 = O(n^4).\n\n\nProof. For n \\geq 1:\n2n^4 + 3n^3 + 5n^2 + 2n + 3 \\leq (2+3+5+2+3)n^4 = 15n^4.\n\n\nTheorem: If T(n) = a_0 + a_1n + ... + a_dn^d (a_d &gt; 0), then T(n) = O(n^d).\n\nExamples: Find the order-of-growth:\n\n5n^2 + 3n \\log n + 2n + 5 \\to O(n^2)\n20n^3 + 10n \\log n + 5 \\to O(n^3)\n3 \\log n + 2 \\to O(\\log n)\n2^{n+2} \\to O(2^n)\n2n + 100 \\log n \\to O(n)\n\nExercises:\n\nIf f is in O(g), what can we say about af+b?\nIf f_{1} and f_{2} are in O(g), what can we say about f_{1}+f_{2}?\nIf f_{1} is in O(g) and f_{2} is in O(h), what can we say about f_{1}+f_{2}?\nIf f_{1} is in O(g) and f_{2} is O(h), what can we say about f_{1}\\cdot f_{2}?\n\n\n\nBig Omega (\\Omega) Notation\n\nDefinition: \\Omega(g(n)) = \\{f(n) : \\exists c, n_0 &gt; 0 \\text{ s.t. } f(n) \\geq cg(n) \\forall n \\geq n_0\\}.\n\n\nRepresents a lower bound on growth rate.\n\n\n\nBig Theta (\\Theta) Notation\n\nDefinition: \\Theta(g(n)) = \\{f(n) : \\exists c_1, c_2, n_0 &gt; 0 \\text{ s.t. } c_1g(n) \\leq f(n) \\leq c_2g(n) \\forall n \\geq n_0\\}.\n\n\nRepresents an exact growth rate (upper and lower limits).",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html#mathematical-techniques",
+    "href": "lect02.html#mathematical-techniques",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "5.4 Mathematical Techniques",
+    "text": "5.4 Mathematical Techniques\n\nSummation Formulas\n\nArithmetic Series: \\sum_{k=1}^{n} k = \\frac{1}{2}(n^2 + n)\nSum of Squares: \\sum_{k=1}^{n} k^2 = \\frac{1}{6}(2n^3 + 3n^2 + n)\nSum of Cubes: \\sum_{k=1}^{n} k^3 = \\frac{1}{4}(n^4 + 2n^3 + n^2)\nGeometric Series: \\sum_{k=0}^{n} r^k = \\frac{1-r^{n+1}}{1-r}\n\nHarmonic Series: 1 + \\frac{1}{2} + ... + \\frac{1}{n} \\approx \\ln n\n\n\n\nGenerating Functions\n\nDefinition: For a sequence \\{a_k\\}, the Ordinary Generating Function (OGF) is: A(z) = \\sum_{k \\geq 0} a_k z^k\n\n\nCommon Generating Functions\n\n\n\nSeries\nGenerating Function\n\n\n\n\n1, 1, 1, 1, ...\n\\frac{1}{1-z}\n\n\n0, 1, 2, 3, ...\n\\frac{z}{(1-z)^2}\n\n\n1, c, c^2, c^3, ...\n\\frac{1}{1-cz}\n\n\n1, 1, \\frac{1}{2!}, \\frac{1}{3!}, ...\ne^z\n\n\n0, 1, \\frac{1}{2}, \\frac{1}{3}, ...\n\\ln \\frac{1}{1-z}\n\n\n\n\n\n\nSolving Recurrences with Generating Functions\n\nExample: a_n = 5a_{n-1} - 6a_{n-2} with a_0 = 0, a_1 = 1.\n\nMultiply by z^n and sum: A(z) - z = 5zA(z) - 6z^2A(z).\nSolve for A(z): A(z) = \\frac{z}{1-5z+6z^2} = \\frac{1}{1-3z} - \\frac{1}{1-2z}.\nResult: a_n = 3^n - 2^n.",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html#algorithm-analysis",
+    "href": "lect02.html#algorithm-analysis",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "5.5 Algorithm Analysis",
+    "text": "5.5 Algorithm Analysis\n\nPerformance Scenarios\n\nBest-case: Fastest completion for any input.\nAverage-case: Expected complexity over all inputs.\nWorst-case: Slowest completion (guaranteed upper bound).\n\n\n\nComplexities for Simple Statements\n\nSequential (P_1, P_2): T(n) = T_1(n) + T_2(n)\nBranch (if-else): T(n) = \\max(T_1(n), T_2(n))\nLoop: T(n) = \\sum_{i} T_i(n)\n\n\n\nExamples\n\nLinear Search (Worst Case)\nint LinearSearch(int n, int a[], int key) {\n    int i = 0;\n    while (i &lt; n) {\n        if (a[i] == key) return i;\n        i++;\n    }\n    return -1;\n}\nComplexity: O(n)\n\n\nBubble Sort (Worst Case)\nvoid BubbleSort(int n, int a[]) {\n    for (int i = 0; i &lt;= n - 2; i++)\n        for (int j = n - 1; j &gt;= i + 1; j--)\n            if (a[j] &lt; a[j - 1]) \n                swap(a[j], a[j-1]);            \n}\nComplexity: O(n^2)\n\n\n\nRecursive Function Analysis\nSteps:\n\nIdentify the Recurrence Relation (Base Case and Recursive Case).\nWrite the Relation (e.g., T(n) = T(n-1) + C).\nSolve (Substitution, Recursion Tree, or Master Theorem).\n\n\nFactorial Example\nint factorial(int n) {\n    if (n == 0) return 1;\n    else return (n * factorial(n - 1));\n}\nComplexity:\nT(n) = T(n-1) + C \\implies O(n)\n\n\nMerge Sort Example\nvoid mergeSort(int a[], int left, int right) {\n    if (left &lt; right) {\n        int mid = (left + right) / 2;\n        mergeSort(a, left, mid);\n        mergeSort(a, mid + 1, right);\n        merge(a, left, mid, right);\n    }\n}\nComplexity:\nT(n) = 2T(n/2) + Cn \\implies O(n \\log n)",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html#the-master-theorem",
+    "href": "lect02.html#the-master-theorem",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "5.6 The Master Theorem",
+    "text": "5.6 The Master Theorem\nThe Master Theorem is a method used to determine the time complexity of divide and conquer algorithms. It provides a solution for recurrence relations of the form\n\\begin{equation}\nT\\left(n\\right)=\\left\\{ \\begin{array}{cc}\n1 & n=1\\\\\na\\cdot T\\left(\\frac{n}{b}\\right)+f(n) & n&gt;1\n\\end{array}\\right.\n\\end{equation}\n\nn is the size of the input.\na\\geq1 is the number of subproblems in the recursion.\nn/b (b&gt;1) is the size of each subproblem. All subproblems are assumed to have the same size.\nf(n) is the cost of the work done outside the recursive call, which includes the cost of dividing the problem and the cost of merging the solutions.\n\nCases:\n\nCase 1: f(n) = O(n^{\\log_b a - \\epsilon}) \\implies T(n) = \\Theta(n^{\\log_b a}) (Recursive work dominates).\nCase 2: f(n) = \\Theta(n^{\\log_b a}) \\implies T(n) = \\Theta(n^{\\log_b a} \\log n) (Balanced).\nCase 3: f(n) = \\Omega(n^{\\log_b a + \\epsilon}) \\implies T(n) = \\Theta(f(n)) (Non-recursive work dominates).\n\nFirst, consider an algorithm with a recurrence of the form T(n)=aT\\left(\\frac{n}{b}\\right)\n\nThe tree has a depth of \\log_{b}n and depth i contains a^{i} nodes. So there are a^{\\log_{b}n}=n^{\\log_{b}a} leaves, and hence the runtime is \\Theta(n^{\\log_{b}a}).\n\n\n\nExamples\n\nT(n) = 4T(n/2) + n \\implies O(n^2) (Case 1)\nT(n) = 4T(n/2) + n^2 \\implies O(n^2 \\log n) (Case 2)\nT(n) = 4T(n/2) + n^3 \\implies O(n^3) (Case 3)\nT(n) = 2T(n/2) + n \\log n \\implies O(n \\log^2 n)",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html#workshop",
+    "href": "lect02.html#workshop",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "5.7 Workshop",
+    "text": "5.7 Workshop\n\nQuiz\n\nWhat is analysis of algorithms?\n\n\n\nExercises\nFind the complexities of:\n\n\n\nfor(i = 0; i &lt; n; i++)\n    for (j = 0; j &lt; n; j++)\n        b[i][j] += c;\n\nfor(i = 0; i &lt; n; i++)\n    for (j = i+1; j &lt; n; j++)\n        b[i][j] -= c;\n\n\n\nfor(i = 0; i &lt; n; i++)\n    for (j = 0; j &lt; n; j++)\n        a[i][j] = b[i][j] + c[i][j];\n\n\n\nfor(i = 0; i &lt; n; i++)\n    for (j = 0; j &lt; n; j++)\n        for(k = a[i][j] = 0; k &lt; n; k++)\n            a[i][j] += b[i][k] + c[k][j];\n\nRecurrence: T(n) = T(n/2) + 1 and T(n) = 2T(n/2) + \\log n.\nTower of Hanoi Complexity.\n\nvoid HanoiTower(int n, int a, int b, int c) {\n    if (n &gt; 0) {\n        HanoiTower(n - 1, a, c, b);\n        cout &lt;&lt; \"move from \" &lt;&lt; a &lt;&lt; \" to \" &lt;&lt; c &lt;&lt; endl;\n        HanoiTower(n - 1, b, a, c);\n    }\n}\n\nPermutation Complexity.\n\nvoid Permute(int k, int n, int a[]) {\n    if (k == 0) {\n        for (int i = 0; i &lt; n; i++) cout &lt;&lt; a[i] &lt;&lt; \" \";\n        cout &lt;&lt; endl;\n    } else {\n        for (int i = 0; i &lt; k; i++) {\n            swap(a[i], a[k - 1]);\n            Permute(k - 1, n, a);\n            swap(a[i], a[k - 1]);\n        }\n    }\n}",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect02.html#references",
+    "href": "lect02.html#references",
+    "title": "5  ANALYSIS OF ALGORITHM",
+    "section": "5.8 References",
+    "text": "5.8 References",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>ANALYSIS OF ALGORITHM</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html",
+    "href": "lect03.html",
+    "title": "6  SORTING",
+    "section": "",
+    "text": "Introduction",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#selection-sort",
+    "href": "lect03.html#selection-sort",
+    "title": "6  SORTING",
+    "section": "6.1 Selection Sort",
+    "text": "6.1 Selection Sort\n\nSelection Sort\n\nIdea Assume that the array \\boldsymbol{a} is composed of two parts: the left part \\boldsymbol{s} is sorted and the right part \\boldsymbol{u} is unsorted\n\n\\boldsymbol{s}=\\emptyset and \\boldsymbol{u}=\\boldsymbol{a}\nFind the smallest element x of the part \\boldsymbol{u}\nRemove x from \\boldsymbol{u}\nAppend x to \\boldsymbol{s}\n\nRepeat the actions 2-4 until \\boldsymbol{u} is empty\n\n\n\nImplementation\ntemplate &lt;class Item&gt;\nvoid selection(Item a[], int l, int r) {\n    for (int i = l; i &lt; r; i++) {\n        int min = i;\n        for (int j = i + 1; j &lt;= r; j++)\n            if (a[j] &lt; a[min]) min = j;\n        swap(a[i], a[min]);\n    }\n}\n\n\nAnalysis\n\nSelection sort uses \\sim N^{2}/2 compares and N exchanges to sort an array of length N.\n\nAnalysis of selection sort for the input size of N (the number of keys)\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: ?\nStability: ?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#insertion-sort",
+    "href": "lect03.html#insertion-sort",
+    "title": "6  SORTING",
+    "section": "6.2 Insertion Sort",
+    "text": "6.2 Insertion Sort\n\nInsertion Sort\n\nIdea Assume that the array \\boldsymbol{a} is composed of two parts: the left part \\boldsymbol{s} is sorted and the right part \\boldsymbol{u} is unsorted\n\n\\boldsymbol{s}=\\emptyset and \\boldsymbol{u}=\\boldsymbol{a}\nRemove the first elements x of \\boldsymbol{u}\nInsert x into its proper place among \\boldsymbol{s}\n\nRepeat the actions 2-3 until \\boldsymbol{u} is empty\n\n\n\nImplementation\n\nAlgorithm 1\n\ntemplate &lt;class Item&gt;\nvoid insertionsort(Item a[], int l, int r) {\n    for (int i = l + 1; i &lt;= r; i++) {\n        Item v = a[i];\n        int j = i;\n        for (; j &gt; l && v &lt; a[j - 1]; j--)\n            a[j] = a[j - 1];\n        a[j] = v;\n    }\n}\n\nAlgorithm 2 (using sentinel technique)\n\ntemplate &lt;class Item&gt;\nvoid insertionsort(Item a[], int l, int r) {\n    int i;\n    for (i = r; i &gt; l; i--) compare_swap(a[i - 1], a[i]);\n    for (i = l + 2; i &lt;= r; i++) {\n        Item v = a[i];\n        int j = i;\n        for (; v &lt; a[j - 1]; j--)  \n            a[j] = a[j - 1];\n        a[j] = v;\n    }\n}\n\n\nAnalysis\n\nThe number of exchanges used by insertion sort is equal to the number of inversions in the array, and the number of compares is at least equal to the number of inversions and at most equal to the number of inversions plus the array size minus 1.\n\n\nInsertion sort uses \\sim N^{2}/4 compares and \\sim N^{2}/4 exchanges to sort a randomly ordered array of length N with distinct keys, on the average.\n\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: ?\nStability: ?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#bubble-sort",
+    "href": "lect03.html#bubble-sort",
+    "title": "6  SORTING",
+    "section": "6.3 Bubble Sort",
+    "text": "6.3 Bubble Sort\n\nBubble Sort\n\nKeep passing through the array, exchanging adjacent elements that are out of order, continuing until the array is sorted.\nBubble Sort is a kind of Selection Sort.\n\n\n\nImplementation\ntemplate &lt;class Item&gt;\nvoid bubblesort(Item a[], int l, int r) {\n    for (int i = l; i &lt; r; i++)\n        for (int j = r; j &gt; i; j--)\n            compare_swap(a[j - 1], a[j]);\n}\n\nChallenge: reimplement the function bubblesort using recursion technique\n\n\n\nAnalysis\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: ?\nStability: ?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#shell-sort",
+    "href": "lect03.html#shell-sort",
+    "title": "6  SORTING",
+    "section": "6.4 Shell Sort",
+    "text": "6.4 Shell Sort\n\nShell Sort\n\nInsertion sort is slow because the only exchanges it does involve adjacent items, so items can move through the array only one place at a time.\nShellsort is a simple extension of insertion sort that gains speed by allowing exchanges of elements that are far apart.\nThe running time is better than O(n^{2})\n\n\nIdea\n\nGiven the decrement sequence \\{h_{1},h_{2},...,h_{t}\\} where h_{i}\\in\\mathbb{N} and h_{t}=1\nFor each h\\in\\{h_{1},h_{2},...,h_{t}\\}\n\nSplit an array \\boldsymbol{a} into h subsequences \\begin{array}{l}\na_{0},a_{0+h},a_{0+2h},...\\\\\na_{1},a_{1+h},a_{1+2h},...\\\\\na_{2},a_{2+h},a_{2+2h},...\\\\\n...\n\\end{array}\nUsing Insertion Sort to sort each subsequence\n\n\n\n\n\nIncrement/Decrement Sequence\n\nShell proposed \\begin{aligned}\nh_{1} & =\\frac{N}{2}\\nonumber \\\\\nh_{i+1} & =\\frac{h_{i}}{2}\\quad i&gt;1\n\\end{aligned}\nHibbard proposed h_{i}=2^{i}-1\nKnuth proposed \\begin{aligned}\nh_{1} & =1\\nonumber \\\\\nh_{i+1} & =3h_{i}+1\\quad i&gt;1\n\\end{aligned}\nPratt proposed \\begin{aligned}\n\\text{Successive numbers of the form } & 2^{p}3^{q},\\quad p,q\\in\\mathbb{N}\n\\end{aligned}\n\n\n\nImplementation\ntemplate &lt;class Item&gt;\nvoid shellsort(Item a[], int l, int r) {\n    int h;\n    for (h = 1; h &lt;= (r - l) / 9; h = 3 * h + 1);\n    for (; h &gt; 0; h /= 3)\n        for (int i = l + h; i &lt;= r; i++) {\n            int j = i; \n            Item v = a[i];\n            while (j &gt;= l + h && v &lt; a[j - h]) {\n                a[j] = a[j - h];\n                j -= h;\n            }\n            a[j] = v;\n        }\n}\n\n\nAnalysis\n\nThe result of h-sorting an array that is k-ordered is an array that is both h- and k-ordered\n\n\nShellsort does less than N(h-1)(k-1)/g comparisons to g-sort an array that is h- and k-ordered, provided that h and k are relatively prime\n\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: ?\nStability: ?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#heap-sort",
+    "href": "lect03.html#heap-sort",
+    "title": "6  SORTING",
+    "section": "6.5 Heap Sort",
+    "text": "6.5 Heap Sort\n\nHeap Sort\n\n\nMax heap: A tree is heap-ordered if the key in each node is larger than or equal to the keys in all of that node’s children (if any)\nMin heap: A tree is heap-ordered if the key in each node is smaller than or equal to the keys in all of that node’s children (if any)\n\n\n\n\nMax heap: No node in a heap-ordered tree has a key larger than the key at the root\nMin heap: No node in a heap-ordered tree has a key smaller than the key at the root\n\n\n\n\nHeap Representation\nArray representation of a heap-ordered complete binary tree\n\nArray \\{a_{0},a_{1},a_{2},a_{3},a_{4},a_{5},a_{6},a_{7},a_{8}\\} and complete binary tree\n\n\n\nRoot node is a_{0}\nParent(a_{i}) is a_{\\left\\lfloor \\frac{i-1}{2}\\right\\rfloor } or nothing\nLeftChild(a_{i}) is a_{2i+1} or nothing\nRightChild(a_{i}) is a_{2i+2} or nothing\n\n\n\nTop-down heapify\nAt the given node a_{i}\n\nExchange the key in the given node a_{i} with the largest key among that node’s children a_{2i+1} and a_{2i+2}\nMove down to that child, and continuing down the tree until we reach the bottom or a point where no child has a larger key.\n\n\n\nImplementation\ntemplate &lt;class Item&gt;\nvoid heapify(Item a[], int n, int i) {\n    Item v = a[i];\n    while (i &lt; n / 2) {\n        int child = 2 * i + 1;\n        if (child &lt; n - 1)\n            if (a[child] &gt; a[child + 1])\n                child++;\n        if (v &gt;= a[child]) break;\n        a[i] = a[child];\n        i = child;\n    }\n    a[i] = v;\n}\n\n\nHeap Sort\n\nBuild max-heap array: use heapify operation to convert an array \\boldsymbol{a} to a max-heap array\n\nAll elements in the range \\left\\{ a_{\\frac{n}{2}},...,a_{n-1}\\right\\} are leaf nodes.\nApply heapify operation for these elements \\left\\{ a_{\\frac{n}{2}-1},...,a_{0}\\right\\}\n\nSort a max-heap array \\boldsymbol{a}\n\nSwap the first and the last element\nRemove the last element\n\nIf |\\boldsymbol{a}|&gt;1 then apply heapify operation for a_{0} and repeat actions 1-2\n\ntemplate &lt;class Item&gt;\nvoid heapsort(Item a[], int l, int r) {\n    Item *pa = a + l;\n    int N = r - l + 1;\n    for (int k = N / 2 - 1; k &gt;= 0; k--)\n        heapify(pa, N, k);\n    while (N &gt; 1) {\n        swap(pa[0], pa[N - 1]);\n        N--;\n        heapify(pa, N, 0);\n    }\n}\n\n\nAnalysis\n\nHeapsort uses fewer than 2N\\log_{2}N comparisons to sort N elements\n\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: ?\nStability: ?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#merge-sort",
+    "href": "lect03.html#merge-sort",
+    "title": "6  SORTING",
+    "section": "6.6 Merge Sort",
+    "text": "6.6 Merge Sort\n\nTop-Down Merge Sort\n\nIdea Merge sort sorts a subarray a[l\\ldots r] as follows:\n\nIf l\\geq r, do not do anything, because the subarray is already sorted or empty.\nCalculate the position of the middle element: m=\\lfloor(l+r)/2\\rfloor.\nRecursively sort the subarray a[l\\ldots m].\nRecursively sort the subarray a[m+1\\ldots r].\nMerge the sorted subarrays a[l\\ldots m] and a[m+1\\ldots r] into a sorted subarray a[l\\ldots r].\n\n\nSorting the following array:\n\n\nThe array will be divided into two subarrays as follows:\n\nThen, the subarrays will be sorted recursively as follows:\n\nFinally, the algorithm merges the sorted subarrays and creates the final sorted array:\n\n\n\n\nImplementation\ntemplate &lt;class Item&gt;\nvoid mergesort(Item a[], Item aux[], int l, int r) {\n    if (r &lt;= l) return;\n    int m = (l + r) / 2;\n    mergesort(a, aux, l, m);\n    mergesort(a, aux, m + 1, r);\n    merge(a, aux, l, m, r);\n}\ntemplate &lt;class Item&gt;\nvoid merge(Item a[], Item aux[], int l, int m, int r) {\n    int i, j, k;\n    for (k = l; k &lt;= r; k++) \n        aux[k] = a[k];\n    i = l;  j = m + 1;  k = l;\n    while (i &lt;= m && j &lt;= r) \n        if (aux[i] &lt;= aux[j]) a[k++] = aux[i++];\n        else a[k++] = aux[j++];\n    while (i &lt;= m) \n        a[k++] = aux[i++];\n    while (j &lt;= r) \n        a[k++] = aux[j++];\n}\n\n\nBottom-up Merge Sort\n\nIdea Bottom-up merge sort consists of\n\nA sequence of passes over the whole array doing sz-by-sz merges\nDoubling sz on each pass.\nThe final subarray is of size sz only if the array size is an even multiple of sz, so the final merge is an sz-by-x merge, for some x less than or equal to sz.\n\n\n\n\nImplementation\ntemplate &lt;class Item&gt;\nvoid mergesort(Item a[], Item aux[], int l, int r) {\n    for (int sz = 1; sz &lt;= r - l; sz = sz + sz)\n        for (int i = l; i &lt;= r - sz; i += sz + sz)\n            merge(a, aux, i, i + sz - 1, min(i + sz + sz - 1, r));\n}\n\n\nAnalysis\n\nMergesort requires about N\\log_{2}N comparisons to sort any array of N elements\n\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: ?\nStability: ?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#quick-sort",
+    "href": "lect03.html#quick-sort",
+    "title": "6  SORTING",
+    "section": "6.7 Quick Sort",
+    "text": "6.7 Quick Sort\n\nQuick Sort\n\nIdea Quicksort invented by C. A. R. Hoare in 1960 is a divide-and-conquer method for sorting\n\nSelect a pivot element v\nPartition an array \\boldsymbol{a} into two parts \\boldsymbol{a}_{left} and \\boldsymbol{a}_{right} such that \\forall x\\in\\boldsymbol{a}_{left} and \\forall y\\in\\boldsymbol{a}_{right} then x\\leq v \\leq y\nSort the parts \\boldsymbol{a}_{left} and \\boldsymbol{a}_{right} independently\nJoin \\boldsymbol{a}_{left} and \\boldsymbol{a}_{right} to \\boldsymbol{a}=\\boldsymbol{a}_{left}\\,v\\,\\boldsymbol{a}_{right}\n\n\n\n\nImplementation\ntemplate &lt;class Item&gt;\nvoid quicksort(Item a[], int l, int r) {\n    if (r &lt;= l) return;\n    int i = partition(a, l, r);\n    quicksort(a, l, i - 1);\n    quicksort(a, i + 1, r);\n}\ntemplate &lt;class Item&gt;\nint partition(Item a[], int l, int r) {\n    int i = l - 1, j = r; Item v = a[r];\n    for (;;) {\n        while (a[++i] &lt; v);\n        while (v &lt; a[--j]) if (j == l) break;\n        if (i &gt;= j) break;\n        swap(a[i], a[j]);\n    }\n    swap(a[i], a[r]);\n    return i;\n}\n\n\nAnalysis\n\nQuicksort uses \\sim2N\\log_{2}N compares (and one-sixth that many exchanges) on the average to sort an array of length N with distinct keys.\n\n\nQuicksort uses \\sim N^{2}/2 compares in the worst case\n\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: O(1)?\nStability: No\n\n\n\nA lower bound for the worst case\n\nNo compare-based sorting algorithm can guarantee to sort N items with fewer than \\log_{2}(N!)\\sim N\\log_{2}N compares.\n\n\n\nComparing Sorting Algorithms\n\nPerformance characteristics of sorting algorithms\n\n\n\n\n\n\n\n\n\n\n\nalgorithm\nstable?\nin-place?\nrunning time\nspace\n\n\n\n\nselection\nno\nyes\nN^{2}\n1\n\n\ninsertion\nyes\nyes\nbetween N and N^{2}\n1\n\n\nshell\nno\nyes\nN\\log N?, N^{6/5}?\n1\n\n\nmerge\nyes\nno\nN\\log N\nN\n\n\nquick\nno\nyes\nN\\log N\n\\log N\n\n\n3-way quick\nno\nyes\nbetween N and N\\log N\n\\log N\n\n\nheap\nno\nyes\nN\\log N\n1",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#key-indexed-counting",
+    "href": "lect03.html#key-indexed-counting",
+    "title": "6  SORTING",
+    "section": "6.8 Key-indexed Counting",
+    "text": "6.8 Key-indexed Counting\n\nAssumptions about keys\n\n\nAssumption.\n\nKeys are integers or can be mapped to integers between 0 and R-1.\n\nImplication.\n\nCan use key as an array index.\n\n\n\n\n\n\nKey-indexed Counting\n\nProblem.\nSort an array a of N items whose keys are integers between 0 and R-1.\n\n// Compute frequency counts.\nfor (int i = 0; i &lt; N; i++)\n    count[a[i].key() + 1]++;\n// Transform counts to indices.\nfor (int r = 0; r &lt; R; r++)\n    count[r + 1] += count[r];\n// Distribute the items.\nfor (int i = 0; i &lt; N; i++)\n    aux[count[a[i].key()]++] = a[i];\n// Copy back.\nfor (int i = 0; i &lt; N; i++)\n    a[i] = aux[i];\n\nInput an array a of 12 letters\n\nCompute frequency counts\n\nTransform counts to indices.\n\nDistribute the data\n\nCopy back\n\n\n\n\nAnalysis\n\nKey-indexed counting uses 8N+3R+1 array accesses to stably sort N items whose keys are integers between 0 and R-1.\n\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: ?\nStability: ?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#radix-sort",
+    "href": "lect03.html#radix-sort",
+    "title": "6  SORTING",
+    "section": "6.9 Radix Sort",
+    "text": "6.9 Radix Sort\n\nRadix Sort\n\n\nA byte is a fixed-length sequence of bits.\nA word is a fixed-length sequence of bytes.\nA string is a variable-length sequence of bytes.\n\n\n\nIdea Radix-sorting algorithms treat the keys as numbers represented in a base-R number system, for various values of R (the radix), and work with individual digits of the numbers.\n\n\nA key is a radix-R number, with digits numbered from the right (starting at 0)\n\n\nIn programing, we use the abstract digit operation to access digits of keys\n\nThere are two basic approaches to radix sorting:\n\nThe first class of methods: They examine the digits in the keys in a left-to-right order, working with the most significant digits first. These methods are generally referred to as most-significant-digit (MSD) radix sorts or top-down methods.\nThe second class of methods: They examine the digits in the keys in a right-to-left order, working with the least significant digits first. These methods are generally referred to as least-significant-digit (LSD) radix sorts or bottom-up methods.\n\n\n\nLSD Implementation\ntemplate &lt;class Item&gt;\nvoid radixsort(Item a[], int l, int r) {\n    vector&lt;Item&gt; bins[radix];\n    for (int d = 0; d &lt; max_digit; d++) {\n        // clear bins\n        ...\n        // distribute\n        for (i = l; i &lt;= r; i++)\n            bins[digit(a[i],d,radix)].push_back(a[i]);        \n        // join bins to a[l...r]\n        ...\n    }\n}\n\n\nExample 1\n\nSort an array of integer numbers {170, 45, 75, 90, 802, 2, 24, 66}\nRewrite the numbers in 3-digit format {170, 045, 075, 090, 802, 002, 024, 066}\nDistribute the data into 10 bins on digit d=0\n{170, 045, 075, 090, 802, 002, 024, 066}\nbin 0: 170, 090\nbin 1:\nbin 2: 802, 002\nbin 3:\nbin 4: 024\nbin 5: 045, 075\nbin 6: 066\nbin 7:\nbin 8:\nbin 9:\nJoin the bins\n{170, 090, 802, 002, 024, 045, 075, 066}\nDistribute the data into 10 bins on digit d=1\n{170, 090, 802, 002, 024, 045, 075, 066}\nbin 0: 802, 002\nbin 1:\nbin 2: 024\nbin 3:\nbin 4: 045\nbin 5:\nbin 6: 066\nbin 7: 170, 075\nbin 8:\nbin 9: 090\nJoin the bins\n{802, 002, 024, 045, 066, 170, 075, 090}\nDistribute the data into 10 bins on digit d=2\n{802, 002, 024, 045, 066, 170, 075, 090}\nbin 0: 002, 024, 045, 066, 075, 090\nbin 1: 170\nbin 2:\nbin 3:\nbin 4:\nbin 5:\nbin 6:\nbin 7:\nbin 8: 802\nbin 9:\nJoin the bins\n{002, 024, 045, 066, 075, 090, 170, 802}\n\n\n\n\n\n\n\n\n\n\n\n\n\n170\n\n17 0\n\n8 0 2\n\n0 02\n\n\n045\n\n09 0\n\n0 0 2\n\n0 24\n\n\n075\n\n80 2\n\n0 2 4\n\n0 45\n\n\n090\n\\longrightarrow\n00 2\n\\longrightarrow\n0 4 5\n\\longrightarrow\n0 66\n\n\n802\n\n02 4\n\n0 6 6\n\n0 75\n\n\n002\n\n04 5\n\n1 7 0\n\n0 90\n\n\n024\n\n07 5\n\n0 7 5\n\n1 70\n\n\n066\n\n06 6\n\n0 9 0\n\n8 02\n\n\n\n\n\nExample 2\n\nSort 17 integer numbers\n{6, 7, 1, 3, 5, 2, 0, 4, 2, 1, 7, 2, 1, 3, 5, 2, 7}\nRewrite the numbers in 3-digit binary numbers\n110, 111, 001, 011, 101, 010, 000, 100, 010, 001, 111, 010, 001, 011, 101, 010, 111\n\n\n\nAnalysis\n\nTime complexity:\n\n\n\nbest case\n?\n\n\naverage case\n?\n\n\nworst case\n?\n\n\n\nSpace complexity: ?\nStability: ?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#workshop",
+    "href": "lect03.html#workshop",
+    "title": "6  SORTING",
+    "section": "6.10 Workshop",
+    "text": "6.10 Workshop\n\nQuiz\n\nWhat is a sorting operation?\nWhat is an inversion?\nHow selection sort sorts the sample array E A S Y Q U E S T I O N?",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect03.html#references",
+    "href": "lect03.html#references",
+    "title": "6  SORTING",
+    "section": "6.11 References",
+    "text": "6.11 References",
+    "crumbs": [
+      "ALGORITHMS",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>SORTING</span>"
+    ]
+  },
+  {
+    "objectID": "lect04-pointer.html",
+    "href": "lect04-pointer.html",
+    "title": "7  Pointers",
+    "section": "",
+    "text": "7.1 Introduction to Pointers",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Pointers</span>"
+    ]
+  },
+  {
+    "objectID": "lect04-pointer.html#introduction-to-pointers",
+    "href": "lect04-pointer.html#introduction-to-pointers",
+    "title": "7  Pointers",
+    "section": "",
+    "text": "Objects, Sizes, and Addresses\n\nEach variable (object) has an address and a size. The address is where it sits and the size is how many memory locations it takes up.\n\n\n\n\naddress\n…\n100\n101\n102\n103\n104\n105\n…\n\n\n\n\nmemory\n…\n\n\n\n\n\n\n…\n\n\n\n\n\nSize Operator\n\nThe size can be retrieved using the size operator sizeof\n\n#include &lt;iostream&gt;\nusing namespace std;\nint main() {\n    char c;\n    cout &lt;&lt; sizeof(char) &lt;&lt; \" \" &lt;&lt; sizeof(c) &lt;&lt; endl;\n    int i;\n    cout &lt;&lt; sizeof(int) &lt;&lt; \" \" &lt;&lt; sizeof(i) &lt;&lt; endl;\n    double d;\n    cout &lt;&lt; sizeof(double) &lt;&lt; \" \" &lt;&lt; sizeof(d) &lt;&lt; endl;\n    return 0;\n}\n\n\nAddress Operator\n\nThe address can be retrieved using the address operator &\n\n#include &lt;iostream&gt;\nusing namespace std;\nint main() {\n    char c = 1;\n    cout &lt;&lt; int(c) &lt;&lt; \" \" &lt;&lt; &c &lt;&lt; endl;\n    int i = 2;\n    cout &lt;&lt; i &lt;&lt; \" \" &lt;&lt; &i &lt;&lt; endl;\n    double d = 3.0;\n    cout &lt;&lt; d &lt;&lt; \" \" &lt;&lt; &d &lt;&lt; endl;\n    return 0;\n}\n\n\nWhat is Pointer\n\nA pointer is a variable that stores addresses of memory locations (addresses of other objects).\n\n\nThe null pointer does not point to anything\n\n\n\nPointer’s Usage\nPointers have several uses, including:\n\nCreating fast and efficient code\nProviding a convenient means for addressing many types of problems\nSupporting dynamic memory allocation\nMaking expressions compact and succinct\n\n\n\nDeclaring Pointers\n\nA pointer being a variable needs to be declared like all variables do\n\n⟨Pointed Type⟩ * ⟨Pointer Variable Name⟩;\n\nA pointer to void is a general-purpose pointer used to hold references to any data type.\n\nvoid *pv;\n\nDeclare pointer type\n\ntypedef ⟨Pointed Type⟩ * ⟨Pointer Type Name⟩;\n\nExample\n\ntypedef int * IntPointer;\nint *p1;          // pointer to an integer\nIntPointer p2;    // pointer to an integer\n\n\nPointer Operators\n\n\n\n\n\n\n\n\nOperator\nName\nMeaning\n\n\n\n\n*\nDereference\nUsed to dereference a pointer\n\n\n-&gt;\nPoint-to\nUsed to access fields of a structure referenced by a pointer\n\n\n+, +=, ++\nAddition, increment\nUsed to increment a pointer\n\n\n-, -=, --\nSubtraction, decrement\nUsed to decrement a pointer\n\n\n== !=\nEquality, inequality\nCompares two pointers\n\n\n&gt; &gt;= &lt; &lt;=\nGreater than, greater than or equal, less than, less than or equal\nCompares two pointers\n\n\n⟨data type⟩\nCast\nTo change the type of pointer\n\n\n\n\n\nDereferencing a Pointer\nint num = 5;\nint *pi = &num;\n*pi = *pi + 2;\nprintf(\"%d\\n\",*pi);\n\n\nAdding an integer to a pointer\nint vector[] = {28, 41, 7};\nint *pi = vector;      // pi: 100\n\nprintf(\"%d\\n\",*pi);    // Displays 28\npi += 1;               // pi: 104\nprintf(\"%d\\n\",*pi);    // Displays 41\npi += 1;               // pi: 108\nprintf(\"%d\\n\",*pi);    // Displays 7\n\n\nSubtracting an integer from a pointer\nint vector[] = {28, 41, 7};\nint *pi = vector + 2;  // pi: 108\n\nprintf(\"%d\\n\",*pi);    // Displays 7\npi--;                  // pi: 104\nprintf(\"%d\\n\",*pi);    // Displays 41\npi--;                  // pi: 100\nprintf(\"%d\\n\",*pi);    // Displays 28\n\n\nSubtracting two pointers\nint vector[] = {28, 41, 7};\nint *p0 = vector;\nint *p1 = vector+1;\nint *p2 = vector+2;\n\nprintf(\"p2-p0:  %d\\n\",p2-p0);    // p2-p0:  2\nprintf(\"p2-p1:  %d\\n\",p2-p1);    // p2-p1:  1\nprintf(\"p0-p1:  %d\\n\",p0-p1);    // p0-p1:  -1\n\n\nComparing Pointers\nint vector[] = {28, 41, 7};\nint *p0 = vector;\nint *p1 = vector+1;\nint *p2 = vector+2;\n\nprintf(\"p2&gt;p0:  %d\\n\",p2&gt;p0);    // p2&gt;p0:  1\nprintf(\"p2&lt;p0:  %d\\n\",p2&lt;p0);    // p2&lt;p0:  0\nprintf(\"p0&gt;p1:  %d\\n\",p0&gt;p1);    // p0&gt;p1:  0\n\n\nMultilevel Pointer\n\nA pointer can store the address of another pointer variable.\n\nint num = 100;\nint *p1;\nint **p2;\nint ***p3;\np1 = &num;\np2 = &p1;\np3 = &p2;",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Pointers</span>"
+    ]
+  },
+  {
+    "objectID": "lect04-pointer.html#constants-and-pointers",
+    "href": "lect04-pointer.html#constants-and-pointers",
+    "title": "7  Pointers",
+    "section": "7.2 Constants and Pointers",
+    "text": "7.2 Constants and Pointers\n\nConst\n\nUsing the const keyword to protect variables from changing\n\n\n\n\n\n\n\n\n\nPointer Type\nPointer Modifiable\nData Pointed to Modifiable\n\n\n\n\nPointer to a nonconstant\n\\checkmark\n\\checkmark\n\n\nPointer to a constant\n\\checkmark\nX\n\n\nConstant pointer to a nonconstant\nX\n\\checkmark\n\n\nConstant pointer to a constant\nX\nX\n\n\n\n\n\nPointer to a constant\nint num = 5;\nconst int limit = 500;\nint *pi;                // Pointer to an integer\nconst int *pci;         // Pointer to a constant integer\n\npi = &num;\npci = &limit;\n\n\nConstant pointer to a nonconstant\nint num = 5;\nint *const cpi = &num;\n\n\nConstant pointer to a constant\nconst int limit = 500;\nconst int * const cpci = &limit;",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Pointers</span>"
+    ]
+  },
+  {
+    "objectID": "lect04-pointer.html#pointers-and-arrays",
+    "href": "lect04-pointer.html#pointers-and-arrays",
+    "title": "7  Pointers",
+    "section": "7.3 Pointers and Arrays",
+    "text": "7.3 Pointers and Arrays\n\nOne-Dimensional Arrays\n\nExample\n\nint array[5];\nint *p = array + 2;\n\n\nTechnique\n\nT * range_begin = array;\nT * range_end = array + n; // n is the length of the array\nfor (T *p = range_begin; p &lt; range_end; p++) {\n  // do something\n}\n\n\nPointer to Arrays\n\nSyntax\n\n⟨Data Type⟩ (* ⟨Pointer Variable Name⟩)[⟨Size of Array⟩];\n\nExample\n\nint (*p1)[10];\ndouble (*p2)[50];\n\n\nTwo-Dimensional Arrays\n\nRow major\nColumn major\n\n\n\n\n2D row major\n\n\n\\begin{align*}\noffset & \\longleftrightarrow(row,column)\\\\\noffset & =row\\times N_{column}+column\n\\end{align*}\n\n\n\n2D column major\n\n\n\\begin{align*}\noffset & \\longleftrightarrow(row,column)\\\\\noffset & =column\\times N_{row}+row\n\\end{align*}\n\n\n\nMultidimensional Arrays\n\nint A[2][3] = {\n  { 1, 2, 3 },\n  { 4, 5, 6 }\n};\n\nint B[2][2][3] = {\n  { { 1, 2, 3 }, {  4,  5,  6 } },\n  { { 7, 8, 9 }, { 10, 11, 12 } }\n};",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Pointers</span>"
+    ]
+  },
+  {
+    "objectID": "lect04-pointer.html#pointers-and-functions",
+    "href": "lect04-pointer.html#pointers-and-functions",
+    "title": "7  Pointers",
+    "section": "7.4 Pointers and Functions",
+    "text": "7.4 Pointers and Functions\n\nPassing Data by Value\nvoid swap(int num1, int num2) {\n    int tmp;\n    tmp = num1;\n    num1 = num2;\n    num2 = tmp;\n}\nint main() {\n    int n1 = 5;\n    int n2 = 10;\n    swap(n1, n2);\n    return 0;\n}\n\n\nPassing Data Using a Pointer\nvoid swapWithPointers(int* pnum1, int* pnum2) {\n    int tmp;\n    tmp = *pnum1;\n    *pnum1 = *pnum2;\n    *pnum2 = tmp;\n}\nint main() {\n    int n1 = 5;\n    int n2 = 10;\n    swapWithPointers(&n1, &n2);\n    return 0;\n}\n\n\nPassing a Pointer to a Constant\nvoid passingAddressOfConstants(const int* num1, int* num2) {\n    *num2 = *num1;\n}\nint main() {\n    const int limit = 100;\n    int result = 5;\n    passingAddressOfConstants(&limit, &result);\n    return 0;\n}\n\n\nReturning a Pointer\nint* allocateArray(int size, int value) {\n    int* arr = new int[size];\n    for(int i=0; i&lt;size; i++) {\n        arr[i] = value;\n    }\n    return arr; \n}\nseveral potential problems can occur when returning a pointer from a function, including:\n\nReturning an uninitialized pointer\nReturning a pointer to an invalid address\nReturning a pointer to a local variable\nReturning a pointer but failing to free it\n\n\n\nFunction Pointers\n\nA function pointer is a pointer that holds the address of a function.\n\n⟨Return Type⟩ (* ⟨Pointer Variable Name⟩)(⟨...⟩);\nint (*f1)(double);       // Passed a double and \n                         //    returns an int\nvoid (*f2)(char*);       // Passed a pointer to char and \n                         //    returns void\ndouble* (*f3)(int, int); // Passed two integers and \n                         //    returns a pointer to a double\n\nDeclare function pointer type\n\ntypedef ⟨Return Type⟩ * ⟨Pointer Type Name⟩(⟨...⟩);\n\n\nUsing a Function Pointer\nint (*fptr1)(int);\nint square(int num) {\n    return num*num;\n}\nint main() {\n    int n = 5;\n    fptr1 = square;\n    printf(\"%d squared is %d\\n\",n, fptr1(n));\n}",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Pointers</span>"
+    ]
+  },
+  {
+    "objectID": "lect04-pointer.html#pointers-and-structures",
+    "href": "lect04-pointer.html#pointers-and-structures",
+    "title": "7  Pointers",
+    "section": "7.5 Pointers and Structures",
+    "text": "7.5 Pointers and Structures\n\nPointers and Structures\n\nDeclare a structure\n\nstruct Person {\n    char firstName[100];\n    char lastName[100];\n    char title[10];\n    unsigned int age;\n};\n\nDeclare a pointer\n\nPerson *p;\n\n\nPoint-to Operator\n\nAccess the fields of a structure variable\n\ncout &lt;&lt; p-&gt;title;\ncout &lt;&lt; (*p).age;\n\nThe awkwardness of this expression (*p).age shows the necessity of the -&gt; operator.\nRemember that the operators -&gt; and . for selecting members of structures have higher precedence than the dereferencing operator *.\n\n\n\n\nExpression\nMeaning\n\n\n\n\ns-&gt;m\n\n\n\n*a.p\n\n\n\n(*s).m\n\n\n\n*s-&gt;p\n\n\n\n*(*s).p",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Pointers</span>"
+    ]
+  },
+  {
+    "objectID": "lect04-pointer.html#workshop",
+    "href": "lect04-pointer.html#workshop",
+    "title": "7  Pointers",
+    "section": "7.6 Workshop",
+    "text": "7.6 Workshop\n\nQuiz\n\nWhat is a pointer?\n\n\n\nExercises",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Pointers</span>"
+    ]
+  },
+  {
+    "objectID": "lect04-pointer.html#references",
+    "href": "lect04-pointer.html#references",
+    "title": "7  Pointers",
+    "section": "7.7 References",
+    "text": "7.7 References",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Pointers</span>"
+    ]
+  },
+  {
+    "objectID": "lect05-file.html",
+    "href": "lect05-file.html",
+    "title": "8  FILE & STREAM",
+    "section": "",
+    "text": "Introduction",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>FILE & STREAM</span>"
+    ]
+  },
+  {
+    "objectID": "lect05-file.html#endianness-alignment-padding",
+    "href": "lect05-file.html#endianness-alignment-padding",
+    "title": "8  FILE & STREAM",
+    "section": "8.1 Endianness, Alignment & Padding",
+    "text": "8.1 Endianness, Alignment & Padding\n\nEndianness\n\nEndianness is the order or sequence of bytes of a word of digital data in computer memory.\n\nA big-endian system stores the most significant byte of a word at the smallest memory address and the least significant byte at the largest.\nA little-endian system, in contrast, stores the least-significant byte at the smallest address.\n\n\n \n\n\nData Alignment\n\nData alignment means putting the data in memory at an address equal to some multiple of the word size. This increases the performance of the system due to the way the CPU handles memory.\n\n\nA char (one byte) will be 1-byte aligned.\nA short (two bytes) will be 2-byte aligned.\nAn int (four bytes) will be 4-byte aligned.\nA long (four bytes) will be 4-byte aligned.\nA float (four bytes) will be 4-byte aligned.\n\n\n\nData structure padding\n\nData structure padding means to insert some extra bytes between the end of the last data structure and the start of the next data structure.\n\nstruct Type {\n    int i;\n    double d;\n    char c;\n};\n\nType data[2]\n\n\n\n#pragma pack\nSpecifies the packing alignment for structure, union, and class members.\n\n#pragma pack( push, n )\n#pragma pack( pop, n )\n#pragma pack( n )\n\nThe default value for n is 8\n\n\n\nBit Fields\n\nClasses and structures can contain members that occupy less storage than an integral type. These members are specified as bit fields.\n\nstruct Date {\n   unsigned short nWeekDay  : 3;    // 0..7   (3 bits)\n   unsigned short nMonthDay : 6;    // 0..31  (6 bits)\n   unsigned short nMonth    : 5;    // 0..12  (5 bits)\n   unsigned short nYear     : 8;    // 0..100 (8 bits)\n};\n\n\n\nFixed-width integers\n\nSince C++11, C++ officially adopted these fixed-width integers (defined in &lt;cstdint&gt;)\n\n\n\n\nName\nType\nSize\n\n\n\n\nstd::int8_t\nsigned\n8 bit\n\n\nstd::uint8_t\nunsigned\n8 bit\n\n\nstd::int16_t\nsigned\n16 bit\n\n\nstd::uint16_t\nunsigned\n16 bit\n\n\nstd::int32_t\nsigned\n32 bit\n\n\nstd::uint32_t\nunsigned\n32 bit\n\n\nstd::int64_t\nsigned\n64 bit\n\n\nstd::uint64_t\nunsigned\n64 bit",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>FILE & STREAM</span>"
+    ]
+  },
+  {
+    "objectID": "lect05-file.html#file-in-c",
+    "href": "lect05-file.html#file-in-c",
+    "title": "8  FILE & STREAM",
+    "section": "8.2 File in C",
+    "text": "8.2 File in C\n\nFile Operations\nIn C/C++, we use the library stdio.h or cstdio to perform four major operations on files, either text or binary:\n\nCreating a new file\nOpening an existing file\nClosing a file\nReading from and writing information to a file\n\n\n\nOpening or Creating a File\nFILE * fopen(const char * filename, const char * mode)\n\n\n\nMode\nMeaning\n\n\n\n\nr\nopen a file in read mode\n\n\nw\nopen or create a file in write mode\n\n\na\nopen a file in append mode\n\n\nr+\nopen a file in both read and write mode\n\n\na+\nopen a file in both read and write mode\n\n\nw+\nopen a file in both read and write mode\n\n\nb\nbinary mode (default text mode)\n\n\n\n\nReturn value: This function returns a FILE pointer. Otherwise, NULL is returned\n\n\n\nClosing a File\n\nfclose(FILE *fptr);\n\n#include &lt;stdio.h&gt;\nint main () {\n    FILE * fptr;\n    fptr = fopen(\"data.txt\",\"r\");\n    if (fptr!=NULL) {\n        // ...\n        fclose(fptr);\n    }\n    return 0;\n}\n\n\nReading and writing to a text file\n\nfprintf(...) and fscanf(...)\n\nFILE *fptr;\n\n// Open a file in writing mode\nfptr = fopen(\"data.txt\", \"w\");\n\n// Write some text to the file\nfprintf(fptr, \"Some text\");\n\n// Close the file\nfclose(fptr);\n\n\nReading and writing to a binary file\n\nfwrite(...) and fread(...)\n\nFILE *fptr;\nint a[3] = {1, 4, 5};\n\n// Open a file in writing mode\nfptr = fopen(\"data.bin\", \"wb\");\n\n// Write an array to the file\nfwrite(a, sizeof(a), fptr);\n\n// Close the file\nfclose(fptr);",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>FILE & STREAM</span>"
+    ]
+  },
+  {
+    "objectID": "lect05-file.html#file-stream-in-c",
+    "href": "lect05-file.html#file-stream-in-c",
+    "title": "8  FILE & STREAM",
+    "section": "8.3 File & Stream in C++",
+    "text": "8.3 File & Stream in C++\n\nFile & Stream\n\nA stream is simply a flow of data. C++ streams are a generic implementation of read and write (in other words, input and output) logic that enables you to use certain consistent patterns toward reading or writing data.\n\n\n\n\nStream Hierachy\n\n\n\nFile Stream Data Types\n\n\n\n\n\n\n\nData Type\nDescription\n\n\n\n\nifstream\nInput File Stream. This data type can be used only to read data from files into memory.\n\n\nofstream\nOutput File Stream. This data type can be used to create files and write data to them.\n\n\nfstream\nFile Stream. This data type can be used to create files, write data to them, and read data from them.\n\n\n\n\n\nUsing the fstream Data Type\nfstream dataFile;\ndataFile.open(filename, flags);\n\n\n\n\n\n\n\nFile Access Flag\nMeaning\n\n\n\n\nios::app\nAppend mode. If the file already exists, its contents are preserved and all output is written to the end of the file. By default, this flag causes the file to be created if it does not exist.\n\n\nios::ate\nIf the file already exists, the program goes directly to the end of it. Output may be written anywhere in the file.\n\n\nios::binary\nBinary mode. When a file is opened in binary mode, data are written to or read from it in pure binary format. (The default mode is text.)\n\n\nios::in\nInput mode. Data will be read from the file. If the file does not exist, it will not be created, and the open function will fail.\n\n\nios::out\nOutput mode. Data will be written to the file. By default, the file’s contents will be deleted if it already exists.\n\n\nios::trunc\nIf the file already exists, its contents will be deleted (truncated). This is the default mode used by ios::out.\n\n\n\n\n\nOpening and Closing a File\nfstream dataFile;\ndataFile.open(\"data.txt\", ios::in|ios::out|ios::trunc);\n \nif (dataFile.is_open()) {\n    // do reading or writing here\n \n    dataFile.close();\n}\n\n\nText Files\n\nWriting to a File\n#include &lt;iostream&gt;\n#include &lt;fstream&gt;\nusing namespace std;\nint main() {\n    fstream dataFile;\n    cout &lt;&lt; \"Opening file...\\n\";\n    dataFile.open(\"demofile.txt\", ios::out);    // Open for output\n    cout &lt;&lt; \"Now writing data to the file.\\n\";\n    dataFile &lt;&lt; \"Jones\\n\";                      // Write line 1\n    dataFile &lt;&lt; \"Smith\\n\";                      // Write line 2\n    dataFile &lt;&lt; \"Willis\\n\";                     // Write line 3\n    dataFile &lt;&lt; \"Davis\\n\";                      // Write line 4\n    dataFile.close();                           // Close the file\n    cout &lt;&lt; \"Done.\\n\";\n    return 0;\n}\nProgram Output\nOpening file...\nNow writing data to the file.\nDone.\nOutput to File demofile.txt\nJones\nSmith\nWillis\nDavis\n\n\n\nAppending to a File\n#include &lt;iostream&gt;\n#include &lt;fstream&gt;\nusing namespace std;\nint main() {\n    ofstream dataFile;\n    cout &lt;&lt; \"Opening file...\\n\";\n    // Open the file in output mode.\n    dataFile.open(\"demofile.txt\", ios::out);\n    cout &lt;&lt; \"Now writing data to the file.\\n\";\n    dataFile &lt;&lt; \"Jones\\n\";                     // Write line 1\n    dataFile &lt;&lt; \"Smith\\n\";                     // Write line 2\n    cout &lt;&lt; \"Now closing the file.\\n\";\n    dataFile.close();                          // Close the file\n    cout &lt;&lt; \"Opening the file again...\\n\";\n    // Open the file in append mode.\n    dataFile.open(\"demofile.txt\", ios::out | ios::app);\n    cout &lt;&lt; \"Writing more data to the file.\\n\";\n    dataFile &lt;&lt; \"Willis\\n\";                    // Write line 3\n    dataFile &lt;&lt; \"Davis\\n\";                     // Write line 4\n    cout &lt;&lt; \"Now closing the file.\\n\";\n    dataFile.close();                          // Close the file\n    cout &lt;&lt; \"Done.\\n\";\n    return 0;\n}\n\n\n\nFile Output Formatting\n#include &lt;iostream&gt;\n#include &lt;iomanip&gt;\n#include &lt;fstream&gt;\nusing namespace std;\nint main() {\n    fstream dataFile;\n    double num = 17.816392;\n    dataFile.open(\"numfile.txt\", ios::out);    // Open in output mode\n    dataFile &lt;&lt; fixed;            // Format for fixed-point notation\n    dataFile &lt;&lt; num &lt;&lt; endl;      // Write the number\n    dataFile &lt;&lt; setprecision(4);  // Format for 4 decimal places\n    dataFile &lt;&lt; num &lt;&lt; endl;      // Write the number\n    dataFile &lt;&lt; setprecision(3);  // Format for 3 decimal places\n    dataFile &lt;&lt; num &lt;&lt; endl;      // Write the number\n    dataFile &lt;&lt; setprecision(2);  // Format for 2 decimal places\n    dataFile &lt;&lt; num &lt;&lt; endl;      // Write the number\n    dataFile &lt;&lt; setprecision(1);  // Format for 1 decimal place\n    dataFile &lt;&lt; num &lt;&lt; endl;      // Write the number\n    cout &lt;&lt; \"Done.\\n\";\n    dataFile.close();             // Close the file\n    return 0;\n}\nContents of File numfile.txt\n 17.816392\n 17.8164\n 17.816\n 17.82\n 17.8\n\n\nThe End-of-Line Puzzle\nEnd of line\n\nUNIX uses &lt;LINE FEED&gt; for end-of-line.\nWindows uses the two characters: &lt;RETURN&gt;&lt;LINE FEED&gt; for end-of-line\nApple uses &lt;RETURN&gt;\n\nEnd of file\n\nOld operating systems use &lt;EOF&gt; (a charater) for end-of-file.\nMost modern operating systems use &lt;EOF&gt; (a condition) for end-of-file.\n\n\n\nReading from a File\n\nConsider the file murphy.txt, which contains the following data:\nJayne Murphy\n47 Jones Circle\nAlmond, NC 28702\n\n\n\ngetline(dataFile, str, '\\n');\nThe three arguments in this statement are explained as follows:\n\n\n\n\n\n\n\ndataFile\nThis is the name of the file stream object. It specifies the stream object from which the data is to be read.\n\n\n\n\nstr\nThis is the name of a string object. The data read from the file will be stored here.\n\n\n\\n\nThis is a delimiter character of your choice. If this delimiter is encountered, it will cause the function to stop reading. (This argument is optional. If it’s left out, ’\\n’ is the default.)\n\n\n\n\n#include &lt;iostream&gt;\n#include &lt;fstream&gt;\n#include &lt;string&gt;\nusing namespace std;\nint main() {\n    string input;      // To hold file input\n    fstream nameFile;  // File stream object\n    nameFile.open(\"murphy.txt\", ios::in);\n    if (nameFile) {\n        getline(nameFile, input);\n        while (nameFile) {\n            cout &lt;&lt; input &lt;&lt; endl;\n            getline(nameFile, input);\n        }\n        nameFile.close();\n    }\n    else\n        cout &lt;&lt; \"ERROR: Cannot open file.\\n\";\n    return 0;\n}\n\n\n\nError Testing\n\nStream Bits\n\n\n\n\n\n\n\nBit\nDescription\n\n\n\n\nios::eofbit\nSet when the end of an input stream is encountered.\n\n\nios::failbit\nSet when an attempted operation has failed.\n\n\nios::hardfail\nSet when an unrecoverable error has occurred.\n\n\nios::badbit\nSet when an invalid operation has been attempted.\n\n\nios::goodbit\nSet when all the flags above are not set. Indicates the stream is in good condition.\n\n\n\n\n\nFunctions to Test the State of Stream Bits\n\n\n\n\n\n\n\nFunction\nDescription\n\n\n\n\neof()\nReturns true (nonzero) if the eofbit flag is set, otherwise returns false.\n\n\nfail()\nReturns true (nonzero) if the failbit or hardfail flags are set, otherwise returns false.\n\n\nbad()\nReturns true (nonzero) if the badbit flag is set, otherwise returns false.\n\n\ngood()\nReturns true (nonzero) if the goodbit flag is set, otherwise returns false.\n\n\nclear()\nWhen called with no arguments, clears all the flags listed above. Can also be called with a specific flag as an argument.\n\n\n\n\n\nExample\n\nThe function showState\n\nvoid showState(fstream &file) {\n   cout &lt;&lt; \"File Status:\\n\";\n   cout &lt;&lt; \" eof bit: \" &lt;&lt; file.eof() &lt;&lt; endl;\n   cout &lt;&lt; \" fail bit: \" &lt;&lt; file.fail() &lt;&lt; endl;\n   cout &lt;&lt; \" bad bit: \" &lt;&lt; file.bad() &lt;&lt; endl;\n   cout &lt;&lt; \" good bit: \" &lt;&lt; file.good() &lt;&lt; endl;\n   file.clear();     // Clear any bad bits\n}\n\n\n\nBinary Files\n\nText Files vs. Binary Files\n\n\n\nThe Write and Read Member Functions\n\nThe general format of the write member function is\nfileObject.write(address, size);\n\nfileObject is the name of a file stream object.\naddress is the starting address of the section of memory that is to be written to the file. This argument is expected to be the address of a char (or a pointer to a char).\nsize is the number of bytes of memory to write. This argument must be an integer value.\n\nThe general format of the read member function is\nfileObject.read(address, size);\n\nfileObject is the name of a file stream object.\naddress is the starting address of the section of memory where the data being read from the file is to be stored. This is expected to be the address of a char (or a pointer to a char).\nsize is the number of bytes of memory to read from the file. This argument must be an integer value.\n\n\n\n\nExample\n#include &lt;iostream&gt;\n#include &lt;fstream&gt;\nusing namespace std;\nint main() {\n    const int SIZE = 10;\n    fstream file;\n    int numbersOut[SIZE] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};\n    int numbersIn[SIZE];\n    file.open(\"numbers.dat\", ios::out | ios::binary);\n    cout &lt;&lt; \"Writing the data to the file.\\n\";\n    file.write((char *)numbersOut, sizeof(numbersOut));\n    file.close();\n    file.open(\"numbers.dat\", ios::in | ios::binary);\n    cout &lt;&lt; \"Now reading the data back into memory.\\n\";\n    file.read((char *)numbersIn, sizeof(numbersIn));\n    for (int count = 0; count &lt; SIZE; count++)\n        cout &lt;&lt; numbersIn[count] &lt;&lt; \" \";\n    cout &lt;&lt; endl;\n    file.close();\n    return 0;\n}\n\n\nFile format\n\nA file format is a standard way that information is encoded for storage in a computer file.\n\n\n\n\nCreating Records with Structures\nconst int NAME_SIZE = 51, ADDR_SIZE = 51, PHONE_SIZE = 14;\n\nstruct Info {\n    char name[NAME_SIZE];\n    int age;\n    char address1[ADDR_SIZE];\n    char address2[ADDR_SIZE];\n    char phone[PHONE_SIZE];\n};\n\n\nStore a Record to a File\nint main() {\n    Info person;  // To hold info about a person\n    char again;   // To hold Y or N\n    fstream people(\"people.dat\", ios::out | ios::binary);\n    do {\n        cout &lt;&lt; \"Enter the following data about a \"\n             &lt;&lt; \"person:\\n\";\n        cout &lt;&lt; \"Name: \";\n        cin.getline(person.name, NAME_SIZE);\n        cout &lt;&lt; \"Age: \";\n        cin &gt;&gt; person.age;\n        cin.ignore(); // Skip over the remaining newline.\n        cout &lt;&lt; \"Address line 1: \";\n        cin.getline(person.address1, ADDR_SIZE);\n        cout &lt;&lt; \"Address line 2: \";\n        cin.getline(person.address2, ADDR_SIZE);\n        cout &lt;&lt; \"Phone: \";\n        cin.getline(person.phone, PHONE_SIZE);\n        people.write((char *)&person, sizeof(person));\n        cout &lt;&lt; \"Do you want to enter another record? \";\n        cin &gt;&gt; again;\n        cin.ignore(); // Skip over the remaining newline.\n    } while (again == 'Y' || again == 'y');\n    people.close();\n    return 0;\n}\n\n\nRead a Record from a File\nint main() {\n    Info person;     // To hold info about a person\n    char again;      // To hold Y or N\n    fstream people;  // File stream object\n    people.open(\"people.dat\", ios::in | ios::binary);\n    if (!people) {\n        cout &lt;&lt; \"Error opening file. Program aborting.\\n\";\n        return 0;\n    }\n    cout &lt;&lt; \"Here are the people in the file:\\n\\n\";\n    people.read((char *)&person, sizeof(person));\n    while (!people.eof()) {\n        // Display the record.\n        cout &lt;&lt; \"Name: \";\n        cout &lt;&lt; person.name &lt;&lt; endl;\n        cout &lt;&lt; \"Age: \";\n        cout &lt;&lt; person.age &lt;&lt; endl;\n        cout &lt;&lt; \"Address line 1: \";\n        cout &lt;&lt; person.address1 &lt;&lt; endl;\n        cout &lt;&lt; \"Address line 2: \";\n        cout &lt;&lt; person.address2 &lt;&lt; endl;\n        cout &lt;&lt; \"Phone: \";\n        cout &lt;&lt; person.phone &lt;&lt; endl;\n        cout &lt;&lt; \"\\nPress the Enter key to see the next record.\\n\";\n        cin.get(again);\n        people.read((char *)&person, sizeof(person));\n    }\n    cout &lt;&lt; \"That's all the data in the file!\\n\";\n    people.close();\n    return 0;\n}\n\n\nDesign Structure for Format\n\n\n\n\nName\nSize [Bytes]\nDescription\n\n\n\n\n\nname\n51\nC string\n\n\nN\\,\\times\nage\n4\ninteger\n\n\n\naddress1\n51\nC string\n\n\n\naddress2\n51\nC string\n\n\n\n\n\n\nRandom-Access Files\n\nRandom-Access\n\nRandom access means nonsequentially accessing data in a file.\n\n\n\n\nRead/Write Position\n\nFile stream object has the read/write position in the file.\n\n\n\n\nThe seekp and seekg Member Functions\n\nThe seekp function is used with files opened for output to change the write position.\nfile.seekp(offset, mode);\nThe seekg function is used with files opened for input to change the read position.\nfile.seekg(offset, mode);\n\n\n\n\n\n\n\n\nMode Flag\nDescription\n\n\n\n\nios::beg\nThe offset is calculated from the beginning of the file.\n\n\nios::end\nThe offset is calculated from the end of the file.\n\n\nios::cur\nThe offset is calculated from the current position.\n\n\n\n\n\nWarning: If a program has read to the end of a file, we must call the file stream object’s clear member function before calling seekg or seekp. This clears the file stream object’s eof flag. Otherwise, the seekg or seekp function will not work.\n\n\n\nThe tellp and tellg Member Functions\n\ntellp returns the write position\ntellg returns the read position\n\npos = outFile.tellp();\npos = inFile.tellg();",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>FILE & STREAM</span>"
+    ]
+  },
+  {
+    "objectID": "lect05-file.html#workshop",
+    "href": "lect05-file.html#workshop",
+    "title": "8  FILE & STREAM",
+    "section": "8.4 Workshop",
+    "text": "8.4 Workshop\n\nQuiz\n\nWhat is data alignment?\n\n\n\nExercises\n\nWrite a program that reads a file and then counts the number of lines in it.",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>FILE & STREAM</span>"
+    ]
+  },
+  {
+    "objectID": "lect05-file.html#references",
+    "href": "lect05-file.html#references",
+    "title": "8  FILE & STREAM",
+    "section": "8.5 References",
+    "text": "8.5 References",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>FILE & STREAM</span>"
+    ]
+  },
+  {
+    "objectID": "lect05-element-ds.html",
+    "href": "lect05-element-ds.html",
+    "title": "9  Elementary Data Structures",
+    "section": "",
+    "text": "Data Abstraction",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Elementary Data Structures</span>"
+    ]
+  },
+  {
+    "objectID": "lect05-element-ds.html#array",
+    "href": "lect05-element-ds.html#array",
+    "title": "9  Elementary Data Structures",
+    "section": "9.1 Array",
+    "text": "9.1 Array\n\nArray\n\nAn array is a fixed collection of same-type data that are stored contiguously and that are accessible by an index.\n\n\nA dynamic array is an array whose size can be changed during the execution of the program.\n\n\n\n\nExample of The sieve of Eratosthenes\n\nA simple program prints out all prime numbers less than N.\n\nvoid sieve(int N) {\n    int i;\n    int *a = new int[N];\n    for (i = 2; i &lt; N; i++) a[i] = 1;\n    for (i = 2; i &lt; N; i++)\n        if (a[i])\n            for (int j = i; i*j &lt; N; j++) a[i*j] = 0;\n    for (i = 2; i &lt; N; i++) \n        if (a[i]) cout &lt;&lt; \" \" &lt;&lt; i;\n    delete[] a;\n}\n\nChallenge: analysis the program",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Elementary Data Structures</span>"
+    ]
+  },
+  {
+    "objectID": "lect05-element-ds.html#linked-lists",
+    "href": "lect05-element-ds.html#linked-lists",
+    "title": "9  Elementary Data Structures",
+    "section": "9.2 Linked Lists",
+    "text": "9.2 Linked Lists\n\nLinked Lists\n\nA linked list is a set of items where each item is part of a node that also contains a link to a node. It allows the items be arranged in a linear order.\n\n\n\n\nExample of Josephus Election\n\nImagine that N people have decided to elect a leader by arranging themselves in a circle and eliminating every Mth person around the circle, closing ranks as each person drops out. The problem is to find out which person will be the last one remaining\nIf N=9 and M=5\n\n\n\n\n\nSingly Linked Lists\n\nData Structure for List Node\n\nWe use pointers for links and structures for nodes\n\nstruct ListNode {\n    DataType data;\n    ListNode *next;\n    ListNode(DataType data, ListNode *next=nullptr) {\n        this-&gt;data = data;\n        this-&gt;next = next;\n    }\n};\ntypedef ListNode *Link;\n\n\nCreate a List Node\n\nCreating a new node\n\nListNode *p = new ListNode(...);\n\nWe so often need to use the phrase “the node referenced by link p” that we simply say “node p”\nIt is a null link that points to no node.\nIt refers to a dummy node that contains no data.\n\n\n\nDelete a List Node\n\nDeleting a node\n\nListNode *p;\n...\ndelete p;\n\nWriting a function to delete a node\n\nvoid deleteNode(ListNode *p)\n{\n    ...\n}\n\n\nDeep Deletion\n\nDeleting a node and its link\nWriting a function to delete a node deeply\n\nvoid deepDeleteNode(ListNode *p)\n{\n    ...\n}\n\n\nOrganize a Linked List\n\n\n\n\n\nData Structure for Linked List\nstruct LinkedList {\n    ListNode *first; // or ListNode *head;\n    LinkedList() {\n        this-&gt;first = nullptr;\n    }\n};\n\n\nInsert at The Beginning\n\n\n\n\n\nTraversing a Linked List\nAssign List head to node pointer.\nwhile node pointer is not null\n    Display the value member of the node pointed to by node pointer.\n    Assign node pointer to its own next member.\n\n\nAnother Data Structure for Linked List\nstruct LinkedList {\n    ListNode *first;\n    ListNode *last;\n    LinkedList() {\n        this-&gt;first = nullptr;\n        this-&gt;last = nullptr;\n    }\n};\n\n\nInsert at The End\n\n\n\n\n\nRemove from The Beginning\n\n\n\nSearch\nListNode *search(ListNode *first, DataType k)  {\n    ListNode *current = first; \n    while(current) {\n        if (current-&gt;data == k) then return current;\n        current = current-&gt;next;\n    }\n    return nullptr;\n}\n\n\n\nOrdered Linked List\n\nOrdered Linked List\n\nAn ordered linked list is a data structure that maintains a collection of elements in a linear sequence. The elements in an ordered linked list are arranged in a specific order, such as ascending or descending, based on the values of the elements.\n\n\n\nInsert\nCreate a new node.\nStore data in the new node.\nif there are no nodes in the list then\n    Make the new node the first node.\nelse\n    Find the first node whose value is greater than or equal to the new\n        value, or the end of the list (whichever is first).\n    Insert the new node before the found node, or at the end of the list \n        if no such node was found.\n\n\nDummy Head Node\n\nA dummy head node is a head node that does not store any actual data related to the problem.\n\n\n\n\nSort\n\nSorting an unordered linked list is arranging the elements of the list in a specific order, typically ascending or descending",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Elementary Data Structures</span>"
+    ]
+  },
+  {
+    "objectID": "lect05-element-ds.html#variations-on-linked-list",
+    "href": "lect05-element-ds.html#variations-on-linked-list",
+    "title": "9  Elementary Data Structures",
+    "section": "9.3 Variations on Linked List",
+    "text": "9.3 Variations on Linked List\n\nCircular Linked Lists\n\nCircular Linked Lists\n\nCircular linked list is a variation of linked list in which the last element points to the first element (or the first element points to the last element and).\n\n\n\n\n\nDoubly Linked Lists\n\nDoubly Linked Lists\n\nDoubly linked is a variation of linked list in that it has two pointers. One points to the next node as before, while the other points to the previous node.\n\n\n\n\n\nGeneralized Lists\n\nHow to Extend Linked List\nWe can extend a data structure of linked list by abstracting - Data field - Link field\n\n\nMulti-Linked List\n\nA multi-linked list is a variation of the traditional linked list data structure where each node can have multiple pointers, or references, to other nodes, creating a hierarchical structure.\n\n\nSkip List\n\n\n\n\nMulti-Linked List\n\n\n\nGeneralized Lists\n\nA generalized list l is a finite sequence of n\\geq0 elements, \\{e_{0},e_{1},\\ldots,e_{n-1}\\}, where e_{i} is either an element or a generalized list.\n\nstruct GenListNode {\n    bool tag;\n    GenListNode* next;\n    union {\n        DataType data;\n        GenListNode* down;\n    };\n};\n\nConsider the generalized list L=((a,b,c),((d,e),f),g)",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Elementary Data Structures</span>"
+    ]
+  },
+  {
+    "objectID": "lect05-element-ds.html#stack",
+    "href": "lect05-element-ds.html#stack",
+    "title": "9  Elementary Data Structures",
+    "section": "9.4 Stack",
+    "text": "9.4 Stack\n\nStack\n\nA stack is a data structure that stores and retrieves items in a last-in-first- out (LIFO) manner.\n\n\n\n\nStack API\n\n\n\nmethod\ndescription\n\n\n\n\nboolean isEmpty()\nis the stack empty?\n\n\nint size()\nnumber of items in the stack\n\n\nvoid push(Item item)\nadd item to the stack\n\n\nItem top()\nmost recently added item\n\n\nvoid pop()\nremove the most recently added item\n\n\n\n\n\nStack applications\n\nParsing in a compiler.\nJava virtual machine.\nUndo in a word processor.\nBack button in a Web browser.\nPostScript language for printers.\nImplementing function calls in a compiler.\n…\n\n\n\n\nFunction calls\n\nHow a compiler implements a function.\n\nFunction call: push local environment and return address.\nReturn: pop return address and local environment.\n\n\n\n\n\nRemove recursion\n\nRecursive function: Function that calls itself.\nCan always use an explicit stack to remove recursion.\nChallenge: reimplement quicksort without using recursion\n\n\n\nArithmetic expression\nArithmetic expression can be represented in\n\ninfix\n⟨operand 1⟩ ⟨operator⟩ ⟨operand 2⟩\nprefix (Polish Notation)\n⟨operator⟩ ⟨operand 1⟩ ⟨operand 2⟩\npostfix (Reverse-Polish Notation)\n⟨operand 1⟩ ⟨operand 2⟩ ⟨operator⟩\n\n\n\n\ninfix\nprefix\npostfix\n\n\n\n\nA+B*C\n+*BCA\nBC*+A\n\n\n(A-B)/C\n/-ABC\nAB-C/\n\n\n(A+B)*(C-D)\n*+AB-CD\nAB+CD-*\n\n\n\n\n\nConversion of an infix expression to postfix\n\nConvert infixExp to postfixExp\n\nstackOps.push('(')\ninfixExp.append(')')\nwhile not infixExp.end()?\n    tok ← infixExp.nextToken()\n    if tok is operand then postfixExp.append(tok)\n    if tok is \"(\" then stackOps.push(tok)\n    if tok is operator then \n        while precedence of stackOps.top() is higher than or equal tok?\n            postfixExp.append(stackOps.pop())\n            stackOps.push(tok)\n    if tok is \")\" then \n        while stackOps.top() is not \"(\"?\n            postfixExp.append(stackOps.pop())\n        stackOps.pop()\n\n\nExample\n\nConvert the infix expression (A+B)*(C-(D+A)) into a postfix expression\n\n\n\n\ntok\nstackOps\npostfixExp\n\n\n\n\n \n \n \n\n\n \n \n \n\n\n\n\n\nArithmetic expression evaluation\n\nA simple version of two-stack algorithm proposed by E. W. Dijkstra\n\nScan tokens from the expression (fully parenthesized)\nif token is\n    - Value: push onto the value stack.\n    - Operator: push onto the operator stack.\n    - Left parenthesis: ignore.\n    - Right parenthesis: \n        - pop operator and two values.\n        - push the result of applying that operator to those values onto the\n        operand stack.\n\nEvaluate the expression ( 1 + ( ( 2 + 3 ) * ( 4 * 5 ) ) )\n\n\n\n\nImplementation (simple)\n\nInput in is a arithmetic expression that is fully parenthesized and contains delimiters (space characters)\n\ndouble evaluate(istream& in) {\n    stack&lt;string&gt; ops;\n    stack&lt;double&gt; vals;\n    string tok;\n    while (!in.eof()) {\n        in &gt;&gt; tok;\n        if (tok == \"(\");        \n        else if (tok == \"+\" || tok == \"*\") ops.push(tok);\n        else if (tok == \")\") {\n            string op = ops.top(); ops.pop();\n            double val2 = vals.top(); vals.pop();\n            double val1 = vals.top(); vals.pop();\n            if (op == \"+\") vals.push(val1 + val2);\n            else if (op == \"*\") vals.push(val1 * val2);\n        }\n        else vals.push(stod(tok));\n    }\n    return vals.top();\n}",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Elementary Data Structures</span>"
+    ]
+  },
+  {
+    "objectID": "lect05-element-ds.html#queue",
+    "href": "lect05-element-ds.html#queue",
+    "title": "9  Elementary Data Structures",
+    "section": "9.5 Queue",
+    "text": "9.5 Queue\n\nQueue\n\nA queue is a data structure that stores and retrieves items in a first-in- first-out (FIFO) manner.\n\n\n\n\nQueue API\n\n\n\nmethod\ndescription\n\n\n\n\nboolean isEmpty()\nis the queue empty?\n\n\nint size()\nnumber of items in the queue\n\n\nvoid enqueue(Item item)\nadd item to the queue\n\n\nvoid dequeue()\nremove the least recently added item\n\n\nItem front()\nthe least recently added item\n\n\n\n\n\nQueue applications\n\nOperating systems (queuing messages, IO requests, mouse movements, etc),\nWeb servers (queuing incoming requests, file operations, etc)\nTicket counter line where people who come first will get his ticket first\nBank line where people who come first will done his transaction first\n…",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Elementary Data Structures</span>"
+    ]
+  },
+  {
+    "objectID": "lect05-element-ds.html#deque",
+    "href": "lect05-element-ds.html#deque",
+    "title": "9  Elementary Data Structures",
+    "section": "9.6 Deque",
+    "text": "9.6 Deque\n\nDeque\n\nThe deque stands for Double Ended Queue. Deque is a linear data structure where the insertion and deletion operations are performed from both ends. We can say that deque is a generalized version of the queue.\n\n\nSome restricted deques\n\nIf we insert at the end and remove at the end, we get a stack\nif we insert at the end and remove at the beginning, we get a FIFO queue\n\nArray-based deque\n\n\n\nDeque API\n\n\n\nmethod\ndescription\n\n\n\n\nvoid push_front(Item item)\nInsert item at the front\n\n\nvoid push_back(Item item)\nInsert item at the back\n\n\nvoid pop_front()\nRemove at the front\n\n\nvoid pop_back()\nRemove at the back\n\n\n…",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Elementary Data Structures</span>"
+    ]
+  },
+  {
+    "objectID": "lect05-element-ds.html#symbol-tables",
+    "href": "lect05-element-ds.html#symbol-tables",
+    "title": "9  Elementary Data Structures",
+    "section": "9.7 Symbol Tables",
+    "text": "9.7 Symbol Tables\n\nIntroduction\n\nA symbol table is a data structure of key-value pair abstraction that supports two basic operations:\n\nInsert a value (item) with specified key.\nGiven a key, search for the corresponding value.\n\n\n\nFor example, DNS lookup.\n\nInsert domain name with specified IP address.\nGiven domain name, find corresponding IP address.\n\n\n\n\n\nSymbol table applications\n\n\n\n\n\n\n\n\n\nApplication\nPurpose Of Search\nKey\nValue\n\n\n\n\ndictionary\nfind definition\nword\ndefinition\n\n\nbook index\nfind relevant pages\nterm\nlist of page numbers\n\n\nfile share\nfind song to download\nname of song\ncomputer ID\n\n\nfinancial account\nprocess transactions\naccount number\ntransaction details\n\n\nweb search\nfind relevant web pages\nkeyword\nlist of page names\n\n\ncompiler\nfind properties of variables\nvariable name\ntype and value\n\n\nrouting table\nroute Internet packets\ndestination\nbest route\n\n\nDNS\nfind IP address\ndomain name\nIP address\n\n\nreverse DNS\nfind domain name\nIP address\ndomain name\n\n\ngenomics\nfind markers\nDNA string\nknown positions\n\n\nfile system\nfind file on disk\nfilename\nlocation on disk\n\n\n\n\n\nAbstract Data Type\n\nSymbol-Table Abstract Data Type\ntemplate &lt;class Key, class Value&gt;\nclass SymbolTable {\nprivate:\n    // Implementation-dependent code\npublic:\n    int count() = 0;\n    Value search(Key) = 0;\n    void insert(Key, Value) = 0;\n    void remove(Key) = 0;\n    Key select(int) = 0;\n};\n\n\nConventions\n\nValue type:\n\nAny generic type.\nValues are not null. (nullValue)\n\nKey type:\n\nKeys are any generic type.\nKeys are Comparable.\nKeys are unique and not null. (nullKey)\n\n\n\n\nOrdered Symbol-Table Abstract Data Type\n\nFor ordered symbol-table, we need the following additional methods\n\n\n\n\n\n\n\n\nMethods\nMeanings\n\n\n\n\nKey min()\nsmallest key\n\n\nKey max()\nlargest key\n\n\nKey floor(Key key)\nlargest key less than or equal to key\n\n\nKey ceiling(Key key)\nsmallest key greater than or equal to key\n\n\nKey select(int k)\nkey of rank k\n\n\nint rank(Key key)\nnumber of keys less than key\n\n\nvector&lt;Key&gt; range(int l, int r)\nkeys in sorted set of keys [l..r]\n\n\nvector&lt;Key&gt; keys(Key lo, Key hi)\nkeys in [lo..hi], in sorted order\n\n\n\n\nExamples of ordered symbol table API\n\n\n\n\n\nElementary Implementations\n\nArray-based Symbol Table\ntemplate &lt;class Key, class Value&gt;\nclass ArraySymbolTable: public SymbolTable&lt;Key, Value&gt; {\nprivate:\n    Value *values;\n    Key *keys;\n    int N;\npublic:\n    ArraySymbolTable() {\n        ...\n    }\n    ...\n};\n\n\nSequential Search\n\nThe search function can scan through the array of keys to look for an item with the specified key, returning nullValue when encountering an item with a larger key\n\nValue seqsearch(int l, int r, Key key) {\n    for(int i=l; i&lt;=r; i++)\n        if (keys[i] == key) return values[i];\n    return nullValue;\n}\nValue search(Key key) {\n    return seqsearch(0, N-1, key);\n}\n\nChallenge: Can we make any improvement?\nAnalysis\n\n\nSequential search in a symbol table with N ordered items uses about N/2 comparisons for search hits andh search misses (on the average)\n\n\n\nBinary Search\n\nIdea\nGiven that the array keys is sorted, the search checks the middle element of the active region.\n\nIf the middle element is the target element, the search terminates.\nOtherwise, the search recursively continues to the left or right half of the region, depending on the value of the middle element.\n\n\nValue binsearch(int l, int r, Key key) {\n    int m;\n    do {\n        m = (l + r) / 2;\n        if (keys[m] == key)\n            return values[m];\n        else if (keys[m] &gt; key)\n            r = m - 1;\n        else\n            l = m + 1;\n    } while (l &lt;= r);\n    return nullValue;\n}\n\nChallenge: Reimplement the function using recursion.\nAnalysis\n\n\nBinary search never uses more than \\log_{2}(N+1) comparisons for a search (hit or miss)\n\n\n\nInterpolation Search\n\nWe can replace the formula \nm\\gets l+\\frac{1}{2}(r-l)\n with \nm\\gets l+\\frac{key-keys[l]}{keys[r]-keys[l]}(r-l)\n\n\n\n\nSelection\nProblem. Finding the k-th smallest of a set of keys without required full sort.\ntemplate &lt;class Item&gt;\nvoid select(Item a[], int l, int r, int k) {\n    if (r &lt;= l) return;\n    int i = partition(a, l, r);\n    if (i &gt; k) select(a, l, i - 1, k);\n    if (i &lt; k) select(a, i + 1, r, k);\n}\n\nChallenge: reimplement the function without using recursion\nAnalysis\n\n\nQuicksort-based selection is linear time on the average\n\n\n\n\nCost summary for basic symbol-table implementations\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nimplementation\nsearch (worst)\ninsert (worst)\nremove (worst)\nsearch hit (avg)\ninsert (avg)\nremove (avg)\nordered iteration\nkey\n\n\n\n\nunordered list\nN\n1\nN\nN/2\n1\nN/2\nno\nequal\n\n\nordered list\nN\nN\nN\nN/2\nN/2\nN/2\nyes\ncompare\n\n\nordered array\n\\log_{2}N\nN\nN\n\\log_{2}N\nN/2\nN/2\nyes\ncompare\n\n\ngoal?",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Elementary Data Structures</span>"
+    ]
+  },
+  {
+    "objectID": "lect05-element-ds.html#workshop",
+    "href": "lect05-element-ds.html#workshop",
+    "title": "9  Elementary Data Structures",
+    "section": "9.8 Workshop",
+    "text": "9.8 Workshop\n\nQuiz\n\nWhat is a linked list?\nWhat is a stack?\nWhat is a queue?\nA letter means push and an asterisk means pop in the sequence EAS*Y*QUE***ST***IO*N***\nGive the sequence of values returned by the pop operations.\nAn uppercase letter means put at the beginning, a lowercase letter means put at the end, a plus sign means get from the beginning, and an asterisk means get from the end in the sequence EAs+Y+QUE**+st+*+IO*n++*\nGive the sequence of values returned by the get operations when this sequence of operations is performed on an initially empty deque.\n\n\n\nProjects\n\nDesign and implement class Polynomial\nDesign and implement class Tensor\nDesign and implement class SparseMatrix\nDesign and implement class Expression\n(Big project) Design and implement a tiny relational database project.",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Elementary Data Structures</span>"
+    ]
+  },
+  {
+    "objectID": "lect05-element-ds.html#references",
+    "href": "lect05-element-ds.html#references",
+    "title": "9  Elementary Data Structures",
+    "section": "9.9 References",
+    "text": "9.9 References",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Elementary Data Structures</span>"
+    ]
+  },
+  {
+    "objectID": "lect06-tree.html",
+    "href": "lect06-tree.html",
+    "title": "10  Trees & Binary Trees",
+    "section": "",
+    "text": "10.1 Trees",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Trees & Binary Trees</span>"
+    ]
+  },
+  {
+    "objectID": "lect06-tree.html#trees",
+    "href": "lect06-tree.html#trees",
+    "title": "10  Trees & Binary Trees",
+    "section": "",
+    "text": "Introduction\nTrees are a mathematical abstraction that play a central role in the design and analysis of algorithms because\n\nTrees are used to describe dynamic properties of algorithms.\nTrees are fundamental data storage structures that combine advantages of an array and a linked list.\n\nSearching as fast as array.\nInsertion and deletion as fast as linked list.\n\n\n\n\nDefinition\n\nA tree is a nonlinear collection. It consists of\n\nA set of nodes that often represent entities.\nA set of edges/links that represent the relationship between nodes.\n\nA tree T (rooted tree)\n\nis empty tree\nT=\\emptyset\nis a node r (called the root node) connected to a sequence of of disjoint trees {T_{1},T_{2},...,T_{m}} (called the subtrees) T=\\left\\{ r\\to\\left\\{ T_{1,},T_{2},...,T_{m}\\right\\} \\right\\}\n\n\n\n\nTree vs. Subtree\n\n\n\n\nTerminology\nIn a tree\n\nNode: a simple object\nEdge/Link/Branch: a connection between two nodes\n\nIn a connection\n\nParent node: above a node\nChild node: below a node\n\n\nIn a tree or subtree\n\nRoot node: node doesn’t have parent\nLeaf node/External node: node doesn’t have children\nInternal node: node has children\nSibling nodes: nodes have the same parent\n\nDegree of node p deg(p)=\\text{the number of children of }p\nDegree of tree T  \\deg\\left(T\\right)=\\max\\left(\\deg\\left(p_{i}\\right),p_{i}\\in T\\right) \n\nLevel/depth of node p: level\\left(p\\right)=\\left\\{ \\begin{array}{cc}\n0 & p=root\\\\\nlevel\\left(parent\\left(p\\right)\\right)+1 & p\\ne root\n\\end{array}\\right.\nHeight of tree T: height\\left(T\\right)=\\max\\left(height\\left(T\\to leftSubtree\\right),height\\left(T\\to rightSubtree\\right)\\right)+1\n\nPath: A path in a tree is a list of distinct nodes in which successive nodes are connected by edges in the tree. In a path p_{1}-p_{2}-...-p_{k} is path, node p_{1} is the ancestor and p_{k} is the descendant.\n\n\n\n\nThe path length of a tree is the sum of the levels of all the tree’s nodes.\nThe internal path length of a tree is the sum of the levels of all the tree’s internal nodes.\nThe external path length of a tree is the sum of the levels of all the tree’s external nodes\n\n\n\n\nM-ary trees\n\nAn M-ary tree is each node connected to an ordered sequence of M trees that are also M-ary trees\n\nlinear tree/linked list: each node has only 1 subtree\nbinary tree: each node has 2 subtrees\nternary tree: each node has 3 subtrees\n\n\n\n\n\nParental trees\n\nA parental tree is a tree where each node only keeps a reference to its parent node\n\n\nThe parental tree representation is used in numerous places:\n\nPrim’s algorithm: storing a minimum spanning trees of a weighted graph\nDijkstra’s algorithm: storing the minimum paths in a weighted graph\nTree search based AI algorithms in general\n\n\n\nVisualsing trees\n\nSeven visual representations showing the same tree dataset\n\n\n\n\nApplications\n\nThe Bernoulli family tree\n\nAnimal tree\n\nManagement tree\n\nSyntax tree of the sentenece “the cat sat on the mat”\n\nTree of the algebra expression (a+b)*(c-d)\n\nA file directory on Linux OS\n\nStructure of html file\n\nDatabase",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Trees & Binary Trees</span>"
+    ]
+  },
+  {
+    "objectID": "lect06-tree.html#binary-trees",
+    "href": "lect06-tree.html#binary-trees",
+    "title": "10  Trees & Binary Trees",
+    "section": "10.2 Binary Trees",
+    "text": "10.2 Binary Trees\n\nConcepts\n\nBinary Trees\n\nA binary tree is each node connected to a pair of binary trees, which are called the left subtree and the right subtree of that node - Each node may have up to two successors, a left child node or a right child node.\n\n\nThe concrete representation that we use most often is a structure with two links (a left link and a right link) for each node.\n\n\n\nBinary-tree representation\nstruct Node {\n    Item item; \n    Node *left, *right;\n};\ntypedef Node *link;\n\n\n\nSpecial Binary Trees\n\nA full binary tree is binary in which each internal node has two children.\n\n\n\nA complete binary tree is a binary tree in which - From level 0 to h-1: the tree is completely full (maximum number of nodes) - At the last level h: nodes are filled from left to right.\n\n\n\nA perfect binary tree in which all internal nodes have two children and all leaf nodes are at the same level.\n\n\n\n\nNumber of nodes in binary tree\n\nsize is the number of nodes in a binary tree/subtree T size(T)=size(T\\to leftSubtree)+size(T\\to rightSubtree)+1\n\n\n\n\nLevel\nMaximum number of nodes at each level\n\n\n\n\n0\n2^{0}=1\n\n\n1\n2^{1}=2\n\n\n2\n2^{2}=4\n\n\n3\n2^{3}=8\n\n\n…\n\n\n\n10\n2^{10}=1024\n\n\n…\n\n\n\nl\n2^{l}\n\n\n\n\n\nHeight in binary tree\n\nA binary tree/subtree T\n\nheight(T)=\\max(height(T\\to leftSubtree),height(T\\to rightSubtree))+1\n\n\nProperties of Binary Trees\n\nA binary tree T\n\nThe number of nodes at level l is\n\nat least 1 and\nat most 2^{l}.\n\nThe of nodes in a binary tree of height h is\n\nat least h and\nat most 2^{h}-1.\n\nThe number of leaf nodes in a binary tree of height h is\n\nat least 1 and\nat most 2^{h-1}.\n\nThe height of a binary tree with N nodes is\n\nat least \\log_{2}(N+1) and\nat most N.\n\nA binary tree with N nodes has N+1 null links and N-1 not null links.\n\n\n\n\n\nBinary Tree API\n\nRepresenting a Binary Tree\n\nA binary tree is represented by a reference to its root node.\nlink root;\nAn empty binary tree is represented with a reference whose value is null.\ntemplate &lt;class Item&gt;\nclass BinaryTree {\npublic:\n    struct Node {\n        Item item;       \n        Node *left, *right; \n        Node(Item val) {\n            item = val;\n            left = nullptr;\n            right = nullptr;\n        }\n        Node(Item val,Node *leftChild\n        , Node *rightChild) {       \n            item = val;\n            left = leftChild;\n            right = rightChild;\n        }\n    };\n    typedef Node *link;\nprivate:\n    link root;\npublic:\n    ...\n};\n\n\n\nTraversal of Binary Trees\n\nA traversal of a binary tree is a systematic method of visiting each node in the binary tree. There are three binary tree traversal techniques:\n\nPreorder traversal\nInorder traversal\nPostorder traversal\n\n\n\n\nPreorder Traversal\n\nPreorder traversal visits the root first, and then recursively traverses the left and right subtrees.\nvoid preorder(link root) {\n    if (root != nullptr) {\n        visit(root);\n        preorder(root-&gt;left);\n        preorder(root-&gt;right);\n    }\n}\n\n\n\nInorder Traversal\n\nInorder traversal recursively traverses the left subtree, then visits the root, and then traverses the right subtree.\nvoid inorder(link root) {\n    if (root != nullptr) {\n        inorder(root-&gt;left);\n        visit(root);\n        inorder(root-&gt;right);\n    }\n}\n\n\n\nPostorder Traversal\n\nPostorder traversal recursively traverses the left and right subtrees, and then visits the root.\nvoid postorder(link root) {\n    if (root != nullptr) {\n        postorder(root-&gt;left);\n        postorder(root-&gt;right);\n        visit(root);\n    }\n}\n\n\n\nDraw tree\n\nThis recursive program keeps track of the tree height and uses that information for indentation in printing out a representation of the tree that we can use to debug tree-processing programs\nvoid printNode(Item x, int h) {\n    for (int i = 0; i &lt; h; i++) \n        cout &lt;&lt; \"  \";\n    cout &lt;&lt; x &lt;&lt; endl;\n}\nvoid printTree(link t, int h) {\n    if (t == nullptr) { \n        for (int i = 0; i &lt; h; i++)\n            cout &lt;&lt; \"  \";\n        cout &lt;&lt; \"* \" &lt;&lt; endl;\n        return; \n    }\n    printTree(t-&gt;left, h + 1);  \n    printNode(t-&gt;item, h);\n    printTree(t-&gt;right, h + 1); \n}\nvoid printTree() {\n    printTree(root, 0);\n}",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Trees & Binary Trees</span>"
+    ]
+  },
+  {
+    "objectID": "lect06-tree.html#binary-search-trees",
+    "href": "lect06-tree.html#binary-search-trees",
+    "title": "10  Trees & Binary Trees",
+    "section": "10.3 Binary Search Trees",
+    "text": "10.3 Binary Search Trees\n\nConcepts\n\nBinary search trees are binary trees that organize their nodes to allow a form of binary search.\nBinary search trees work with values such as strings or numbers, that can be sorted.\nThe idea is to store values in nodes so that small values are stored in the left subtree, and larger values are stored in the right subtree.\n\n\nA binary search tree (BST) is a binary tree, at each node p,\n\nEvery key stored in the left subtree of p is less than the key stored at p.\n\\forall q\\in\\boldsymbol{LeftSubtree}\\left(p\\right):q.key&lt;p.key\nEvery key stored in the right subtree of p is greater than key stored at p.\n\\forall q\\in\\boldsymbol{RightSubtree}\\left(p\\right):q.key&gt;p.key\n\n\n\nA binary search tree\n\n\ntemplate &lt;class Key, class Value&gt;\nclass BST {\npublic:\n    struct Node {\n        Key key;       \n        Value value;\n        int N, h;\n        Node *left, *right;\n        Node(Key key, Value value) {\n            this-&gt;key = val;\n            this-&gt;value = value;        \n            N = 1; h = 1;\n            left = nullptr;\n            right = nullptr;\n        }\n    };\n    typedef Node *link;\nprivate:\n    link root;\npublic:\n    ...\n};\n\n\nTree API\n\nSize & Height\n    int size() { \n        return size(root); \n    }\n    int size(link x) { \n        if (x == nullptr) { return 0; } \n        else return x.N;\n    }\n    int height() { \n        return height(root); \n    }\n    int height(link x) { \n        if (x == nullptr) { return 0; } \n        else return x.height;\n    }\n\n\nSearch\nSearch. If less, go left; if greater, go right; if equal, search hit.\nThe strategy for checking if a binary search tree contains a key value key is recursive.\n\nBase case: if the tree is empty, search miss.\nNon base case: Compare key to the key in the root node x\n\nIf key equals the value in the root, search hit and return value.\nIf key is less, recursively check if the left subtree contains key.\nIf key is greater, recursively check if the right subtree contains key.\n\n\n\n\nIllustration\n\nSearching 20 (search hit)\n\n\n\n\n\n\nInsert\nInsert. If less, go left; if greater, go right; if null, insert.\nThe strategy for adding (key,value) to a binary search tree is recursive.\n\nBase case: if the tree is empty, create a tree with a single node containing (key,value).\nNon base case: Compare key to the key value of the root node x\n\nIf key is less, recursively add key to the left subtree.\nIf key is greater, recursively add key to the right subtree.\n\n\n\n\nIllustration\n\nBuilt BST from keys {4, 3, 5, 1, 2, 7, 9, 8}. The initial is a empty tree.\nInsert 4\n\nInsert 3\n\nInsert 5\n\nInsert 1\n\nInsert 2\n\nInsert 7\n\nInsert 9\n\nInsert 8\n\n\n\n\nTree shape\n\nMany BSTs correspond to same set of keys.\nTree shape depends on order of insertion.\nNumber of comparisons for search/insert is equal to 1 + depth of node.\n\n\n\nIf N distinct keys are inserted into a BST in random order, the expected number of comparisons for a search/insert is \\sim2\\ln N\nTypical BST, built from 256 random keys\n\n\n\n\nMinimum and maximum\nMinimum. Smallest key in BST.\nMaximum. Largest key in BST.\n\n\n\nFloor\nComputing the floor of key k\n\nCase 1 (k equals the key in the node): the floor of k is k\nCase 2 (k is less than the key in the node): the floor of k is in the left subtree\nCase 3 (k is greater than the key in the node): the floor of k is in the right subtree if there is any key \\leq k in there; otherwise, it is the key in the node\n\n\n\n\nCeiling\nComputing the ceiling of key k\n\nCase 1 (k equals the key in the node): the ceiling of k is k\nCase 2 (k is greater than the key in the node): the ceiling of k is in the right subtree\nCase 3 (k is less than the key in the node): the ceiling of k is in the left subtree if there is any key \\geq k in there; otherwise, it is the key in the node\n\n\n\n\nRank and selection\nRank. How many keys &lt; k ?\nSelect. Key has rank k ?\n\n\n\nDelete min or max\nTo delete the minimum (maximum) key\n\nGo left (right) until you find a node with null left (right) link\nReplace that node by its right (left) link\nUpdate subtree counts\n\n\n\nDelete (Hibbard deletion)\nTo delete a node with key k, search for the node t containing key k\n\nCase 1 (0 children): delete t by setting parent link to null\nCase 2 (1 child): delete t by replacing parent link\nCase 3 (2 children): find successor x of t (x has no left child); delete the minimum in t’s right subtree; and put x in t’s spot\n\nand update subtree counts\n\n\n\nIllustration\n\nDeleting leaf node 4: Before deletion\n\nDeleting leaf node 4: After deletion\n\nDeleting node 7: Before deletion\n\nDeleting node 7: After deletion\n\nDeleting node 15: Before deletion\n\nDeleting node 15: After deletion\n\n\n\n\nHibbard deletion: analysis\n\nUnsatisfactory solution. Not symmetric.\nSurprising consequence. Trees not random \\to\\sqrt{N} per op.\nLongstanding open problem. Simple and efficient delete for BSTs.\n\n\n\nDeletion: lazy approach\nTo remove a node with a given key:\n\nSet its value to null.\nLeave key in tree to guide search (but don’t consider it equal in search).\nDeleting node 15\n\n\n\n\nPerformance Characteristics\n\nSummary of Operations\n\n\n\n\noperation\nBST\n\n\n\n\nsearch\nh\n\n\ninsert\nh\n\n\ndelete\n\\sqrt{N}\n\n\nmin/max\nh\n\n\nfloor/ceiling\nh\n\n\nrank\nh\n\n\nselect\nh\n\n\nordered iteration\nN\n\n\n\n\n\nCost summary for symbol-table implementations\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nimplementation\nsearch (worst)\ninsert (worst)\nremove (worst)\nsearch hit (avg)\ninsert (avg)\nremove (avg)\nordered iteration\nkey\n\n\n\n\nunordered list\nN\n1\nN\nN/2\n1\nN/2\nno\nequal\n\n\nordered list\nN\nN\nN\nN/2\nN/2\nN/2\nyes\ncompare\n\n\nordered array\n\\log_{2}N\nN\nN\n\\log_{2}N\nN/2\nN/2\nyes\ncompare\n\n\nBST\nN\nN\nN\nc\\log_{2}N\nc\\log_{2}N\n\\sqrt{N}\nyes\ncompare\n\n\ngoal?\n\n\n\n\n\n\n\n\n\n\n\nNote: c=1.39",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Trees & Binary Trees</span>"
+    ]
+  },
+  {
+    "objectID": "lect06-tree.html#workshop",
+    "href": "lect06-tree.html#workshop",
+    "title": "10  Trees & Binary Trees",
+    "section": "10.4 Workshop",
+    "text": "10.4 Workshop\n\nQuiz\n\nWhat is a tree?\nWhat is a binary sreach tree?\n\n\n\nExercises",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Trees & Binary Trees</span>"
+    ]
+  },
+  {
+    "objectID": "lect06-tree.html#references",
+    "href": "lect06-tree.html#references",
+    "title": "10  Trees & Binary Trees",
+    "section": "10.5 References",
+    "text": "10.5 References",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Trees & Binary Trees</span>"
+    ]
+  },
+  {
+    "objectID": "lect07-balanced-tree.html",
+    "href": "lect07-balanced-tree.html",
+    "title": "11  Balanced Binary Search Tree",
+    "section": "",
+    "text": "11.1 Balanced Tree",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Balanced Binary Search Tree</span>"
+    ]
+  },
+  {
+    "objectID": "lect07-balanced-tree.html#balanced-tree",
+    "href": "lect07-balanced-tree.html#balanced-tree",
+    "title": "11  Balanced Binary Search Tree",
+    "section": "",
+    "text": "Introduction\nBalance may be defined by:\n\nComparing the numbers of nodes of the two subtrees\nHeight balancing: comparing the heights of the twosub trees\nNull-path-length balancing: comparing the null-path-length of each of the two sub-trees\nWeight balancing: comparing the number of null sub-trees in each of the two sub trees\n\n\nA binary tree is balanced if the difference in the numbers of nodes of both subtrees of any node in the tree either zero or one.\n\n\nA binary tree is height-balanced if the difference in height of both subtrees of any node in the tree either zero or one.\n\n\nA complete binary tree is is height-balanced\n\n\n\nRotations\n\nRotations\n\nA rotation allows us to interchange the role of the root and one of the root’s children in a tree while still preserving the BST ordering among the keys in the nodes.\nThere are two kinds of rotations: right rotation and left rotation\n\n\n\nRight rotation\nA right rotation involves the root and the left child. The rotation puts the root on the right, essentially reversing the direction of the left link of the root:\n\nBefore the rotation, it points from the root to the left child\nAfter the rotation, it points from the old left child (the new root) to the old root (the right child of the new root)\n\n\n\n\nExample\n\n\nMake right rotation at 15\n\n\n\n\nImplementation\nvoid rightRotate(link& h) {\n    link x = h-&gt;left; \n    h-&gt;left = x-&gt;right; \n    x-&gt;right = h;\n    h = x;\n}\n\n\nLeft rotation\nA left rotation involves the root and the right child.\n\n\n\nImplementation\nvoid leftRotate(link& h) {\n    link x = h-&gt;right; \n    h-&gt;right = x-&gt;left; \n    x-&gt;left = h; \n    h = x;\n}\n\n\n\nStrategies in Balancing Tree\n\nStrategies in Balancing Tree\n\nGlobal rebalancing: an approach to producing better balance in BSTs is periodically to rebalance them explicitly.\n\ncosts at least linear time in the size of the tree\n\nLocal rebalancing: balancing BSTs after each operation (insert, delete)\n\n\n\nDSW algorithm\nThe algorithm was proposed by Colin Day and later improved by Quentin F. Stout and Bette L. Warren. Idea of algorithm:\n\nTransform an arbitrary BST into a linked-list-like-tree called backbone or vine by rotations\nTransform this tree into a perfectly balanced tree by rotations\n\nfunction CreateBackbone(root)\n    p ← root\n    while p ≠ null\n        if p has a left chid\n            make right rotation at p \n        else\n            p ← p-&gt;right\nfunction CreateCompleteTree(root)\n    n ← the number of nodes\n    m ← 2^(floor(log_2(n+1))) - 1\n    make n-m left rotations starting from the top of backbone\n    while (m&gt;1)\n        m ← m/2\n        make m left rotations starting from the top of backbone\n\n\nIllustration\n\nBST\n\nBackbone\n\nPerfect",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Balanced Binary Search Tree</span>"
+    ]
+  },
+  {
+    "objectID": "lect07-balanced-tree.html#avl-tree",
+    "href": "lect07-balanced-tree.html#avl-tree",
+    "title": "11  Balanced Binary Search Tree",
+    "section": "11.2 AVL Tree",
+    "text": "11.2 AVL Tree\n\nAVL Tree\n\nAVL tree\n\nproposed by two Soviet scientists G. M. Adelson-Velskii and E. M. Landis\nis BST tree which is height-balanced\n\n\n\\forall p:\\left|\\boldsymbol{height}(\\boldsymbol{LeftSubtree}(p))-\\boldsymbol{height}(\\boldsymbol{RightSubtree}(p))\\right|\\le1\n\n\n\n\nThe Height of an AVL Tree\nConsider the worst case,\n\nTo determine the maximum height that an AVL tree with N nodes can have, we can instead ask what is the minimum number of nodes that an AVL tree of height h can have (called AVL tree F_{h}).\nWe have the recurrence relation\n\n|F_{h}|=|F_{h-1}|+|F_{h-2}|+1\n where |F_{0}|=1 and |F_{1}|=2\nSolve the equation, we have\n\n|F_{h}|+1\\approx\\frac{1}{\\sqrt{5}}\\left[\\frac{1+\\sqrt{5}}{2}\\right]^{h+2}\n\nThe height of an AVL tree in the worst case\n\nh\\approx1.44\\log_{2}|F_{h}|=1.44\\log_{2}N\n\n\n\n\nRebalancing technique\n\nAfter an insertion/deletion, we may find a node whose new balance violates the AVL condition.\nFour cases: LL imbalance, LR imbalance, RR imbalance, RL imbalance\n\nCase LL imbalance is corrected by executing a single right rotation at the node with the imbalance.\n\nCase LR imbalance is corrected by executing a double rotations\n\n\n\n\nInsertion\nfunction Insert(root,key) \n    if root = null\n        root ← new NODE(key)\n        return\n\n    if root-&gt;key = key \n        return\n\n    if root-&gt;key &lt; key \n        Insert(root-&gt;right,key)\n\n    if root-&gt;key &gt; key \n        Insert(root-&gt;left,key)\n\n    if unbalanced at root? rebalance at root\n\nIllustration\n\nAn AVL tree\n\nInsert node 54 into the tree \\to node 78 become unbalanced\n\nCase RL imbalance \\to rebalance by making double rotations\n\n\n\n\n\nDeletion\n\nIllustration\n\nAn AVL tree\n\nDelete node 32 from the tree \\to node 44 become unbalanced\n\nCase RL imbalance \\to rebalance by making double rotations",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Balanced Binary Search Tree</span>"
+    ]
+  },
+  {
+    "objectID": "lect07-balanced-tree.html#red-black-tree",
+    "href": "lect07-balanced-tree.html#red-black-tree",
+    "title": "11  Balanced Binary Search Tree",
+    "section": "11.3 Red-Black Tree",
+    "text": "11.3 Red-Black Tree\n\nRed-Black Tree\n\nA red–black (RB) tree is a special type of binary search tree that must statsify\n\nEach node is either red or black.\nThe root is black. (sometimes omitted)\nIf a node is red, then both its children are black.\nEvery path from a given node to any of its descendant null link has the same number of black nodes (balance criteria).\n\n\n\nA left-leaning red–black (LLRB) tree (leveraging Andersson’s idea AA tree) is a variant of the red–black tree that has only left red children\n\n\n\nExample\n\nA red–black tree\n\nA left-leaning red–black tree\n\nAA tree\n\n\n\n\nThe Height of a RB Tree\n\nThe height of a red-black BST with N nodes is no more than 2\\log_{2}N. It means that the height of an RB tree in the worst case\n\nh\\leq2\\log_{2}N\n\n\n\n\nOperations\n\nCase 1: Left rotation to orient a right red node to left red node.\n\nCase 2: Right rotation.\n\nCase 3: Color flip.\n\n\n\n\nInsertion\n\nInsertion\nfunction Insert(root,key) \n    if root = null\n        root ← new NODE(key)\n        return\n\n    if root-&gt;key = key \n        return\n\n    if root-&gt;key &lt; key \n        Insert(root-&gt;right,key)\n\n    if root-&gt;key &gt; key \n        Insert(root-&gt;left,key)\n\n    if IsRed(root-&gt;right) and not IsRed(root-&gt;left) RotateLeft(root)\n    if IsRed(root-&gt;left) and IsRed(root-&gt;left-&gt;left) RotateRight(root)\n    if IsRed(root-&gt;left) and IsRed(root-&gt;right) FlipColors(root)\n\n\nExample\n\nTypical left-leaning red-black BST built from random keys\n\n\n\n\nIllustration\n\nA left-leaning red–black tree\n\nInsert node 7 into the tree\n\nFlip color at 6 into the tree\n\nRight rotation at 13 into the tree\n\nFlip color at root and change root to black color\n\n\n\n\n\nDeletion\n\nCost summary for symbol-table implementations\n\n\n\n\n\n\n\n\n\n\n\n\n\nimplementation\nsearch (worst)\ninsert (worst)\nremove (worst)\nsearch hit (avg)\ninsert (avg)\nremove (avg)\nkey\n\n\n\n\nunordered list\nN\n1\nN\nN/2\n1\nN/2\nequal\n\n\nordered list\nN\nN\nN\nN/2\nN/2\nN/2\ncompare\n\n\nordered array\n\\log_{2}N\nN\nN\n\\log_{2}N\nN/2\nN/2\ncompare\n\n\nBST\nN\nN\nN\nc\\log_{2}N\nc\\log_{2}N\n\\sqrt{N}\ncompare\n\n\nAVL\nc_{a}\\log_{2}N\n-\n-\n\\log_{2}N\n-\n-\ncompare\n\n\nRB\nc_{r}\\log_{2}N\n-\n-\n\\log_{2}N\n-\n-\ncompare\n\n\ngoal?\n\n\n\n\n\n\n\n\n\n\nNote: c=1.39,c_{a}=1.44,c_{r}=2.0",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Balanced Binary Search Tree</span>"
+    ]
+  },
+  {
+    "objectID": "lect07-balanced-tree.html#optimal-binary-search-trees",
+    "href": "lect07-balanced-tree.html#optimal-binary-search-trees",
+    "title": "11  Balanced Binary Search Tree",
+    "section": "11.4 Optimal binary search trees",
+    "text": "11.4 Optimal binary search trees\n\nIntroduction\n\nAn optimal binary search tree (optimal BST), sometimes called a weight-balanced binary tree, is a binary search tree which provides the smallest possible search time (or expected search time) for a given sequence of accesses (or access probabilities)\n\n\nOptimal BSTs are generally divided into two types: static and dynamic\n\nIn the static optimality problem, the tree cannot be modified after it has been constructed.\nIn the dynamic optimality problem, the tree can be modified at any time, typically by permitting tree rotations.\n\n\n\n\nStatic\n\nIntroduction\n\nSuppose that we are designing a binary search tree for a program to translate text from English to Vietnamese, we want words that occur frequently in the text to be placed nearer the root.\n\n\nProblem\nGiven a sequence of of n distinct keys in sorted order (k_{1}&lt;k_{2}&lt;\\\\\\cdots&lt;k_{n}) and their frequencies \\mathcal{D}\n\n\n\nkey\nk_{1}\nk_{2}\n…\nk_{n}\n\n\n\n\nfrequency\nf_{1}\nf_{2}\n\nf_{n}\n\n\n\n\n\n\nSearch Cost\n\nCost of search for key k_{i} \n\\text{Cost}(k_{i})=\\text{Depth}(k_{i})\n where \\text{Depth}(root)=1\nDenote \\text{ExpectCost}(l,r) be expected cost of search for a BST tree containing \\{k_{l},...,k_{r}\\} given \\mathcal{D}\n\n\n\\text{ExpectCost}(l,r) =\\sum_{i=l}^{r}\\text{Cost}(k_{i})f_{i}\n\n\nCompute the expected cost for the following binary search tree given \\mathcal{D}\n\n\n\n\n\n\n\n\n\n\n\n\n\nkey\nk_{1}\nk_{2}\nk_{3}\nk_{4}\nk_{5}\nk_{6}\n\n\n\n\nfrequency\n0.1\n0.2\n0.1\n0.3\n0.2\n0.1\n\n\n\n\n\n\nOptimal Search Cost\n\nDenote \\text{OptimalCost}(l,r) be optimal cost of search for a BST tree T containing \\{k_{l},...,k_{r}\\} given \\mathcal{D}\nDenote \\text{OptimalCost}(l,m,r) be optimal cost of search for a BST tree T containing \\{k_{l},...,k_{r}\\} and k_{m} be the root node given \\mathcal{D}\nWe have\n\n\\begin{align*}\n\\text{OptimalCost}(l,m,r) = \\sum_{i=l}^{r}f_{i} & + \\text{OptimalCost}(l,m-1) \\\\  \n                          & +\\text{OptimalCost}(m+1,r)\n\\end{align*}\n\n\\text{OptimalCost}(l,r)=\\min_{m\\in\\{l,...,r\\}}\\{\\text{OptimalCost}(l,m,r)\\}\n\n\n\n\n\nDynamic\n\nSplay tree\n\nA splay tree is a binary search tree with the additional property that recently accessed elements are quick to access again.\n\n\nAll normal operations (insert, look-up) on a binary search tree are combined with one basic operation, called splaying.\nFor many sequences of non-random operations, splay trees perform better than other binary search trees.\n\n\n\nSplaying\n\nWhen a node x is accessed, a splay operation is performed on x to move it to the root.\nTo perform a splay operation we carry out a sequence of splay steps, each of which moves x closer to the root.\nThere are three types of splay steps, each of which has two symmetric variants:\n\nzig step\nzig-zig step\nzig-zag step\n\n\n\n\nZig step\n\n\n\nZig-zig\n\n\n\nZig-zag",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Balanced Binary Search Tree</span>"
+    ]
+  },
+  {
+    "objectID": "lect07-balanced-tree.html#workshop",
+    "href": "lect07-balanced-tree.html#workshop",
+    "title": "11  Balanced Binary Search Tree",
+    "section": "11.5 Workshop",
+    "text": "11.5 Workshop\n\nQuiz\n\nWhat is an AVL tree?\nWhat is a Red-black tree?\n\n\n\nExercises",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Balanced Binary Search Tree</span>"
+    ]
+  },
+  {
+    "objectID": "lect07-balanced-tree.html#references",
+    "href": "lect07-balanced-tree.html#references",
+    "title": "11  Balanced Binary Search Tree",
+    "section": "11.6 References",
+    "text": "11.6 References",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Balanced Binary Search Tree</span>"
+    ]
+  },
+  {
+    "objectID": "lect08-btree.html",
+    "href": "lect08-btree.html",
+    "title": "12  B-tree",
+    "section": "",
+    "text": "Introduction",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>B-tree</span>"
+    ]
+  },
+  {
+    "objectID": "lect08-btree.html#basic-operations-on-b-trees",
+    "href": "lect08-btree.html#basic-operations-on-b-trees",
+    "title": "12  B-tree",
+    "section": "12.1 Basic operations on B-trees",
+    "text": "12.1 Basic operations on B-trees\n\nIntroduction\nWe adopt two conventions:\n\nThe root of the B-tree is always in main memory, so that a Disk-read on the root is never required; a Disk-Write of the root is required, however, whenever the root node is changed.\nAny nodes that are passed as parameters must already have had a Disk-Read operation performed on them.\n\nThere are two kinds of algorithms:\n\n“Single pass down” algorithms that proceed downward from the root of the tree, without having to back up (pre-processing)\n“Two-pass” algorithms (post-processing)\n\n\n\n\nSearching\nfunction B-Tree-Search(x, k)\n    if x.leaf return null\n    i ← 1\n    while i ≤ x.n and k &gt; x.key_{i}\n        i ← i + 1\n    if i ≤ x.n and k = x.key_{i}\n        return (x, i)\n    else\n        Disk-Read(x.c_{i})\n        return B-Tree-Search(x.c_{i}, k)\n\nChallenge: Can we make any improvement?\n\n\n\nCreating an empty B-tree\nfunction B-Tree-Create(T)\n    x ← Allocate-Node()\n    x.leaf ← true\n    x.n ← 0\n    Disk-Write(x)\n    T.root ← x\n\n\nSingle-pass Insertion\n\nSplitting a node in a B-tree\nfunction B-Tree-Split-Child(x, i)\n    z ← Allocate-Node()\n    y ← x.c_{i}\n    z.leaf ← y.leaf\n    z.n ← m-1\n    for j ← [1,...,m-1]\n        z.key_{j} ← y.key_{j+m}\n    if not y.leaf\n        for j ← [1,...,m]\n            z.c_{j} ← y.c_{j+m}\n    y.n ← m-1\n    for j ← [x.n+1,...,i+1]\n        x.c_{j+1} ← x.c_{j}\n    x.c_{i+1} ← z\n    for j ← [x.n,...,i]\n        x.key_{j+1} ← x.key_{j}\n    x.key_{i} ← y.key_{m}\n    x.n ← x.n+1\n    Disk-Write(y)\n    Disk-Write(z)\n    Disk-Write(x)\n\nB-tree(m=4,M=8): split\n\n\n\n\nInserting a key into a B-tree\nfunction B-Tree-Insert(T, k)\n    r ← T.root\n    if r.n = 2m-1\n        s ← Allocate-Node()\n        T.root ← s\n        s.leaf ← false\n        s.n ← 0\n        s.c_{1} ← r\n        B-Tree-Split-Child(s, 1)\n        B-Tree-Insert-Nonfull(s, k)\n    else\n        B-Tree-Insert-Nonfull(r, k)\n\nB-tree(m=4,M=8): split at root\n\n\n\n\nInserting a key into a B-tree\nfunction B-Tree-Insert-Nonfull(x, k)\n    i ← x.n\n    if x.leaf\n        while i ≥ 1 and k &lt; x.key_{i}\n            x.key_{i+1} ← x.key_{i}\n            i ← i - 1\n        x.key_{i+1} ← k\n        x.n ← x.n + 1\n        Disk-Write(x)\n    else\n        while i ≥ 1 and k &lt; x.key_{i}\n            i ← i - 1\n        i ← i + 1\n        Disk-Read(x.c_{i})\n        if x.c_{i}.n = 2m - 1\n            B-Tree-Split-Child(x, i)\n            if k &gt; x.key_{i}\n                i ← i + 1\n        B-Tree-Insert-Nonfull(x.c_{i}, k)\n\n\nExample of Insertion\nConsider B-tree(m=3,M=6)\n\nInitial tree\n\nB inserted\n\nQ inserted\n\nL inserted\n\nF inserted\n\n\n\n\n\nInsertion\n\nBottom-up Insertion\n\nAll insertions start at a leaf node.\nIf the node contains more than the maximum allowed number of keys, then the node is overflow:\n\nA single median key is chosen from among the node’s keys\nKeys less than the median are put in the new left node and keys greater than the median are put in the new right node.\nThe median is inserted in the node’s parent, which may cause it to be split, and so on. If the node has no parent (i.e., the node was the root), create a new root above this node.\n\n\n\nB-tree(m=4,M=7)\n\n\n\n\nExample of Insertion\nConsider B-tree(m=2,M=3)\n\nInitial tree\n\nI inserted\n\nD inserted\n\n\n\n\n\n\n\nDeletion\nDeletion from a leaf node\n\nDelete it from the node.\nIf underflow happens, rebalance the tree.\n\nDeletion from an internal node: Each key in an internal node acts as a separation value for two subtrees\n\nChoose a new separator (either the largest key in the left subtree or the smallest key in the right subtree), remove it from it is in, and replace the key to be deleted with the new separator.\n\nRebalancing after deletion\n\nIf the deficient node’s right sibling exists and has more than the minimum number of elements, then rotate left\nOtherwise, if the deficient node’s left sibling exists and has more than the minimum number of elements, then \nOtherwise, if both immediate siblings have only the minimum number of elements, then merge with a sibling sandwiching their separator taken off from their parent.\n\n\nRight rotation\n\nB-tree(m=4,M=7)\n\n\n\n\nMerge\n\nB-tree(m=4,M=7)\n\n\n\n\nExample of Deletion\nConsider B-tree(m=2,M=3)\n\nInitial tree\n\n24 deleted\n\n\n18 deleted",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>B-tree</span>"
+    ]
+  },
+  {
+    "objectID": "lect08-btree.html#applications",
+    "href": "lect08-btree.html#applications",
+    "title": "12  B-tree",
+    "section": "12.2 Applications",
+    "text": "12.2 Applications\n\nIndexing\n\nIndexing is a data structure technique to efficiently retrieve records from the database files based on some attributes on which the indexing has been done.\n\nIndexing can be\n\nPrimary Index: primary key\nSecondary Index: candidate key\nClustering Index: non-key\n\n\n\nDense Index\n\nIn dense index, there is an index record for every search key value in the database. This makes searching faster but requires more space to store index records itself. Index records contain search key value and a pointer to the actual record on the disk.\n\n\n\n\nSparse Index\n\nIn sparse index, index records are not created for every search key.\n\n\n\n\nMultilevel Index\n\nMulti-level Index helps in breaking down the index into several smaller indices in order to make the top level so small that it can be saved in a single disk block, which can easily be accommodated anywhere in the main memory.\n\n\n\n\n\nB-tree variants\n\nB-tree variants\n\nB+ tree is a B-tree:\n\nCopies of the keys are stored in the internal nodes.\nThe keys and records are stored in leaves.\nIn addition, a leaf node may include a pointer to the next leaf node to speed sequential access.\n\n\n\nB* tree is a B-tree that ensures non-root nodes are at least 2/3 full instead of 1/2.\n\n\n\nSearching a B+ Tree\nTable people\n\n\n\nID\nname\nage\n\n\n\n\n1\nPeter\n20\n\n\n2\nMary\n30\n\n\n3\nJohn\n25\n\n\n…\n…\n…\n\n\n\nQueries\nSELECT name\nFROM people\nWHERE age = 25\nExact key values:\n\nStart at the root\nProceed down, to the leaf\n\nSELECT name\nFROM people\nWHERE 20 &lt;= age AND age &lt;= 30 \nRange queries:\n\nAs above\nThen sequential traversal\n\n\n\nApplications\nB-trees (and variants) are widely used for file systems and databases.\n\nWindows: NTFS.\nMac: HFS, HFS+.\nLinux: ReiserFS, XFS, Ext3FS, JFS.\nDatabases: ORACLE, DB2, INGRES, SQL, PostgreSQL.",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>B-tree</span>"
+    ]
+  },
+  {
+    "objectID": "lect08-btree.html#workshop",
+    "href": "lect08-btree.html#workshop",
+    "title": "12  B-tree",
+    "section": "12.3 Workshop",
+    "text": "12.3 Workshop\n\nQuiz\n\nWhat is a B-tree?\nWhat is Indexing?\n\n\n\nProjects",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>B-tree</span>"
+    ]
+  },
+  {
+    "objectID": "lect08-btree.html#references",
+    "href": "lect08-btree.html#references",
+    "title": "12  B-tree",
+    "section": "12.4 References",
+    "text": "12.4 References",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>B-tree</span>"
+    ]
+  },
+  {
+    "objectID": "lect09-pq.html",
+    "href": "lect09-pq.html",
+    "title": "13  Priority Queues and Heaps",
+    "section": "",
+    "text": "Priority queue applications",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Priority Queues and Heaps</span>"
+    ]
+  },
+  {
+    "objectID": "lect09-pq.html#binary-heaps",
+    "href": "lect09-pq.html#binary-heaps",
+    "title": "13  Priority Queues and Heaps",
+    "section": "13.1 Binary Heaps",
+    "text": "13.1 Binary Heaps\n\nIntroduction\n\n\nMax heap: A tree is heap-ordered if the key in each node is larger than or equal to the keys in all of that node’s children (if any)\nMin heap: A tree is heap-ordered if the key in each node is smaller than or equal to the keys in all of that node’s children (if any)\n\n\n\n\nMax heap: No node in a heap-ordered tree has a key larger than the key at the root\nMin heap: No node in a heap-ordered tree has a key smaller than the key at the root\n\n\n\n\nBinary heap representations\n\nA binary heap data structure is a complete binary tree that can be represented by an array object.\n\n\nComplete binary tree is perfectly balanced, except for bottom level.\nHeight of complete binary tree with N nodes is \\log_{2}(N+1).\n\nArray representation of a max binary heap.\n\n\n\n\nBinary heap properties\n\nLargest key is a[0], which is root of max binary heap.\nCan use array indices to move through tree.\n\nfunction Parent(i)\n    return floor((i - 1) / 2)\n\nfunction LeftChild(i)\n    return 2 * i + 1\n\nfunction RightChild(i)\n    return 2 * i + 2\n\n\nInsert Key\n\n\nPromotion in a heap\n\nScenario. Child’s key becomes larger key than its parent’s key. (violation)\nTo eliminate the violation:\n\nExchange key in child with key in parent.\nRepeat until heap order restored.\n\n\nfunction Up-Heap(a, i)\n    while i &gt; 0 do\n        p ← Parent(i)\n        if a[i] &gt; a[p] then\n            Swap(a, i, p)\n            i ← p\n        else\n            return\n\n\nInsertion in a heap\n\n\nInsert.\n\nAdd node at end, then percolate it up.\n\nCost.\n\nAt most \\log_{2}N+1 compares.\n\n\n\nfunction Insert(a, k)\n    n ← a.size\n    a[n] ← k\n    Up-Heap(a, n)\n    a.size ← a.size + 1\n\n\nExample\n\nGiven a max binary heap\n\n\n\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n\n\n\n\n68\n65\n32\n31\n26\n24\n21\n20\n19\n13\n\n\n\n\n\nInsert key 66 into the heap\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n\n\n\n\n68\n65\n32\n31\n26\n24\n21\n20\n19\n13\n\\textcolor{red}{66}\n\n\n\n\nSwap 66 and 26\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n\n\n\n\n68\n65\n32\n31\n\\textcolor{red}{66}\n24\n21\n20\n19\n13\n\\textcolor{blue}{26}\n\n\n\n\nSwap 66 and 65\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n\n\n\n\n68\n\\textcolor{red}{66}\n32\n31\n\\textcolor{blue}{65}\n24\n21\n20\n19\n13\n\\textcolor{blue}{26}\n\n\n\n\n\n\n\nRemove Max\n\n\nDemotion in a heap\n\nScenario. Parent’s key becomes smaller than one (or both) of its children’s. (vilolation)\nTo eliminate the violation:\n\nExchange key in parent with key in larger child.\nRepeat until heap order restored.\n\n\nfunction Down-Heap(a, i)\n    l ← LeftChild(i)\n    r ← RightChild(i)\n    largest ← i\n\n    if l &lt; a.size and a[l] &gt; a[largest] then\n        largest ← l\n\n    if r &lt; a.size and a[r] &gt; a[largest] then\n        largest ← r\n\n    if largest ≠ i then\n        Swap(a, i, largest)\n        Down-Heap(a, largest)\n\n\nDelete the maximum in a heap\n\nDelete max. Exchange root with node at end, then sink it down.\nCost. At most 2\\log_{2}N compares.\n\nfunction Remove-Max(a)\n    n ← a.size\n    Swap(a, 0, n - 1)\n    a.size ← a.size - 1\n    Down-Heap(a, 0)\n    return a[n]\n\n\nExample\n\nGiven a max binary heap\n\n\n\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n\n\n\n\n68\n65\n32\n31\n26\n24\n21\n20\n19\n13\n\n\n\n\n\nDelete max : swap 68 and 13 , delete 68\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n\n\n\n\n\\textcolor{red}{13}\n65\n32\n31\n26\n24\n21\n20\n19\n\\textcolor{lightgray}{68}\n\n\n\n\n\nSwap 13 and 65\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n\n\n\n\n\\textcolor{blue}{65}\n\\textcolor{red}{13}\n32\n31\n26\n24\n21\n20\n19\n\\textcolor{lightgray}{68}\n\n\n\n\n\nSwap 13 and 31\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n\n\n\n\n\\textcolor{blue}{65}\n\\textcolor{blue}{31}\n32\n\\textcolor{red}{13}\n26\n24\n21\n20\n19\n\\textcolor{lightgray}{68}\n\n\n\n\n\nSwap 13 and 20\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n\n\n\n\n\\textcolor{blue}{65}\n\\textcolor{blue}{31}\n32\n\\textcolor{blue}{20}\n26\n24\n21\n\\textcolor{red}{13}\n19\n\\textcolor{lightgray}{68}\n\n\n\n\n\n\n\n\nAnalysis\n\n\n\nimplementation\ninsert\nremove max\nmax\n\n\n\n\nunordered array\n1\nN\nN\n\n\nordered array\nN\n1\n1\n\n\nbinary heap\n\\log_{2}N\n\\log_{2}N\n1\n\n\n\n\n\nIncrease Key\n\nTo increase the value of a certain key inside the max-heap, we need to reach this key first. In ordinary heaps, we can’t search for a specific key inside the heap.\nTherefore, we’ll keep a map (hash table) beside the original array. This map will store the index of each key inside the heap.\n\nfunction Increase-Key(a, k, Δk, map)\n    i ← map[k]\n    map.Remove(k)\n    a[i] ← a[i] + Δk\n    map[a[i]] ← i\n    Up-Heap(a, i, map)",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Priority Queues and Heaps</span>"
+    ]
+  },
+  {
+    "objectID": "lect09-pq.html#d-heaps",
+    "href": "lect09-pq.html#d-heaps",
+    "title": "13  Priority Queues and Heaps",
+    "section": "13.2 d-Heaps",
+    "text": "13.2 d-Heaps\n\nIntroduction\n\na d-heap is a heap, each node of which has d children.\n\n\nA min 3-heap\n\n\n\n\nAnalysis\n\nA d-heap is much shallower than a binary heap\n\n\n\n\nimplementation\ninsert\nremove max\nmax\n\n\n\n\nunordered array\n1\nN\nN\n\n\nordered array\nN\n1\n1\n\n\nbinary heap\n\\log_{2}N\n\\log_{2}N\n1\n\n\nd-heap\n\\log_{d}N\n\\log_{d}N\n1",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Priority Queues and Heaps</span>"
+    ]
+  },
+  {
+    "objectID": "lect09-pq.html#application",
+    "href": "lect09-pq.html#application",
+    "title": "13  Priority Queues and Heaps",
+    "section": "13.3 Application",
+    "text": "13.3 Application\n\nSimulation\n\n\nMolecular dynamics simulation of hard discs\n\n\nGoal.\n\nSimulate the motion of N moving particles that behave according to the laws of elastic collision.\n\nProblem.\n\nN bouncing balls in the unit square.\n\n\n\n\nMoving particles interact via elastic collisions with each other and walls.\nEach particle is a disc with known position, velocity, mass, and radius.\nNo other forces.\n\n\n\n\nBouncing balls\n\nCheck for balls colliding with each other.\n\nPhysics problems: when? what effect?\nCS problems: which object does the check? too many checks?\n\n\n\n\nTime-driven Simulation\nDiscretize time in quanta of size dt.\n\nUpdate the position of each particle after every dt units of time, and check for overlaps.\nIf overlap, roll back the clock to the time of the collision, update the velocities of the colliding particles, and continue the simulation.\n\n\nMain drawbacks\n\n\\sim N^{2}/2 overlap checks per time quantum.\nSimulation is too slow if dt is very small.\nMay miss collisions if dt is too large. (if colliding particles fail to overlap when we are looking)\n\n\n\n\nEvent-driven simulation\nChange state only when something happens.\n\nBetween collisions, particles move in straight-line trajectories.\nFocus only on times when collisions occur.\nMaintain \\textcolor{blue}{PQ} of collision events, prioritized by time.\nRemove the min = get next collision.\n\nCollision prediction. Given position, velocity, and radius of a particle. When will it collide next with a wall or another particle?\nCollision resolution. If collision occurs, update colliding particle(s) according to laws of elastic collisions.\n\n\n\nParticle-wall collision\nCollision prediction and resolution.\n\nParticle of radius s at position (r_{x},r_{y}).\nParticle moving in unit box with velocity (v_{x},v_{y}).\nWill it collide with a vertical wall? If so, when?\n\n\n\n\nParticle-particle collision prediction\nCollision prediction\n\nParticle i: radius s_{i}, position (rx_{i},ry_{i}), velocity (vx_{i},vy_{i}).\nParticle j: radius s_{j}, position (rx_{j},ry_{j}), velocity (vx_{j},vy_{j}).\n\n\n\nWill particles i and j collide? If so, when? \\begin{align}\n\\Delta t & =\\begin{cases}\n\\infty & \\text{if }\\Delta v\\Delta r\\geq0\\\\\n\\infty & \\text{if }d&lt;0\\\\\n-\\dfrac{\\Delta v\\Delta r}{\\Delta v\\Delta v} & \\text{otherwise}\n\\end{cases}\\\\\n\\sigma & =\\sigma_{i}+\\sigma_{j}\\\\d & =(\\Delta v\\Delta r)^{2}-(\\Delta v\\Delta v)(\\Delta r\\Delta r-\\sigma^{2})\n\\end{align} where \\begin{align}\n\\Delta v & =(\\Delta vx,\\Delta vy)=(vx_{i}-vx_{j},vy_{i}-vy_{j})\\\\\n\\Delta r & =(\\Delta rx,\\Delta ry)=(rx_{i}-rx_{j},ry_{i}-ry_{j})\n\\end{align}\n\n\n\nParticle-particle collision resolution\nCollision resolution\n\nWhen two particles collide, how does velocity change?\n\n\n\\begin{array}{ccl}\nvx_{i}^{\\prime} & = & vx_{i}+\\dfrac{Jx}{m_{i}}\\ \\\nvy_{i}^{\\prime} & = & vy_{i}+\\dfrac{Jy}{m_{i}}\\ \\\nvx_{j}^{\\prime} & = & vx_{j}-\\dfrac{Jx}{m_{j}}\\ \\\nvy_{j}^{\\prime} & = & vy_{j}-\\dfrac{Jy}{m_{j}}\n\\end{array}\n\nwhere\n\n\\begin{array}{ccl}\nJ & = & \\dfrac{2m_{i}m_{j}(\\Delta v\\Delta r)}{\\sigma(m_{i}+m_{j})}\\ \\\nJx & = & \\dfrac{J\\Delta rx}{\\sigma}\\ \\\nJy & = & \\dfrac{J\\Delta ry}{\\sigma}\n\\end{array}\n\n\n\nCollision system: event-driven simulation main loop\n\nInitialization\n\nFill PQ with all potential particle-wall collisions. (“potential” since collision may not happen if some other collision intervenes)\nFill PQ with all potential particle-particle collisions.\n\nMain loop\n\nDelete the impending event from PQ (min priority = t).\nIf the event has been invalidated, ignore it.\nAdvance all particles to time t, on a straight-line trajectory.\nUpdate the velocities of the colliding particle(s).\nPredict future particle-wall and particle-particle collisions involving the colliding particle(s) and insert events onto PQ.",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Priority Queues and Heaps</span>"
+    ]
+  },
+  {
+    "objectID": "lect09-pq.html#workshop",
+    "href": "lect09-pq.html#workshop",
+    "title": "13  Priority Queues and Heaps",
+    "section": "13.4 Workshop",
+    "text": "13.4 Workshop\n\nQuiz\n\nWhat is a priority queue?\nWhat is a binary heap?\nWhat is a d-heap?\n\n\n\nProjects",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Priority Queues and Heaps</span>"
+    ]
+  },
+  {
+    "objectID": "lect09-pq.html#references",
+    "href": "lect09-pq.html#references",
+    "title": "13  Priority Queues and Heaps",
+    "section": "13.5 References",
+    "text": "13.5 References",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Priority Queues and Heaps</span>"
+    ]
+  },
+  {
+    "objectID": "lect10-hashtable.html",
+    "href": "lect10-hashtable.html",
+    "title": "14  Hash Table",
+    "section": "",
+    "text": "14.1 Modular Arithmetic",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Hash Table</span>"
+    ]
+  },
+  {
+    "objectID": "lect10-hashtable.html#modular-arithmetic",
+    "href": "lect10-hashtable.html#modular-arithmetic",
+    "title": "14  Hash Table",
+    "section": "",
+    "text": "Introduction\n\nGiven integers a, b, and n with n&gt;1, we say that a is congruent to b modulo n if n\\mid(a-b), written\n\na\\equiv b\\,(\\bmod n)\n\nSome congruences\n\n14\\equiv2(\\bmod12), since 12\\mid(14-2).\n-4\\equiv8(\\bmod12), since 12\\mid(-4-8).\n34\\equiv6(\\bmod7), since 7\\mid(34-6).\n25\\equiv0(\\bmod5), since 5\\mid(25-0).\n\n\n\n\nProperties\n\nTheorem (Congruence is an Equivalence Relation)\nLet a, b, and n be integers with n&gt;1.\n\na\\equiv a\\,(\\bmod n).\nIf a\\equiv b\\,(\\bmod n), then b\\equiv a\\,(\\bmod n).\nIf a\\equiv b\\,(\\bmod n) and b\\equiv c\\,(\\bmod n), then a\\equiv c\\,(\\bmod n).\n\n\n\nTheorem (Arithmetic Properties of Congruence)\nLet a_{1}, a_{2}, b_{1}, b_{2}, and n be integers with n&gt;1. If \\begin{align*}\na_{1} & \\equiv b_{1}\\,(\\bmod n)\\\\a_{2} & \\equiv b_{2}\\,(\\bmod n)\\end{align*} then\n\na_{1}+a_{2}\\equiv b_{1}+b_{2}\\,(\\bmod n)\na_{1}-a_{2}\\equiv b_{1}-b_{2}\\,(\\bmod n)\na_{1}a_{2}\\equiv b_{1}b_{2}\\,(\\bmod n)\nka_{1}\\equiv kb_{1}\\,(\\bmod n),\\,k\\in\\mathbb{Z}\na_{1}^{k}\\equiv b_{1}^{k}\\,(\\bmod n)\n\n\n\n\nWord Examples\n\nCompute (5162387+83645)\\bmod10.\n\nFirst solution, 5162387+83645\\equiv5246032\\equiv2(\\bmod10)\nSecond solution, since 5162387\\equiv7(\\bmod10) and 83645\\equiv5(\\bmod10), we get 5162387+83645\\equiv5+7\\equiv12\\equiv2(\\bmod10)\n\nCompute 3^{32}\\bmod17.\n\nFirst solution, 3^{32}\\equiv1853020188851841\\equiv1(\\bmod17)\nSecond solution, We have\n\n\n\\begin{align*}\n3^{32} & \\equiv3^{2^{2^{2^{2^{2}}}}}\\,(\\bmod17)\\\\\n& \\equiv9^{2^{2^{2^{2}}}}\\,(\\bmod17)\\\\\n& \\equiv81^{2^{2^{2}}}\\,(\\bmod17)\\equiv13^{2^{2^{2}}}\\,(\\bmod17)\\\\\n& \\equiv169^{2^{2}}\\,(\\bmod17)\\equiv16^{2^{2}}\\,(\\bmod17)\\\\\n& \\equiv256^{2}\\,(\\bmod17)\\equiv1^{2}\\,(\\bmod17)\\\\\n& \\equiv1\\,(\\bmod17)\n\\end{align*}\n\n\nProblems\n\nFind the last two-digits of 7^{32}\nShow that for any integer n, n^{2}\\not\\equiv2(\\bmod5)\nLet n be any integer. Show that n^{3}\\equiv n(\\bmod6).\n\n\n\nRandom generator\nA linear congruential generator (LCG) is an algorithm that yields a sequence of pseudo-randomized numbers\n\n\nThe generator is defined by recurrence relation:\nr_{n}\\equiv a\\times r_{n-1}+c\\,(\\bmod m)\nwhere \\{r_{i}\\} is the sequence of pseudorandom values, and\n\nm&gt;0: the modulus\n0&lt;a&lt;m: the multiplier\n0\\leq c&lt;m: the increment\nr_{0}: the seed\n\n\n\n\nRSA\n\nRSA (Rivest–Shamir–Adleman) is a public-key cryptosystem that is widely used for secure data transmission\n\nIn a public-key cryptosystem, the encryption key is public and distinct from the decryption key, which is kept secret (private)\n\n\nThe RSA algorithm involves four steps:\n\nkey generation: generate\n\nmodulus n\npublic key e\nprivate key d\n\nkey distribution\nencryption: using public key e to encrypt the message m\n c=\\text{encrypt}(m)=m^{e}\\bmod n \ndecryption: using private key d to decrypt the encrypted message c\n m=\\text{decrypt}(c)=c^{d}\\bmod n \n\n\nExample\nAn internet banking app is set up to receive transactions from many customers of a bank. The bank use a RSA system with n=3233,e=17,d=413\n\nA client use the app to encrypt the message m=65\nc=\\text{encrypt}(65)=65^{17}\\bmod3233=2790,\nthe encrypted message c=2790 is sent to the bank.\nThe bank can decrypt c=2790\nm=\\text{decrypt}(2790)=2790^{413}\\bmod3233=65,\nthe decrypted message m=65 is thus received and interpreted as a “Balance Inquiry”\n\n\n\nPower function\n\nHow to compute y\\gets x^{k}\\bmod n\n\nBIGINT pow(BIGINT x, BIGINT k, BIGINT n) {\n    BIGINT y = 1;\n    for(BIGINT i=1; i&lt;=k; k++)\n        y *= x;\n    return y % n;\n}",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Hash Table</span>"
+    ]
+  },
+  {
+    "objectID": "lect10-hashtable.html#hash-table",
+    "href": "lect10-hashtable.html#hash-table",
+    "title": "14  Hash Table",
+    "section": "14.2 Hash Table",
+    "text": "14.2 Hash Table\n\nHash functions\n\nHash function is a method for computing array index from key (object).\n\n\nThe three principal criteria in selecting a hash function are as follows\n\nIt should be consistent—equal keys must produce the same hash value.\nIt should be efficient to compute.\nIt should uniformly distributes the keys\n\nThe hash function depends on the key type.\nSome popular hash functions: CRC32, MD5, SHA1, SHA2\nApplications. Digital fingerprint, message digest, storing passwords.\n\nUniform hashing assumption\nThe hash functions that we use uniformly and independently distribute keys among the integer values between 0 and m-1.\n\nHash value frequencies for words in “Tale of Two Cities” (10,679 keys, m=97)\n\n\n\n\nProbability Review “bins and balls”\nEvents throw n balls uniformly at random into m bins.\n\n\nBirthday problem. Expect two balls in the same bin after\n \\sim\\sqrt{\\frac{\\pi m}{2}} \nCoupon collector. Expect every bin has \\geq1 ball after\n \\sim m\\ln m \nLoad balancing. After m tosses, expect most loaded bin has\n \\Theta\\left(\\frac{\\log m}{\\log\\log m}\\right) \n\n\n\nInteger keys\n\nThe most commonly used method for hashing integers is called modular hashing (division method)\n\n h(k)=k\\bmod m \n\n\n\nkey k\nhash (m=100)\nhash (m=97)\n\n\n\n\n212\n12\n18\n\n\n618\n18\n36\n\n\n302\n2\n11\n\n\n940\n40\n67\n\n\n702\n2\n23\n\n\n704\n4\n25\n\n\n612\n12\n30\n\n\n606\n6\n24\n\n\n772\n72\n93\n\n\n510\n10\n25\n\n\n423\n23\n35\n\n\n650\n50\n68\n\n\n317\n17\n26\n\n\n907\n7\n34\n\n\n507\n7\n22\n\n\n304\n4\n13\n\n\n714\n14\n35\n\n\n857\n57\n81\n\n\n801\n1\n25\n\n\n900\n0\n27\n\n\n413\n13\n25\n\n\n701\n1\n22\n\n\n418\n18\n30\n\n\n601\n1\n19\n\n\n\n\n\nFloating-point keys\n\nIf the keys are real numbers between 0 and 1, we might just multiply by m and round off to the nearest integer to get an index between 0 and m-1.\n\n\n\n\nkey k\nhash (m=100)\n\n\n\n\n.513870656\n51\n\n\n.175725579\n17\n\n\n.308633685\n30\n\n\n.534531713\n53\n\n\n.947630227\n94\n\n\n.171727657\n17\n\n\n.702230930\n70\n\n\n.226416826\n22\n\n\n.494766086\n49\n\n\n.124698631\n12\n\n\n.083895385\n8\n\n\n.389629811\n38\n\n\n.277230144\n27\n\n\n.368053228\n36\n\n\n.983458996\n98\n\n\n.535386205\n53\n\n\n.765678883\n76\n\n\n.646473587\n64\n\n\n.767143786\n76\n\n\n.780236185\n78\n\n\n.822962105\n82\n\n\n.151921138\n15\n\n\n.625476837\n62\n\n\n.314676344\n31\n\n\n.346903890\n34\n\n\n\nIn general, we can use the multiplication method for creating hash functions operates in two steps\n\nFirst, we multiply the key k by a constant A in the range 0&lt;A&lt;1 and extract the fractional part of kA.\nThen, we multiply this value by m and take the floor of the result.\n h(k)=\\left\\lfloor m\\cdot\\left(k\\cdot A\\bmod1\\right)\\right\\rfloor \nwhere k\\cdot A\\bmod1 means the fractional part of kA.\nKnuth suggests that\n A=\\frac{\\sqrt{5}-1}{2}\\approx0.6180339887... \nThe multiplication method of hashing\n\nAnother multiplication method method\n h(k)=\\left\\lfloor k\\cdot A\\right\\rfloor \\bmod m \n\n\n\n\n\n\n\n\n\n\nkey k\nk\\%97\nk\\%100\n\\left\\lfloor k\\cdot A\\right\\rfloor \\%100\n\n\n\n\n16838\n57\n38\n6\n\n\n5758\n35\n58\n58\n\n\n10113\n25\n13\n50\n\n\n17515\n55\n15\n24\n\n\n31051\n11\n51\n90\n\n\n5627\n1\n27\n77\n\n\n23010\n21\n10\n20\n\n\n7419\n47\n19\n85\n\n\n16212\n13\n12\n19\n\n\n4086\n12\n86\n25\n\n\n2749\n33\n49\n98\n\n\n12767\n60\n67\n90\n\n\n9084\n63\n84\n14\n\n\n12060\n32\n60\n53\n\n\n32225\n21\n25\n16\n\n\n17543\n83\n43\n42\n\n\n25089\n63\n89\n5\n\n\n21183\n37\n83\n91\n\n\n25137\n14\n37\n35\n\n\n25566\n55\n66\n0\n\n\n26966\n0\n66\n65\n\n\n4978\n31\n78\n76\n\n\n20495\n28\n95\n66\n\n\n10311\n29\n11\n72\n\n\n11367\n18\n67\n25\n\n\n\n\n\nString keys\nWe simply treat strings as huge integers and use modular hashing\n\nFor example, for character data with 7-bit encoding, we treat the key as a base-128 number \\to the word “now” corresponds to the number 1816567\n\n 110\\times128^{2}+111\\times128^{1}+119\\times128^{0} \n\nModular hash functions for strings\n\n\n\n\nkey k\nnumber\nm=64\nm=31\n\n\n\n\nnow\n1816567\n55\n29\n\n\nfor\n1685490\n50\n20\n\n\ntip\n1914096\n48\n1\n\n\nilk\n1734251\n43\n18\n\n\ndim\n1651949\n45\n21\n\n\ntag\n1913063\n39\n22\n\n\njot\n1751028\n52\n24\n\n\nsob\n1898466\n34\n26\n\n\nnob\n1816546\n34\n8\n\n\nsky\n1897977\n57\n2\n\n\nhut\n1719028\n52\n16\n\n\nace\n1602021\n37\n3\n\n\nbet\n1618676\n52\n11\n\n\nmen\n1798894\n46\n26\n\n\negg\n1668071\n39\n23\n\n\nfew\n1684215\n55\n16\n\n\njay\n1749241\n57\n4\n\n\nowl\n1833964\n44\n4\n\n\njoy\n1751033\n57\n29\n\n\nrap\n1880304\n48\n30\n\n\ngig\n1701095\n39\n1\n\n\nwee\n1962725\n37\n22\n\n\nwas\n1962227\n51\n20\n\n\ncab\n1634530\n34\n24\n\n\nwad\n1962212\n36\n5\n\n\n\n\nHow do we compute the hash function for a word such as “averylongkey” ?\nIn 7-bit ASCII, this word corresponds to the 84-bit number\n\n\\begin{align*}\n97\\cdot128^{11}+118\\cdot128^{10}+101\\cdot128^{9}+114\\cdot128^{8}+121\\cdot128^{7}\\\\\n+108\\cdot128^{6}+111\\cdot128^{5}+110\\cdot128^{4}+103\\cdot128^{3}\\\\\n+107\\cdot128^{2}+101\\cdot128^{1}+121\\cdot128^{0} \\\\\n=14798475217809252997067513\n\\end{align*}\n\nTo compute a modular hash function for long keys, we transform the keys piece by piece.\nA string s=s_{0}s_{1}...s_{n} where each character is encoded by r-radix number  number=s_{0}\\cdot r^{n}+s_{1}\\cdot r^{n-1}+...+s_{n}\\cdot r^{0}  can be computed using Horner’s rule  number=((...((s_{0}\\cdot r+s_{1})\\cdot r+s_{2})\\cdot r+...)\\cdot r+s_{n}) \nWe can take advantage of arithmetic properties of the mod function and use Horner’s algorithm\n\nunsigned int hash(string &s, int m) {\n    unsigned int hash_value = 0;\n    unsigned int r = 127;\n\n    for (int k = 0; k &lt; s.length(); ++k) \n        hash_value = (hash_value * r + s[k]) % m;\n\n    return hash_value;\n}\n\nChallenge: Can we make any improvement for long strings?\n\n\n\nCompound keys\n\nIf the key type has multiple integer fields, we can typically mix them together in the way just described for string values.\nFor example, suppose that search keys are of type Date, which has three integer fields:\n\nday (two-digit day)\nmonth (two-digit month)\nyear (four-digit year)\n\nWe compute the number\n\nint hash_value = (((day * r + month) % m ) * r + year) % m;\n\n\n\nHash Table\n\nIntroduction\n\nA hash table (hash map) is a data structure that implements an associative array abstract data type, a structure that can map keys to values. A hash table uses a hash function h to map a key of U into an index (hash code) of an array T[0...m-1]. \n\\begin{array}{lccc}\nh: & U & \\to & T\\\\ k & \\mapsto & h\\left(k\\right)\n\\end{array}\n\n\n\n\nGiven a hash table T with m slots that stores n elements, we define the load factor, for T as  \\alpha=\\frac{n}{m},  that is, the average number of elements stored in a chain.\n\nIn practice. The load factor \\dfrac{1}{8}\\leq\\alpha\\leq\\dfrac{1}{2} (for open addressing).\n\n\nCollision\n\nA collision is a situation when two different keys may hash to the same hash code.  k_{1}\\neq k_{2},\\qquad h(k_{1})=h(k_{2}) \n\nThere are two different approaches to collision resolution:\n\nSeparate chaining\nOpen addressing\n\n\n\n\nSeparate chaining\n\nIn chaining, we put all the elements that hash to the same slot in a linked list\n\n\nfunction Chained-Hash-Insert(T, x)\n    insert x at the head of list T[h(x.key)]\n\nfunction Chained-Hash-Search(T, k)\n    search for an element with key k in list T[h(k)]\n\nfunction Chained-Hash-Delete(T, x)\n    delete x from the list T[h(x.key)]\n\nIn a hash table in which collisions are resolved by chaining, an unsuccessful search takes expected time \\Theta(1+\\alpha) (the number of compares), under the assumption of simple uniform hashing.\n\n\nIn a hash table in which collisions are resolved by chaining, a successful search takes time \\Theta(1+\\alpha), on the average, under the assumption of simple uniform hashing.\n\n\n\nOpen addressing\n\nIntroduction\n\nSeparate chaining hashing has the disadvantage of using linked lists. This could slow the algorithm down a bit because of the time required to allocate new nodes and essentially requires the implementation of a second data structure.\nAnother approach to implementing hashing is to store n key-value pairs in a hash table of size  m&gt;n,  relying on empty entries in the table to help with collision resolution. Such methods are called open-addressing hashing methods.\nTo perform insertion using open addressing, we successively examine, or probe, the hash table until we find an empty slot in which to put the key.\nTo determine which slots to probe, we extend the hash function to include the probe number (starting from 0) as a second input. Thus, the hash function becomes  h:U\\times\\{0,1,...,m-1\\}\\to\\{0,1,...,m-1\\}  the probe sequence  \\left\\langle h(k,0),h(k,1),...,h(k,m-1)\\right\\rangle  be a permutation of  \\left\\langle 0,1,...,m-1\\right\\rangle \\qquad\\text{(\\textbf{constraint})} \n\nfunction Hash-Insert(T, k)\n    i ← 0\n    repeat\n        j ← h(k,i)\n        if T[j] = null\n            T[j] ← k\n            return j\n        else i ← i+1\n    until i=m\n    error \"hash table overflow\"\nfunction Hash-Search(T, k)\n    i ← 0\n    repeat\n        j ← h(k,i)\n        if T[j] = k\n            return j\n        i ← i+1\n    until T[j] = null or i=m\n    return null\n\n\nRandom Probing\n\nAsssumption: For every k\\in U, \\left\\langle h(k,0),h(k,1),...,h(k,m-1)\\right\\rangle is random permutation, independent of all other permutations.\n\\to the probe sequence of each key is equally likely to be any of the m! permutations of \\left\\langle 0,1,...,m-1\\right\\rangle\nNote: the assumption is difficult to implement.\nSimple implementation: pseudo-random probing  h(k,i)=(h'(k)+r_{i})\\bmod m  where h'(k) be an ordinary hash function and r_{i} be the ith value in a random permutation of the numbers from 1 to m-1. All insertions, deletions and searches use the same sequence of random numbers.\n\n\n\nProbabilistic analysis of random probing\n\nGiven an open-address hash table with load factor \\alpha=n/m&lt;1,\n\nthe expected number of probes in an unsuccessful search/insert is at most  \\frac{1}{1-\\alpha} \nthe expected number of probes in a successful search is at most  \\frac{1}{\\alpha}\\ln\\frac{1}{1-\\alpha} \n\n\n\nProof. In an unsuccessful search, let us define the random variable X to be the number of probes made in an unsuccessful search and and let us also define the event A_{i}, for i=1,2,..., to be the event that an ith probe occurs and it is to an occupied slot. \\begin{align}\nPr(X\\geq i) & =\\frac{n}{m}\\cdot\\frac{n-1}{m-1}\\cdot\\frac{n-2}{m-2}\\cdots\\frac{n-i+2}{m-i+2}\\nonumber \\\\ & \\leq\\left(\\frac{n}{m}\\right)^{i-1}\\nonumber \\\\ & =\\alpha^{i-1}\n\\end{align} The expected number of probes \\begin{align}\nE[X] & =\\sum_{i=1}^{\\infty}Pr(X\\geq i)\\nonumber \\\\ & \\leq\\sum_{i=1}^{\\infty}\\alpha^{i-1}\\nonumber \\\\ & =\\frac{1}{1-\\alpha}\n\\end{align}\n\n\n\n\nLinear probing\nThe simplest open-addressing method is called linear probing: when there is a collision, then we just check the next entry in the table. Linear probing is characterized by identifying three possible outcomes:\n\nKey equal to search key: search hit\nEmpty position (null key at indexed position): search miss\nKey not equal to search key: try next entry\nGiven an ordinary hash function  h':U\\to\\{0,1,...,m-1\\},  the method of linear probing uses the hash function  h(k,i)=(h'(k)+i)\\bmod m \nLinear probing is easy to implement, but it suffers from a problem known as primary clustering.\n\n\nClustering\n\nCluster is a contiguous block of items.\n\nObservation. New keys likely to hash into middle of big clusters.\n\nClustering in linear probing (m=64)\n\n\n\n\nProbabilistic analysis of linear probing\n\nUnder uniform hashing assumption, the average number of probes in a linear probing hash table of size m that contains n:  \\sim\\frac{1}{2}\\left(1+\\frac{1}{1-\\alpha}\\right)\\qquad\\text{search hit}   \\sim\\frac{1}{2}\\left(1+\\frac{1}{(1-\\alpha)^{2}}\\right)\\qquad\\text{search miss/insert} \n\n\n\nRandom vs. linear probing\n\nAssuming random hash functions\n\n\n\n\nComparison of hashing methods\n\nTheoretical comparison of hashing methods\n\n\n\n\nLoad factor \\alpha\n0.1\n0.5\n0.8\n0.9\n0.99\n2\n\n\n\n\nSuccessful search, expected number of probes:\n\n\n\n\n\n\n\n\nChaining\n1.05\n1.25\n1.4\n1.45\n1.5\n2\n\n\nOpen, random probes\n1.05\n1.4\n2\n2.6\n4.6\n-\n\n\nOpen, linear probes\n1.06\n1.5\n3\n5.5\n50.5\n-\n\n\nUnsuccessful search, expected number of probes:\n\n\n\n\n\n\n\n\nChaining\n0.1\n0.5\n0.8\n0.9\n0.99\n2\n\n\nOpen, random probes\n1.1\n2\n5\n10\n100\n-\n\n\nOpen, linear probes\n1.12\n2.5\n13\n50\n5000\n-\n\n\n\n\nEmpirical comparison of hashing methods\n\n\n\n\nLoad factor \\alpha\n0.1\n0.5\n0.8\n0.9\n0.99\n2\n\n\n\n\nSuccessful search, expected number of probes:\n\n\n\n\n\n\n\n\nChaining\n1.04\n1.2\n1.4\n1.4\n1.5\n2\n\n\nOpen, random probes\n1.04\n1.5\n2.1\n2.7\n5.2\n-\n\n\nOpen, linear probes\n1.05\n1.6\n3.4\n6.2\n21.3\n-\n\n\nUnsuccessful search, expected number of probes:\n\n\n\n\n\n\n\n\nChaining\n0.1\n0.5\n0.8\n0.9\n0.99\n2\n\n\nOpen, random probes\n1.13\n2.2\n5.2\n11.9\n126\n-\n\n\nOpen, linear probes\n1.13\n2.7\n15.4\n59.8\n430\n-\n\n\n\n\n\n\nQuadratic Probing\n\nQuadratic probing uses a hash function of the form  h(k,i)=(h'(k)+c_{1}i+c_{2}i^{2})\\bmod m  where h' is an auxiliary hash function, c_{1} and c_{2}\\neq0 are auxiliary constants  h(k,i)=(h'(k)+i^{2})\\bmod m\\qquad\\text{(simple form)} \nNote: to make full use of the hash table, the values of c_{1}, c_{2}, and m are constrained\nThis method works much better than linear probing. It still suffers from another problem known as secondary clustering.\n\n\nIf quadratic probing is used, and the table size m is prime, then a new element can always be inserted if the table is at least half empty.\n\n\n\nDouble hashing\n\nDouble hashing uses a hash function of the form  h(k,i)=(h_{1}(k)+ih_{2}(k))\\bmod m  where h_{1} and h_{2} are auxiliary hash functions.\nNote: The value h_{2}(k) must be relatively prime to the hash-table size m for the entire hash table to be searched.\nIt is one of the best methods because the permutations produced have many of the characteristics of randomly chosen permutations.\n\n\n\nDynamic hash tables\nParameter table size m\nm too small \\Rightarrow search time blows up.\n\nAs the number of keys in a hash table increases, search performance degrades.\n\nm too large \\Rightarrow too many empty array entries.\n\nWaste memory.\nIf \\alpha&gt;1/2 then double the table’s size  m\\gets2m  Doubling the table is an expensive operation because everything in the table has to be reinserted, but it is an operation that is performed infrequently.\nIf \\alpha&lt;1/8 then halve the the table’s size  m\\gets\\frac{m}{2} \n\n\n\nCost summary for symbol-table implementations\n\n\n\n\n\n\n\n\n\n\n\n\n\nimplementation\nworst case\n\n\naverage case\n\n\nkey\n\n\n\n\n\nsearch\ninsert\nremove\nsearch hit\ninsert\nremove\n\n\n\nBST\nN\nN\nN\nc\\log_{2}N\nc\\log_{2}N\n\\sqrt{N}\ncompare\n\n\nAVL\nc_{a}\\log_{2}N\n-\n-\n\\log_{2}N\n-\n-\ncompare\n\n\nRB\nc_{r}\\log_{2}N\n-\n-\n\\log_{2}N\n-\n-\ncompare\n\n\nchain hash\nN or \\ln N\n-\n-\n1\n-\n-\nequal\n\n\nlinear hash\nN or \\ln N\n-\n-\n1\n-\n-\nequal\n\n\n\nNote: c=1.39,c_{a}=1.44,c_{r}=2.0",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Hash Table</span>"
+    ]
+  },
+  {
+    "objectID": "lect10-hashtable.html#universal-hashing",
+    "href": "lect10-hashtable.html#universal-hashing",
+    "title": "14  Hash Table",
+    "section": "14.3 Universal hashing",
+    "text": "14.3 Universal hashing\n\nProblem Any fixed hash function is vulnerable to such terrible worst-case behavior.\n\nSolution Choose the hash function randomly in a way that is independent of the keys that are actually going to be stored.\n\nLet \\mathcal{H} be a finite collection of hash functions that map a given universe U of keys into the range {0,1,…,m-1}. \\mathcal{H} is said to be universal if for each pair of distinct keys k,l\\in U,  \\left|\\{h\\in\\mathcal{H}\\mid h(k)=h(l)\\}\\right|\\leq\\frac{|\\mathcal{H}|}{m} \n\n\nIn other words, the chance of a collision between k and l is 1/m if we choose h randomly from \\mathcal{H}.\n\n\nSuppose that a hash function h is chosen from a universal collection of hash functions and is used to hash n keys into a table T of size m, for a given key k, we have  E[\\text{\\# collision with }k]\\leq\\frac{n}{m} \n\n\nDesigning a universal class of hash functions\n\nChoose a prime number p large enough so that every possible key k is in the range 0 to p-1.\nWe define the hash function h_{ab}, a\\in\\mathbb{Z}_{p}^{\\ast} and b\\in\\mathbb{Z}_{p} (\\mathbb{Z}_{p}=\\{0,1,2...,p-1\\} and \\mathbb{Z}_{p}^{\\ast}=\\{1,2...,p-1\\})  h_{ab}(k)=((ak+b)\\bmod p)\\bmod m \nThe family of all such hash functions is  \\mathcal{H}_{pm}=\\{h_{ab}:a\\in\\mathbb{Z}_{p}^{\\ast}\\text{ and }b\\in\\mathbb{Z}_{p}\\} \n\n\nThe class \\mathcal{H}_{pm} of hash functions is universal.",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Hash Table</span>"
+    ]
+  },
+  {
+    "objectID": "lect10-hashtable.html#advanced-hash-table",
+    "href": "lect10-hashtable.html#advanced-hash-table",
+    "title": "14  Hash Table",
+    "section": "14.4 Advanced Hash Table",
+    "text": "14.4 Advanced Hash Table\n\nPerfect hashing\n\nProblem Given a set of n keys, construct a static hash table of size m such that Search action takes O(1) time in the worst case.\n\n\nSolution O(n^{2}) space\n\nSuppose that we store n keys in a hash table of size m=n^{2} using a hash function h randomly chosen from a universal class of hash functions. Then, the probability is less than 1/2 that there are any collisions.\n\n\n\nExample 1\n\nUsing perfect hashing to store the set K=\\{10,22,37,52,60,70,72\\}.\nThe hash table T with size of m=n^{2}=49 and the hash function h(k)=((ak+b)\\bmod p)\\bmod m where a=1, b=0, p=73\n\n\n\n\nSolution O(n) space\nIdea: We use two levels of hashing, with universal hashing at each level.\n\nThe first level: it is the same as for hashing with chaining\nThe second level: we use a small secondary hash table S_{j} with an associated hash function h_{j}. By choosing the hash functions h_{j} carefully, we can guarantee that there are no collisions at the secondary level.\n\n\nfunction CreatePerfectTable(T, {k1,k2,...,kn}, H)\n\n    Carefully choose h and {h0, h1, ... hm-1} from H\n\n    count[0,...,m-1] ← {0,...,0}\n\n    for i ← 1 to n\n        count[h(ki)] ← count[h(ki)] + 1\n\n    for i ← 0 to m-1\n        allocate count[i]^2 memory slots to secondary table Si and T[i] -&gt; Si\n\n    for i ← 1 to n\n        j ← h(ki)\n        p ← hj(ki)\n        Sj[p] ← ki\nfunction SearchPerfectTable(T, k)\n\n    j ← h(k)\n    if T[j] = null return null\n    p ← hj(k)\n    return Sj[p]\n\n\nExample 2\nUsing perfect hashing to store the set K=\\{10,22,37,52,60,70,72\\}.\n\nThe table T uses the outer hash function h(k)=((ak+b)\\bmod p)\\bmod m where a=3, b=42, p=101 and m=9\nA secondary table S_{j} uses the hash function h_{i}(k)=((a_{i}k+b_{i})\\bmod p)\\bmod m_{i} where m_{i}=count_{i}^{2}\n\n\n\n\n\nCuckoo hashing\nIn cuckoo hashing, we maintain - two tables, each more than half empty. - two independent hash functions randomly chosen from a universal class of hash functions that can assign each item to a position in each table.\n\nfunction InsertCuckooTable(T1, h1, T2, h2, k)\n\n    repeat\n        Insert into the first table T1\n\n        if there was a collision then\n            move the current key l to the second table T2\n            insert the new key k\n\n        The displaced key l is inserted in its alternative location,\n            again kicking out any key that might reside there.\n    until success\nfunction SearchCuckooTable(T, k)\n    return search in two tables T1 and T2",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Hash Table</span>"
+    ]
+  },
+  {
+    "objectID": "lect10-hashtable.html#workshop",
+    "href": "lect10-hashtable.html#workshop",
+    "title": "14  Hash Table",
+    "section": "14.5 Workshop",
+    "text": "14.5 Workshop\n\nQuiz\n\nWhat is a hash function?\nWhat is a hash table?\n\n\n\nProjects",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Hash Table</span>"
+    ]
+  },
+  {
+    "objectID": "lect10-hashtable.html#references",
+    "href": "lect10-hashtable.html#references",
+    "title": "14  Hash Table",
+    "section": "14.6 References",
+    "text": "14.6 References",
+    "crumbs": [
+      "DATA STRUCTURES",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Hash Table</span>"
+    ]
+  }
+]

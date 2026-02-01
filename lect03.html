@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; SORTING – DATA STRUCTURES AND ALOGRITHMS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./lect04-pointer.html" rel="next">
+<link href="./lect02.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-317aa39e225c698ea508ddd136b93e4d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="theme.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">DATA STRUCTURES AND ALOGRITHMS</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./recursion.html">ALGORITHMS</a></li><li class="breadcrumb-item"><a href="./lect03.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">SORTING</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">INTRODUCTION</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">ALGORITHMS</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./recursion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Recursion &amp; Divide-and-Conquer</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./fractal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">FRACTAL</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./dp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Dynamic Programming</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">ANALYSIS OF ALGORITHM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect03.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">SORTING</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">DATA STRUCTURES</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect04-pointer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pointers</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect05-file.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">FILE &amp; STREAM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect05-element-ds.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Elementary Data Structures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect06-tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Trees &amp; Binary Trees</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect07-balanced-tree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Balanced Binary Search Tree</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect08-btree.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">B-tree</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect09-pq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Priority Queues and Heaps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lect10-hashtable.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Hash Table</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <span class="sidebar-item-text sidebar-link text-start">
+ <span class="menu-text">GRAPHS</span></span>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#selection-sort" id="toc-selection-sort" class="nav-link" data-scroll-target="#selection-sort"><span class="header-section-number">6.1</span> Selection Sort</a>
+  <ul class="collapse">
+  <li><a href="#selection-sort-1" id="toc-selection-sort-1" class="nav-link" data-scroll-target="#selection-sort-1">Selection Sort</a></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a></li>
+  </ul></li>
+  <li><a href="#insertion-sort" id="toc-insertion-sort" class="nav-link" data-scroll-target="#insertion-sort"><span class="header-section-number">6.2</span> Insertion Sort</a>
+  <ul class="collapse">
+  <li><a href="#insertion-sort-1" id="toc-insertion-sort-1" class="nav-link" data-scroll-target="#insertion-sort-1">Insertion Sort</a></li>
+  <li><a href="#implementation-1" id="toc-implementation-1" class="nav-link" data-scroll-target="#implementation-1">Implementation</a></li>
+  <li><a href="#analysis-1" id="toc-analysis-1" class="nav-link" data-scroll-target="#analysis-1">Analysis</a></li>
+  </ul></li>
+  <li><a href="#bubble-sort" id="toc-bubble-sort" class="nav-link" data-scroll-target="#bubble-sort"><span class="header-section-number">6.3</span> Bubble Sort</a>
+  <ul class="collapse">
+  <li><a href="#bubble-sort-1" id="toc-bubble-sort-1" class="nav-link" data-scroll-target="#bubble-sort-1">Bubble Sort</a></li>
+  <li><a href="#implementation-2" id="toc-implementation-2" class="nav-link" data-scroll-target="#implementation-2">Implementation</a></li>
+  <li><a href="#analysis-2" id="toc-analysis-2" class="nav-link" data-scroll-target="#analysis-2">Analysis</a></li>
+  </ul></li>
+  <li><a href="#shell-sort" id="toc-shell-sort" class="nav-link" data-scroll-target="#shell-sort"><span class="header-section-number">6.4</span> Shell Sort</a>
+  <ul class="collapse">
+  <li><a href="#shell-sort-1" id="toc-shell-sort-1" class="nav-link" data-scroll-target="#shell-sort-1">Shell Sort</a></li>
+  <li><a href="#incrementdecrement-sequence" id="toc-incrementdecrement-sequence" class="nav-link" data-scroll-target="#incrementdecrement-sequence">Increment/Decrement Sequence</a></li>
+  <li><a href="#implementation-3" id="toc-implementation-3" class="nav-link" data-scroll-target="#implementation-3">Implementation</a></li>
+  <li><a href="#analysis-3" id="toc-analysis-3" class="nav-link" data-scroll-target="#analysis-3">Analysis</a></li>
+  </ul></li>
+  <li><a href="#heap-sort" id="toc-heap-sort" class="nav-link" data-scroll-target="#heap-sort"><span class="header-section-number">6.5</span> Heap Sort</a>
+  <ul class="collapse">
+  <li><a href="#heap-sort-1" id="toc-heap-sort-1" class="nav-link" data-scroll-target="#heap-sort-1">Heap Sort</a></li>
+  <li><a href="#heap-representation" id="toc-heap-representation" class="nav-link" data-scroll-target="#heap-representation">Heap Representation</a></li>
+  <li><a href="#top-down-heapify" id="toc-top-down-heapify" class="nav-link" data-scroll-target="#top-down-heapify">Top-down heapify</a></li>
+  <li><a href="#implementation-4" id="toc-implementation-4" class="nav-link" data-scroll-target="#implementation-4">Implementation</a></li>
+  <li><a href="#heap-sort-2" id="toc-heap-sort-2" class="nav-link" data-scroll-target="#heap-sort-2">Heap Sort</a></li>
+  <li><a href="#analysis-4" id="toc-analysis-4" class="nav-link" data-scroll-target="#analysis-4">Analysis</a></li>
+  </ul></li>
+  <li><a href="#merge-sort" id="toc-merge-sort" class="nav-link" data-scroll-target="#merge-sort"><span class="header-section-number">6.6</span> Merge Sort</a>
+  <ul class="collapse">
+  <li><a href="#top-down-merge-sort" id="toc-top-down-merge-sort" class="nav-link" data-scroll-target="#top-down-merge-sort">Top-Down Merge Sort</a></li>
+  <li><a href="#implementation-5" id="toc-implementation-5" class="nav-link" data-scroll-target="#implementation-5">Implementation</a></li>
+  <li><a href="#bottom-up-merge-sort" id="toc-bottom-up-merge-sort" class="nav-link" data-scroll-target="#bottom-up-merge-sort">Bottom-up Merge Sort</a></li>
+  <li><a href="#implementation-6" id="toc-implementation-6" class="nav-link" data-scroll-target="#implementation-6">Implementation</a></li>
+  <li><a href="#analysis-5" id="toc-analysis-5" class="nav-link" data-scroll-target="#analysis-5">Analysis</a></li>
+  </ul></li>
+  <li><a href="#quick-sort" id="toc-quick-sort" class="nav-link" data-scroll-target="#quick-sort"><span class="header-section-number">6.7</span> Quick Sort</a>
+  <ul class="collapse">
+  <li><a href="#quick-sort-1" id="toc-quick-sort-1" class="nav-link" data-scroll-target="#quick-sort-1">Quick Sort</a></li>
+  <li><a href="#implementation-7" id="toc-implementation-7" class="nav-link" data-scroll-target="#implementation-7">Implementation</a></li>
+  <li><a href="#analysis-6" id="toc-analysis-6" class="nav-link" data-scroll-target="#analysis-6">Analysis</a></li>
+  <li><a href="#a-lower-bound-for-the-worst-case" id="toc-a-lower-bound-for-the-worst-case" class="nav-link" data-scroll-target="#a-lower-bound-for-the-worst-case">A lower bound for the worst case</a></li>
+  </ul></li>
+  <li><a href="#key-indexed-counting" id="toc-key-indexed-counting" class="nav-link" data-scroll-target="#key-indexed-counting"><span class="header-section-number">6.8</span> Key-indexed Counting</a>
+  <ul class="collapse">
+  <li><a href="#assumptions-about-keys" id="toc-assumptions-about-keys" class="nav-link" data-scroll-target="#assumptions-about-keys">Assumptions about keys</a></li>
+  <li><a href="#key-indexed-counting-1" id="toc-key-indexed-counting-1" class="nav-link" data-scroll-target="#key-indexed-counting-1">Key-indexed Counting</a></li>
+  <li><a href="#analysis-7" id="toc-analysis-7" class="nav-link" data-scroll-target="#analysis-7">Analysis</a></li>
+  </ul></li>
+  <li><a href="#radix-sort" id="toc-radix-sort" class="nav-link" data-scroll-target="#radix-sort"><span class="header-section-number">6.9</span> Radix Sort</a>
+  <ul class="collapse">
+  <li><a href="#radix-sort-1" id="toc-radix-sort-1" class="nav-link" data-scroll-target="#radix-sort-1">Radix Sort</a></li>
+  <li><a href="#lsd-implementation" id="toc-lsd-implementation" class="nav-link" data-scroll-target="#lsd-implementation">LSD Implementation</a></li>
+  <li><a href="#example-1" id="toc-example-1" class="nav-link" data-scroll-target="#example-1">Example 1</a></li>
+  <li><a href="#example-2" id="toc-example-2" class="nav-link" data-scroll-target="#example-2">Example 2</a></li>
+  <li><a href="#analysis-8" id="toc-analysis-8" class="nav-link" data-scroll-target="#analysis-8">Analysis</a></li>
+  </ul></li>
+  <li><a href="#workshop" id="toc-workshop" class="nav-link" data-scroll-target="#workshop"><span class="header-section-number">6.10</span> Workshop</a>
+  <ul class="collapse">
+  <li><a href="#quiz" id="toc-quiz" class="nav-link" data-scroll-target="#quiz">Quiz</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">6.11</span> References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./recursion.html">ALGORITHMS</a></li><li class="breadcrumb-item"><a href="./lect03.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">SORTING</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">SORTING</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction" class="level3">
+<h3 class="anchored" data-anchor-id="introduction">Introduction</h3>
+<div class="definition">
+<p><strong>Sorting</strong> is a fundamental algorithm design problem. Many efficient algorithms use sorting as a subroutine, because it is often easier to process data if the elements are in a sorted order.</p>
+</div>
+<ul>
+<li><p>The basic problem in sorting is as follows: Given <strong>an array</strong> that contains <span class="math inline">n</span> elements (keys), our task is to sort the elements in increasing order. For example, the array</p>
+<p></p><div style="text-align:center;"><img src="figures/book-figure2.svg" alt="" width="70%"></div><p></p>
+<p>will be as follows after sorting:</p>
+<p></p><div style="text-align:center;"><img src="figures/book-figure3.svg" alt="" width="70%"></div><p></p></li>
+</ul>
+<div class="definition">
+<p>An <strong>inversion</strong> is a pair of keys that are out of order in the array</p>
+</div>
+<ul>
+<li><p>For instance, an array <code>{E, X, A, M, P, L, E}</code> has 11 inversions:</p>
+<p><code>E-A, X-A, X-M, X-P, X-L, X-E, M-L, M-E, P-L, P-E</code>, and <code>L-E</code>.</p></li>
+</ul>
+<div class="definition">
+<p>If the number of inversions in an array is less than a constant multiple of the array size, we say that the array is <strong>partially sorted</strong>.</p>
+</div>
+<div class="definition">
+<p>A sorting method is <strong>stable</strong> if it preserves the relative order of equal keys in the array</p>
+</div>
+<p></p><div style="text-align:center;"><img src="figures/sort-stability.svg" alt="" width="70%"></div><p></p>
+<div class="definition">
+<p>An <strong>adaptive sorting algorithm</strong> is a type of sorting algorithm that takes advantage of existing order or structure in the input data to improve its performance.</p>
+</div>
+<div class="definition">
+<p>A <strong>non-adaptive sorting algorithm</strong> is a type of sorting algorithm that does not take advantage of any existing order or structure in the input data.</p>
+</div>
+</section>
+<section id="selection-sort" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="selection-sort"><span class="header-section-number">6.1</span> Selection Sort</h2>
+<section id="selection-sort-1" class="level3">
+<h3 class="anchored" data-anchor-id="selection-sort-1">Selection Sort</h3>
+<div class="block">
+<p>Idea Assume that the array <span class="math inline">\boldsymbol{a}</span> is composed of two parts: the left part <span class="math inline">\boldsymbol{s}</span> is sorted and the right part <span class="math inline">\boldsymbol{u}</span> is unsorted</p>
+<ol type="1">
+<li><p><span class="math inline">\boldsymbol{s}=\emptyset</span> and <span class="math inline">\boldsymbol{u}=\boldsymbol{a}</span></p></li>
+<li><p>Find the smallest element <span class="math inline">x</span> of the part <span class="math inline">\boldsymbol{u}</span></p></li>
+<li><p>Remove <span class="math inline">x</span> from <span class="math inline">\boldsymbol{u}</span></p></li>
+<li><p>Append <span class="math inline">x</span> to <span class="math inline">\boldsymbol{s}</span></p></li>
+</ol>
+<p>Repeat the actions 2-4 until <span class="math inline">\boldsymbol{u}</span> is empty</p>
+</div>
+</section>
+<section id="implementation" class="level3">
+<h3 class="anchored" data-anchor-id="implementation">Implementation</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> Item<span class="op">&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> selection<span class="op">(</span>Item a<span class="op">[],</span> <span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> l<span class="op">;</span> i <span class="op">&lt;</span> r<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> min <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">;</span> j <span class="op">&lt;=</span> r<span class="op">;</span> j<span class="op">++)</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>a<span class="op">[</span>j<span class="op">]</span> <span class="op">&lt;</span> a<span class="op">[</span>min<span class="op">])</span> min <span class="op">=</span> j<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        swap<span class="op">(</span>a<span class="op">[</span>i<span class="op">],</span> a<span class="op">[</span>min<span class="op">]);</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="analysis" class="level3">
+<h3 class="anchored" data-anchor-id="analysis">Analysis</h3>
+<div class="theorem">
+<p>Selection sort uses <span class="math inline">\sim N^{2}/2</span> <strong>compares</strong> and <span class="math inline">N</span> <strong>exchanges</strong> to sort an array of length <span class="math inline">N</span>.</p>
+</div>
+<p>Analysis of selection sort for the input size of <span class="math inline">N</span> (the number of keys)</p>
+<ul>
+<li><p>Time complexity:</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>best case</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>average case</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>worst case</td>
+<td>?</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Space complexity: ?</p></li>
+<li><p>Stability: ?</p></li>
+</ul>
+</section>
+</section>
+<section id="insertion-sort" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="insertion-sort"><span class="header-section-number">6.2</span> Insertion Sort</h2>
+<section id="insertion-sort-1" class="level3">
+<h3 class="anchored" data-anchor-id="insertion-sort-1">Insertion Sort</h3>
+<div class="block">
+<p>Idea Assume that the array <span class="math inline">\boldsymbol{a}</span> is composed of two parts: the left part <span class="math inline">\boldsymbol{s}</span> is sorted and the right part <span class="math inline">\boldsymbol{u}</span> is unsorted</p>
+<ol type="1">
+<li><p><span class="math inline">\boldsymbol{s}=\emptyset</span> and <span class="math inline">\boldsymbol{u}=\boldsymbol{a}</span></p></li>
+<li><p>Remove the first elements <span class="math inline">x</span> of <span class="math inline">\boldsymbol{u}</span></p></li>
+<li><p>Insert <span class="math inline">x</span> into its proper place among <span class="math inline">\boldsymbol{s}</span></p></li>
+</ol>
+<p>Repeat the actions 2-3 until <span class="math inline">\boldsymbol{u}</span> is empty</p>
+</div>
+</section>
+<section id="implementation-1" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-1">Implementation</h3>
+<ul>
+<li>Algorithm 1</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> Item<span class="op">&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> insertionsort<span class="op">(</span>Item a<span class="op">[],</span> <span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> l <span class="op">+</span> <span class="dv">1</span><span class="op">;</span> i <span class="op">&lt;=</span> r<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        Item v <span class="op">=</span> a<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> j <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(;</span> j <span class="op">&gt;</span> l <span class="op">&amp;&amp;</span> v <span class="op">&lt;</span> a<span class="op">[</span>j <span class="op">-</span> <span class="dv">1</span><span class="op">];</span> j<span class="op">--)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            a<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> a<span class="op">[</span>j <span class="op">-</span> <span class="dv">1</span><span class="op">];</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        a<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> v<span class="op">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Algorithm 2 (using <em>sentinel technique</em>)</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> Item<span class="op">&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> insertionsort<span class="op">(</span>Item a<span class="op">[],</span> <span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> r<span class="op">;</span> i <span class="op">&gt;</span> l<span class="op">;</span> i<span class="op">--)</span> compare_swap<span class="op">(</span>a<span class="op">[</span>i <span class="op">-</span> <span class="dv">1</span><span class="op">],</span> a<span class="op">[</span>i<span class="op">]);</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> l <span class="op">+</span> <span class="dv">2</span><span class="op">;</span> i <span class="op">&lt;=</span> r<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        Item v <span class="op">=</span> a<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> j <span class="op">=</span> i<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(;</span> v <span class="op">&lt;</span> a<span class="op">[</span>j <span class="op">-</span> <span class="dv">1</span><span class="op">];</span> j<span class="op">--)</span>  </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            a<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> a<span class="op">[</span>j <span class="op">-</span> <span class="dv">1</span><span class="op">];</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        a<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> v<span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="analysis-1" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-1">Analysis</h3>
+<div class="theorem">
+<p>The number of exchanges used by insertion sort is equal to the number of inversions in the array, and the number of compares is at least equal to the number of inversions and at most equal to the number of inversions plus the array size minus 1.</p>
+</div>
+<div class="theorem">
+<p>Insertion sort uses <span class="math inline">\sim N^{2}/4</span> compares and <span class="math inline">\sim N^{2}/4</span> exchanges to sort a randomly ordered array of length <span class="math inline">N</span> with distinct keys, on the average.</p>
+</div>
+<ul>
+<li><p>Time complexity:</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>best case</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>average case</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>worst case</td>
+<td>?</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Space complexity: ?</p></li>
+<li><p>Stability: ?</p></li>
+</ul>
+</section>
+</section>
+<section id="bubble-sort" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="bubble-sort"><span class="header-section-number">6.3</span> Bubble Sort</h2>
+<section id="bubble-sort-1" class="level3">
+<h3 class="anchored" data-anchor-id="bubble-sort-1">Bubble Sort</h3>
+<ul>
+<li>Keep passing through the array, exchanging adjacent elements that are out of order, continuing until the array is sorted.</li>
+<li>Bubble Sort is a kind of Selection Sort.</li>
+</ul>
+</section>
+<section id="implementation-2" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-2">Implementation</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> Item<span class="op">&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> bubblesort<span class="op">(</span>Item a<span class="op">[],</span> <span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> l<span class="op">;</span> i <span class="op">&lt;</span> r<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> r<span class="op">;</span> j <span class="op">&gt;</span> i<span class="op">;</span> j<span class="op">--)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>            compare_swap<span class="op">(</span>a<span class="op">[</span>j <span class="op">-</span> <span class="dv">1</span><span class="op">],</span> a<span class="op">[</span>j<span class="op">]);</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><strong>Challenge</strong>: reimplement the function <code>bubblesort</code> using recursion technique</li>
+</ul>
+</section>
+<section id="analysis-2" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-2">Analysis</h3>
+<ul>
+<li><p>Time complexity:</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>best case</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>average case</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>worst case</td>
+<td>?</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Space complexity: ?</p></li>
+<li><p>Stability: ?</p></li>
+</ul>
+</section>
+</section>
+<section id="shell-sort" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="shell-sort"><span class="header-section-number">6.4</span> Shell Sort</h2>
+<section id="shell-sort-1" class="level3">
+<h3 class="anchored" data-anchor-id="shell-sort-1">Shell Sort</h3>
+<ul>
+<li><p>Insertion sort is slow because the only exchanges it does involve adjacent items, so items can move through the array only one place at a time.</p></li>
+<li><p>Shellsort is a simple extension of insertion sort that gains speed by allowing exchanges of elements that are far apart.</p></li>
+<li><p>The running time is better than <span class="math inline">O(n^{2})</span></p></li>
+</ul>
+<div class="block">
+<p>Idea</p>
+<ul>
+<li><p>Given the decrement sequence <span class="math inline">\{h_{1},h_{2},...,h_{t}\}</span> where <span class="math inline">h_{i}\in\mathbb{N}</span> and <span class="math inline">h_{t}=1</span></p></li>
+<li><p>For each <span class="math inline">h\in\{h_{1},h_{2},...,h_{t}\}</span></p>
+<ol type="1">
+<li><p>Split an array <span class="math inline">\boldsymbol{a}</span> into <span class="math inline">h</span> subsequences <span class="math display">\begin{array}{l}
+a_{0},a_{0+h},a_{0+2h},...\\
+a_{1},a_{1+h},a_{1+2h},...\\
+a_{2},a_{2+h},a_{2+2h},...\\
+...
+\end{array}</span></p></li>
+<li><p>Using <em>Insertion Sort</em> to sort each subsequence</p></li>
+</ol></li>
+</ul>
+</div>
+</section>
+<section id="incrementdecrement-sequence" class="level3">
+<h3 class="anchored" data-anchor-id="incrementdecrement-sequence">Increment/Decrement Sequence</h3>
+<ul>
+<li><p>Shell proposed <span class="math display">\begin{aligned}
+h_{1} &amp; =\frac{N}{2}\nonumber \\
+h_{i+1} &amp; =\frac{h_{i}}{2}\quad i&gt;1
+\end{aligned}</span></p></li>
+<li><p>Hibbard proposed <span class="math display">h_{i}=2^{i}-1</span></p></li>
+<li><p>Knuth proposed <span class="math display">\begin{aligned}
+h_{1} &amp; =1\nonumber \\
+h_{i+1} &amp; =3h_{i}+1\quad i&gt;1
+\end{aligned}</span></p></li>
+<li><p>Pratt proposed <span class="math display">\begin{aligned}
+\text{Successive numbers of the form } &amp; 2^{p}3^{q},\quad p,q\in\mathbb{N}
+\end{aligned}</span></p></li>
+</ul>
+</section>
+<section id="implementation-3" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-3">Implementation</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> Item<span class="op">&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> shellsort<span class="op">(</span>Item a<span class="op">[],</span> <span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> h<span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>h <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> h <span class="op">&lt;=</span> <span class="op">(</span>r <span class="op">-</span> l<span class="op">)</span> <span class="op">/</span> <span class="dv">9</span><span class="op">;</span> h <span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> h <span class="op">+</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(;</span> h <span class="op">&gt;</span> <span class="dv">0</span><span class="op">;</span> h <span class="op">/=</span> <span class="dv">3</span><span class="op">)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> l <span class="op">+</span> h<span class="op">;</span> i <span class="op">&lt;=</span> r<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            <span class="dt">int</span> j <span class="op">=</span> i<span class="op">;</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            Item v <span class="op">=</span> a<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span> <span class="op">(</span>j <span class="op">&gt;=</span> l <span class="op">+</span> h <span class="op">&amp;&amp;</span> v <span class="op">&lt;</span> a<span class="op">[</span>j <span class="op">-</span> h<span class="op">])</span> <span class="op">{</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                a<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> a<span class="op">[</span>j <span class="op">-</span> h<span class="op">];</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                j <span class="op">-=</span> h<span class="op">;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>            a<span class="op">[</span>j<span class="op">]</span> <span class="op">=</span> v<span class="op">;</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="analysis-3" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-3">Analysis</h3>
+<div class="theorem">
+<p>The result of <span class="math inline">h</span>-sorting an array that is <span class="math inline">k</span>-ordered is an array that is both <span class="math inline">h</span>- and <span class="math inline">k</span>-ordered</p>
+</div>
+<div class="theorem">
+<p>Shellsort does less than <span class="math inline">N(h-1)(k-1)/g</span> <strong>comparisons</strong> to <span class="math inline">g</span>-sort an array that is <span class="math inline">h</span>- and <span class="math inline">k</span>-ordered, provided that <span class="math inline">h</span> and <span class="math inline">k</span> are relatively prime</p>
+</div>
+<ul>
+<li><p>Time complexity:</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>best case</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>average case</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>worst case</td>
+<td>?</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Space complexity: ?</p></li>
+<li><p>Stability: ?</p></li>
+</ul>
+</section>
+</section>
+<section id="heap-sort" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="heap-sort"><span class="header-section-number">6.5</span> Heap Sort</h2>
+<section id="heap-sort-1" class="level3">
+<h3 class="anchored" data-anchor-id="heap-sort-1">Heap Sort</h3>
+<div class="definition">
+<ul>
+<li><p><strong>Max heap</strong>: A tree is heap-ordered if the key in each node is larger than or equal to the keys in all of that node’s children (if any)</p></li>
+<li><p><strong>Min heap</strong>: A tree is heap-ordered if the key in each node is smaller than or equal to the keys in all of that node’s children (if any)</p></li>
+</ul>
+</div>
+<div class="theorem">
+<ul>
+<li><p>Max heap: No node in a heap-ordered tree has a key larger than the key at the root</p></li>
+<li><p>Min heap: No node in a heap-ordered tree has a key smaller than the key at the root</p></li>
+</ul>
+</div>
+</section>
+<section id="heap-representation" class="level3">
+<h3 class="anchored" data-anchor-id="heap-representation">Heap Representation</h3>
+<p>Array representation of a heap-ordered complete binary tree</p>
+<div class="block">
+<p>Array <span class="math inline">\{a_{0},a_{1},a_{2},a_{3},a_{4},a_{5},a_{6},a_{7},a_{8}\}</span> and complete binary tree</p>
+<p></p><div style="text-align:center;"><img src="figures/tree-complete.svg" alt="" width="40%"></div><p></p>
+</div>
+<ul>
+<li>Root node is <span class="math inline">a_{0}</span></li>
+<li><span class="smallcaps"><code>Parent</code></span><code>(</code><span class="math inline">a_{i}</span><code>)</code> is <span class="math inline">a_{\left\lfloor \frac{i-1}{2}\right\rfloor }</span> or nothing</li>
+<li><span class="smallcaps"><code>LeftChild</code></span><code>(</code><span class="math inline">a_{i}</span><code>)</code> is <span class="math inline">a_{2i+1}</span> or nothing</li>
+<li><span class="smallcaps"><code>RightChild</code></span><code>(</code><span class="math inline">a_{i}</span><code>)</code> is <span class="math inline">a_{2i+2}</span> or nothing</li>
+</ul>
+</section>
+<section id="top-down-heapify" class="level3">
+<h3 class="anchored" data-anchor-id="top-down-heapify">Top-down heapify</h3>
+<p><strong>At</strong> the given node <span class="math inline">a_{i}</span></p>
+<ul>
+<li><p><strong>Exchange</strong> the key in the given node <span class="math inline">a_{i}</span> with the largest key among that node’s children <span class="math inline">a_{2i+1}</span> and <span class="math inline">a_{2i+2}</span></p></li>
+<li><p><strong>Move down</strong> to that child, and continuing down the tree until we reach the bottom or a point where no child has a larger key.</p></li>
+</ul>
+</section>
+<section id="implementation-4" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-4">Implementation</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> Item<span class="op">&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> heapify<span class="op">(</span>Item a<span class="op">[],</span> <span class="dt">int</span> n<span class="op">,</span> <span class="dt">int</span> i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    Item v <span class="op">=</span> a<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> n <span class="op">/</span> <span class="dv">2</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> child <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>child <span class="op">&lt;</span> n <span class="op">-</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>a<span class="op">[</span>child<span class="op">]</span> <span class="op">&gt;</span> a<span class="op">[</span>child <span class="op">+</span> <span class="dv">1</span><span class="op">])</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                child<span class="op">++;</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>v <span class="op">&gt;=</span> a<span class="op">[</span>child<span class="op">])</span> <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        a<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> a<span class="op">[</span>child<span class="op">];</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        i <span class="op">=</span> child<span class="op">;</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    a<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> v<span class="op">;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="heap-sort-2" class="level3">
+<h3 class="anchored" data-anchor-id="heap-sort-2">Heap Sort</h3>
+<ul>
+<li><p>Build max-heap array: use <code>heapify</code> operation to convert an array <span class="math inline">\boldsymbol{a}</span> to a max-heap array</p>
+<ul>
+<li><p>All elements in the range <span class="math inline">\left\{ a_{\frac{n}{2}},...,a_{n-1}\right\}</span> are leaf nodes.</p></li>
+<li><p>Apply <code>heapify</code> operation for these elements <span class="math inline">\left\{ a_{\frac{n}{2}-1},...,a_{0}\right\}</span></p></li>
+</ul></li>
+<li><p>Sort a max-heap array <span class="math inline">\boldsymbol{a}</span></p>
+<ol type="1">
+<li><p>Swap the first and the last element</p></li>
+<li><p>Remove the last element</p></li>
+</ol>
+<p>If <span class="math inline">|\boldsymbol{a}|&gt;1</span> then apply <code>heapify</code> operation for <span class="math inline">a_{0}</span> and repeat actions 1-2</p></li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> Item<span class="op">&gt;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> heapsort<span class="op">(</span>Item a<span class="op">[],</span> <span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    Item <span class="op">*</span>pa <span class="op">=</span> a <span class="op">+</span> l<span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> N <span class="op">=</span> r <span class="op">-</span> l <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> k <span class="op">=</span> N <span class="op">/</span> <span class="dv">2</span> <span class="op">-</span> <span class="dv">1</span><span class="op">;</span> k <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">;</span> k<span class="op">--)</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        heapify<span class="op">(</span>pa<span class="op">,</span> N<span class="op">,</span> k<span class="op">);</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>N <span class="op">&gt;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>        swap<span class="op">(</span>pa<span class="op">[</span><span class="dv">0</span><span class="op">],</span> pa<span class="op">[</span>N <span class="op">-</span> <span class="dv">1</span><span class="op">]);</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        N<span class="op">--;</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>        heapify<span class="op">(</span>pa<span class="op">,</span> N<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="analysis-4" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-4">Analysis</h3>
+<div class="theorem">
+<p>Heapsort uses fewer than <span class="math inline">2N\log_{2}N</span> comparisons to sort <span class="math inline">N</span> elements</p>
+</div>
+<ul>
+<li><p>Time complexity:</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>best case</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>average case</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>worst case</td>
+<td>?</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Space complexity: ?</p></li>
+<li><p>Stability: ?</p></li>
+</ul>
+</section>
+</section>
+<section id="merge-sort" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="merge-sort"><span class="header-section-number">6.6</span> Merge Sort</h2>
+<section id="top-down-merge-sort" class="level3">
+<h3 class="anchored" data-anchor-id="top-down-merge-sort">Top-Down Merge Sort</h3>
+<div class="block">
+<p>Idea Merge sort sorts a subarray <code>a</code><span class="math inline">[l\ldots r]</span> as follows:</p>
+<ol type="1">
+<li><p>If <span class="math inline">l\geq r</span>, do not do anything, because the subarray is already sorted or empty.</p></li>
+<li><p>Calculate the position of the middle element: <span class="math inline">m=\lfloor(l+r)/2\rfloor</span>.</p></li>
+<li><p>Recursively sort the subarray <code>a</code><span class="math inline">[l\ldots m]</span>.</p></li>
+<li><p>Recursively sort the subarray <code>a</code><span class="math inline">[m+1\ldots r]</span>.</p></li>
+<li><p><em>Merge</em> the sorted subarrays <code>a</code><span class="math inline">[l\ldots m]</span> and <code>a</code><span class="math inline">[m+1\ldots r]</span> into a sorted subarray <code>a</code><span class="math inline">[l\ldots r]</span>.</p></li>
+</ol>
+</div>
+<p>Sorting the following array:</p>
+<p></p><div style="text-align:center;"><img src="figures/book-figure10.svg" alt="" width="70%"></div><p></p>
+<ul>
+<li><p>The array will be divided into two subarrays as follows:</p>
+<p></p><div style="text-align:center;"><img src="figures/book-figure11.svg" alt="" width="70%"></div><p></p></li>
+<li><p>Then, the subarrays will be sorted recursively as follows:</p>
+<p></p><div style="text-align:center;"><img src="figures/book-figure12.svg" alt="" width="70%"></div><p></p></li>
+<li><p>Finally, the algorithm merges the sorted subarrays and creates the final sorted array:</p>
+<p></p><div style="text-align:center;"><img src="figures/book-figure13.svg" alt="" width="70%"></div><p></p></li>
+</ul>
+</section>
+<section id="implementation-5" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-5">Implementation</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> Item<span class="op">&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> mergesort<span class="op">(</span>Item a<span class="op">[],</span> Item aux<span class="op">[],</span> <span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>r <span class="op">&lt;=</span> l<span class="op">)</span> <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> m <span class="op">=</span> <span class="op">(</span>l <span class="op">+</span> r<span class="op">)</span> <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    mergesort<span class="op">(</span>a<span class="op">,</span> aux<span class="op">,</span> l<span class="op">,</span> m<span class="op">);</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    mergesort<span class="op">(</span>a<span class="op">,</span> aux<span class="op">,</span> m <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> r<span class="op">);</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    merge<span class="op">(</span>a<span class="op">,</span> aux<span class="op">,</span> l<span class="op">,</span> m<span class="op">,</span> r<span class="op">);</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> Item<span class="op">&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> merge<span class="op">(</span>Item a<span class="op">[],</span> Item aux<span class="op">[],</span> <span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> m<span class="op">,</span> <span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i<span class="op">,</span> j<span class="op">,</span> k<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>k <span class="op">=</span> l<span class="op">;</span> k <span class="op">&lt;=</span> r<span class="op">;</span> k<span class="op">++)</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        aux<span class="op">[</span>k<span class="op">]</span> <span class="op">=</span> a<span class="op">[</span>k<span class="op">];</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> l<span class="op">;</span>  j <span class="op">=</span> m <span class="op">+</span> <span class="dv">1</span><span class="op">;</span>  k <span class="op">=</span> l<span class="op">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;=</span> m <span class="op">&amp;&amp;</span> j <span class="op">&lt;=</span> r<span class="op">)</span> </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>aux<span class="op">[</span>i<span class="op">]</span> <span class="op">&lt;=</span> aux<span class="op">[</span>j<span class="op">])</span> a<span class="op">[</span>k<span class="op">++]</span> <span class="op">=</span> aux<span class="op">[</span>i<span class="op">++];</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> a<span class="op">[</span>k<span class="op">++]</span> <span class="op">=</span> aux<span class="op">[</span>j<span class="op">++];</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;=</span> m<span class="op">)</span> </span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        a<span class="op">[</span>k<span class="op">++]</span> <span class="op">=</span> aux<span class="op">[</span>i<span class="op">++];</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>j <span class="op">&lt;=</span> r<span class="op">)</span> </span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        a<span class="op">[</span>k<span class="op">++]</span> <span class="op">=</span> aux<span class="op">[</span>j<span class="op">++];</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="bottom-up-merge-sort" class="level3">
+<h3 class="anchored" data-anchor-id="bottom-up-merge-sort">Bottom-up Merge Sort</h3>
+<div class="block">
+<p>Idea <strong>Bottom-up merge sort</strong> consists of</p>
+<ul>
+<li><p>A sequence of passes over the whole array doing <code>sz</code>-by-<code>sz</code> merges</p></li>
+<li><p>Doubling <code>sz</code> on each pass.</p></li>
+<li><p>The final subarray is of size <code>sz</code> only if the array size is an even multiple of <code>sz</code>, so the final merge is an <code>sz-</code>by-<code>x</code> merge, for some <code>x</code> less than or equal to <code>sz</code>.</p></li>
+</ul>
+</div>
+</section>
+<section id="implementation-6" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-6">Implementation</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> Item<span class="op">&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> mergesort<span class="op">(</span>Item a<span class="op">[],</span> Item aux<span class="op">[],</span> <span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> sz <span class="op">=</span> <span class="dv">1</span><span class="op">;</span> sz <span class="op">&lt;=</span> r <span class="op">-</span> l<span class="op">;</span> sz <span class="op">=</span> sz <span class="op">+</span> sz<span class="op">)</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> l<span class="op">;</span> i <span class="op">&lt;=</span> r <span class="op">-</span> sz<span class="op">;</span> i <span class="op">+=</span> sz <span class="op">+</span> sz<span class="op">)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>            merge<span class="op">(</span>a<span class="op">,</span> aux<span class="op">,</span> i<span class="op">,</span> i <span class="op">+</span> sz <span class="op">-</span> <span class="dv">1</span><span class="op">,</span> min<span class="op">(</span>i <span class="op">+</span> sz <span class="op">+</span> sz <span class="op">-</span> <span class="dv">1</span><span class="op">,</span> r<span class="op">));</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="analysis-5" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-5">Analysis</h3>
+<div class="theorem">
+<p>Mergesort requires about <span class="math inline">N\log_{2}N</span> comparisons to sort any array of <span class="math inline">N</span> elements</p>
+</div>
+<ul>
+<li><p>Time complexity:</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>best case</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>average case</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>worst case</td>
+<td>?</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Space complexity: ?</p></li>
+<li><p>Stability: ?</p></li>
+</ul>
+</section>
+</section>
+<section id="quick-sort" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="quick-sort"><span class="header-section-number">6.7</span> Quick Sort</h2>
+<section id="quick-sort-1" class="level3">
+<h3 class="anchored" data-anchor-id="quick-sort-1">Quick Sort</h3>
+<div class="block">
+<p>Idea Quicksort invented by C. A. R. Hoare in 1960 is a divide-and-conquer method for sorting</p>
+<ol type="1">
+<li><p>Select a pivot element <span class="math inline">v</span></p></li>
+<li><p>Partition an array <span class="math inline">\boldsymbol{a}</span> into two parts <span class="math inline">\boldsymbol{a}_{left}</span> and <span class="math inline">\boldsymbol{a}_{right}</span> such that <span class="math inline">\forall x\in\boldsymbol{a}_{left}</span> and <span class="math inline">\forall y\in\boldsymbol{a}_{right}</span> then <span class="math inline">x\leq v \leq y</span></p></li>
+<li><p>Sort the parts <span class="math inline">\boldsymbol{a}_{left}</span> and <span class="math inline">\boldsymbol{a}_{right}</span> independently</p></li>
+<li><p>Join <span class="math inline">\boldsymbol{a}_{left}</span> and <span class="math inline">\boldsymbol{a}_{right}</span> to <span class="math inline">\boldsymbol{a}=\boldsymbol{a}_{left}\,v\,\boldsymbol{a}_{right}</span></p></li>
+</ol>
+</div>
+</section>
+<section id="implementation-7" class="level3">
+<h3 class="anchored" data-anchor-id="implementation-7">Implementation</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> Item<span class="op">&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> quicksort<span class="op">(</span>Item a<span class="op">[],</span> <span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>r <span class="op">&lt;=</span> l<span class="op">)</span> <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i <span class="op">=</span> partition<span class="op">(</span>a<span class="op">,</span> l<span class="op">,</span> r<span class="op">);</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    quicksort<span class="op">(</span>a<span class="op">,</span> l<span class="op">,</span> i <span class="op">-</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    quicksort<span class="op">(</span>a<span class="op">,</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> r<span class="op">);</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> Item<span class="op">&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> partition<span class="op">(</span>Item a<span class="op">[],</span> <span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i <span class="op">=</span> l <span class="op">-</span> <span class="dv">1</span><span class="op">,</span> j <span class="op">=</span> r<span class="op">;</span> Item v <span class="op">=</span> a<span class="op">[</span>r<span class="op">];</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(;;)</span> <span class="op">{</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">(</span>a<span class="op">[++</span>i<span class="op">]</span> <span class="op">&lt;</span> v<span class="op">);</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">(</span>v <span class="op">&lt;</span> a<span class="op">[--</span>j<span class="op">])</span> <span class="cf">if</span> <span class="op">(</span>j <span class="op">==</span> l<span class="op">)</span> <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>i <span class="op">&gt;=</span> j<span class="op">)</span> <span class="cf">break</span><span class="op">;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        swap<span class="op">(</span>a<span class="op">[</span>i<span class="op">],</span> a<span class="op">[</span>j<span class="op">]);</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    swap<span class="op">(</span>a<span class="op">[</span>i<span class="op">],</span> a<span class="op">[</span>r<span class="op">]);</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> i<span class="op">;</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="analysis-6" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-6">Analysis</h3>
+<div class="theorem">
+<p>Quicksort uses <span class="math inline">\sim2N\log_{2}N</span> <strong>compares</strong> (and one-sixth that many exchanges) on the average to sort an array of length <span class="math inline">N</span> with distinct keys.</p>
+</div>
+<div class="theorem">
+<p>Quicksort uses <span class="math inline">\sim N^{2}/2</span> <strong>compares</strong> in the worst case</p>
+</div>
+<ul>
+<li><p>Time complexity:</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>best case</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>average case</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>worst case</td>
+<td>?</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Space complexity: <span class="math inline">O(1)</span>?</p></li>
+<li><p>Stability: No</p></li>
+</ul>
+</section>
+<section id="a-lower-bound-for-the-worst-case" class="level3">
+<h3 class="anchored" data-anchor-id="a-lower-bound-for-the-worst-case">A lower bound for the worst case</h3>
+<div class="theorem">
+<p>No compare-based sorting algorithm can guarantee to sort <span class="math inline">N</span> items with fewer than <span class="math inline">\log_{2}(N!)\sim N\log_{2}N</span> <strong>compares</strong>.</p>
+</div>
+<p></p><div style="text-align:center;"><img src="figures/ds-tree-sort.svg" alt="" width="80%"></div><p></p>
+<section id="comparing-sorting-algorithms" class="level4">
+<h4 class="anchored" data-anchor-id="comparing-sorting-algorithms">Comparing Sorting Algorithms</h4>
+<ul>
+<li>Performance characteristics of sorting algorithms</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 16%">
+<col style="width: 18%">
+<col style="width: 33%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>algorithm</strong></th>
+<th style="text-align: center;"><strong>stable?</strong></th>
+<th style="text-align: center;"><strong>in-place?</strong></th>
+<th style="text-align: center;"><strong>running time</strong></th>
+<th style="text-align: center;"><strong>space</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">selection</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;"><span class="math inline">N^{2}</span></td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">insertion</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">between <span class="math inline">N</span> and <span class="math inline">N^{2}</span></td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">shell</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;"><span class="math inline">N\log N</span>?, <span class="math inline">N^{6/5}</span>?</td>
+<td style="text-align: center;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">merge</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;"><span class="math inline">N\log N</span></td>
+<td style="text-align: center;"><span class="math inline">N</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">quick</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;"><span class="math inline">N\log N</span></td>
+<td style="text-align: center;"><span class="math inline">\log N</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">3-way quick</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;">between <span class="math inline">N</span> and <span class="math inline">N\log N</span></td>
+<td style="text-align: center;"><span class="math inline">\log N</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">heap</td>
+<td style="text-align: center;">no</td>
+<td style="text-align: center;">yes</td>
+<td style="text-align: center;"><span class="math inline">N\log N</span></td>
+<td style="text-align: center;">1</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+<section id="key-indexed-counting" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="key-indexed-counting"><span class="header-section-number">6.8</span> Key-indexed Counting</h2>
+<section id="assumptions-about-keys" class="level3">
+<h3 class="anchored" data-anchor-id="assumptions-about-keys">Assumptions about keys</h3>
+<div class="block">
+<dl>
+<dt>Assumption.</dt>
+<dd>
+<p>Keys are integers or can be mapped to integers between 0 and <span class="math inline">R-1</span>.</p>
+</dd>
+<dt>Implication.</dt>
+<dd>
+<p>Can use key as an array index.</p>
+</dd>
+</dl>
+</div>
+<p></p><div style="text-align:center;"><img src="figures/key-index-1.svg" alt="" width="40%"></div><p></p>
+</section>
+<section id="key-indexed-counting-1" class="level3">
+<h3 class="anchored" data-anchor-id="key-indexed-counting-1">Key-indexed Counting</h3>
+<div class="block">
+<p>Problem.</p>
+<p>Sort an array <code>a</code> of <span class="math inline">N</span> items whose keys are integers between 0 and <span class="math inline">R-1</span>.</p>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Compute frequency counts.</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> N<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    count<span class="op">[</span>a<span class="op">[</span>i<span class="op">].</span>key<span class="op">()</span> <span class="op">+</span> <span class="dv">1</span><span class="op">]++;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Transform counts to indices.</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> r <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> r <span class="op">&lt;</span> R<span class="op">;</span> r<span class="op">++)</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    count<span class="op">[</span>r <span class="op">+</span> <span class="dv">1</span><span class="op">]</span> <span class="op">+=</span> count<span class="op">[</span>r<span class="op">];</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">// Distribute the items.</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> N<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    aux<span class="op">[</span>count<span class="op">[</span>a<span class="op">[</span>i<span class="op">].</span>key<span class="op">()]++]</span> <span class="op">=</span> a<span class="op">[</span>i<span class="op">];</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">// Copy back.</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> N<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    a<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> aux<span class="op">[</span>i<span class="op">];</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><p>Input an array a of 12 letters</p>
+<p></p><div style="text-align:center;"><img src="figures/key-index-2.svg" alt="" width="40%"></div><p></p></li>
+<li><p>Compute frequency counts</p>
+<p></p><div style="text-align:center;"><img src="figures/key-index-3.svg" alt="" width="40%"></div><p></p></li>
+<li><p>Transform counts to indices.</p>
+<p></p><div style="text-align:center;"><img src="figures/key-index-4.svg" alt="" width="40%"></div><p></p></li>
+<li><p>Distribute the data</p>
+<p></p><div style="text-align:center;"><img src="figures/key-index-5.svg" alt="" width="40%"></div><p></p></li>
+<li><p>Copy back</p></li>
+</ul>
+<p></p><div style="text-align:center;"><img src="figures/key-index-6.svg" alt="" width="40%"></div><p></p>
+</section>
+<section id="analysis-7" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-7">Analysis</h3>
+<div class="theorem">
+<p>Key-indexed counting uses <span class="math inline">8N+3R+1</span> array accesses to stably sort <span class="math inline">N</span> items whose keys are integers between 0 and <span class="math inline">R-1</span>.</p>
+</div>
+<ul>
+<li><p>Time complexity:</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>best case</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>average case</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>worst case</td>
+<td>?</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Space complexity: ?</p></li>
+<li><p>Stability: ?</p></li>
+</ul>
+</section>
+</section>
+<section id="radix-sort" class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="radix-sort"><span class="header-section-number">6.9</span> Radix Sort</h2>
+<section id="radix-sort-1" class="level3">
+<h3 class="anchored" data-anchor-id="radix-sort-1">Radix Sort</h3>
+<div class="definition">
+<ul>
+<li><p>A <strong>byte</strong> is a fixed-length sequence of bits.</p></li>
+<li><p>A <strong>word</strong> is a fixed-length sequence of bytes.</p></li>
+<li><p>A <strong>string</strong> is a variable-length sequence of bytes.</p></li>
+</ul>
+</div>
+<div class="block">
+<p>Idea Radix-sorting algorithms treat the <strong>keys</strong> as numbers represented in a base-<span class="math inline">R</span> number system, for various values of <span class="math inline">R</span> (the radix), and work with individual <strong>digits</strong> of the numbers.</p>
+</div>
+<div class="definition">
+<p>A key is a radix-<span class="math inline">R</span> number, with digits numbered from the right (starting at 0)</p>
+</div>
+<ul>
+<li>In programing, we use the abstract <code>digit</code> operation to access digits of keys</li>
+</ul>
+<p>There are two basic approaches to radix sorting:</p>
+<ul>
+<li><p>The first class of methods: They examine the digits in the keys in a left-to-right order, working with the most significant digits first. These methods are generally referred to as <strong>most-significant-digit</strong> (MSD) radix sorts or <strong>top-down methods</strong>.</p></li>
+<li><p>The second class of methods: They examine the digits in the keys in a right-to-left order, working with the least significant digits first. These methods are generally referred to as <strong>least-significant-digit</strong> (LSD) radix sorts or <strong>bottom-up methods</strong>.</p></li>
+</ul>
+</section>
+<section id="lsd-implementation" class="level3">
+<h3 class="anchored" data-anchor-id="lsd-implementation">LSD Implementation</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode cpp code-with-copy"><code class="sourceCode cpp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">template</span> <span class="op">&lt;</span><span class="kw">class</span> Item<span class="op">&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> radixsort<span class="op">(</span>Item a<span class="op">[],</span> <span class="dt">int</span> l<span class="op">,</span> <span class="dt">int</span> r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    vector<span class="op">&lt;</span>Item<span class="op">&gt;</span> bins<span class="op">[</span>radix<span class="op">];</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> d <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> d <span class="op">&lt;</span> max_digit<span class="op">;</span> d<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="co">// clear bins</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">// distribute</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>i <span class="op">=</span> l<span class="op">;</span> i <span class="op">&lt;=</span> r<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>            bins<span class="op">[</span>digit<span class="op">(</span>a<span class="op">[</span>i<span class="op">],</span>d<span class="op">,</span>radix<span class="op">)].</span>push_back<span class="op">(</span>a<span class="op">[</span>i<span class="op">]);</span>        </span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="co">// join bins to a[l...r]</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="example-1" class="level3">
+<h3 class="anchored" data-anchor-id="example-1">Example 1</h3>
+<ul>
+<li><p>Sort an array of integer numbers <code>{170, 45, 75, 90, 802, 2, 24, 66}</code></p></li>
+<li><p>Rewrite the numbers in 3-digit format <code>{170, 045, 075, 090, 802, 002, 024, 066}</code></p></li>
+<li><p>Distribute the data into 10 bins on digit <span class="math inline">d=0</span></p>
+<p><code>{170, 045, 075, 090, 802, 002, 024, 066}</code></p>
+<p><code>bin 0: 170, 090</code></p>
+<p><code>bin 1:</code></p>
+<p><code>bin 2: 802, 002</code></p>
+<p><code>bin 3:</code></p>
+<p><code>bin 4: 024</code></p>
+<p><code>bin 5: 045, 075</code></p>
+<p><code>bin 6: 066</code></p>
+<p><code>bin 7:</code></p>
+<p><code>bin 8:</code></p>
+<p><code>bin 9:</code></p></li>
+<li><p>Join the bins</p>
+<p><code>{170, 090, 802, 002, 024, 045, 075, 066}</code></p></li>
+<li><p>Distribute the data into 10 bins on digit <span class="math inline">d=1</span></p>
+<p><code>{170, 090, 802, 002, 024, 045, 075, 066}</code></p>
+<p><code>bin 0: 802, 002</code></p>
+<p><code>bin 1:</code></p>
+<p><code>bin 2: 024</code></p>
+<p><code>bin 3:</code></p>
+<p><code>bin 4: 045</code></p>
+<p><code>bin 5:</code></p>
+<p><code>bin 6: 066</code></p>
+<p><code>bin 7: 170, 075</code></p>
+<p><code>bin 8:</code></p>
+<p><code>bin 9: 090</code></p></li>
+<li><p>Join the bins</p>
+<p><code>{802, 002, 024, 045, 066, 170, 075, 090}</code></p></li>
+<li><p>Distribute the data into 10 bins on digit <span class="math inline">d=2</span></p>
+<p><code>{802, 002, 024, 045, 066, 170, 075, 090}</code></p>
+<p><code>bin 0: 002, 024, 045, 066, 075, 090</code></p>
+<p><code>bin 1: 170</code></p>
+<p><code>bin 2:</code></p>
+<p><code>bin 3:</code></p>
+<p><code>bin 4:</code></p>
+<p><code>bin 5:</code></p>
+<p><code>bin 6:</code></p>
+<p><code>bin 7:</code></p>
+<p><code>bin 8: 802</code></p>
+<p><code>bin 9:</code></p></li>
+<li><p>Join the bins</p>
+<p><code>{002, 024, 045, 066, 075, 090, 170, 802}</code></p></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><code>170</code></td>
+<td></td>
+<td style="text-align: center;"><code>17 0</code></td>
+<td></td>
+<td style="text-align: center;"><code>8 0 2</code></td>
+<td></td>
+<td style="text-align: center;"><code>0 02</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>045</code></td>
+<td></td>
+<td style="text-align: center;"><code>09 0</code></td>
+<td></td>
+<td style="text-align: center;"><code>0 0 2</code></td>
+<td></td>
+<td style="text-align: center;"><code>0 24</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>075</code></td>
+<td></td>
+<td style="text-align: center;"><code>80 2</code></td>
+<td></td>
+<td style="text-align: center;"><code>0 2 4</code></td>
+<td></td>
+<td style="text-align: center;"><code>0 45</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>090</code></td>
+<td><span class="math inline">\longrightarrow</span></td>
+<td style="text-align: center;"><code>00 2</code></td>
+<td><span class="math inline">\longrightarrow</span></td>
+<td style="text-align: center;"><code>0 4 5</code></td>
+<td><span class="math inline">\longrightarrow</span></td>
+<td style="text-align: center;"><code>0 66</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>802</code></td>
+<td></td>
+<td style="text-align: center;"><code>02 4</code></td>
+<td></td>
+<td style="text-align: center;"><code>0 6 6</code></td>
+<td></td>
+<td style="text-align: center;"><code>0 75</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>002</code></td>
+<td></td>
+<td style="text-align: center;"><code>04 5</code></td>
+<td></td>
+<td style="text-align: center;"><code>1 7 0</code></td>
+<td></td>
+<td style="text-align: center;"><code>0 90</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>024</code></td>
+<td></td>
+<td style="text-align: center;"><code>07 5</code></td>
+<td></td>
+<td style="text-align: center;"><code>0 7 5</code></td>
+<td></td>
+<td style="text-align: center;"><code>1 70</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>066</code></td>
+<td></td>
+<td style="text-align: center;"><code>06 6</code></td>
+<td></td>
+<td style="text-align: center;"><code>0 9 0</code></td>
+<td></td>
+<td style="text-align: center;"><code>8 02</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="example-2" class="level3">
+<h3 class="anchored" data-anchor-id="example-2">Example 2</h3>
+<ul>
+<li><p>Sort 17 integer numbers</p>
+<p><code>{6, 7, 1, 3, 5, 2, 0, 4, 2, 1, 7, 2, 1, 3, 5, 2, 7}</code></p></li>
+<li><p>Rewrite the numbers in 3-digit binary numbers</p>
+<p><code>110, 111, 001, 011, 101, 010, 000, 100, 010, 001, 111, 010, 001, 011, 101, 010, 111</code></p></li>
+</ul>
+</section>
+<section id="analysis-8" class="level3">
+<h3 class="anchored" data-anchor-id="analysis-8">Analysis</h3>
+<ul>
+<li><p>Time complexity:</p>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td>best case</td>
+<td>?</td>
+</tr>
+<tr class="even">
+<td>average case</td>
+<td>?</td>
+</tr>
+<tr class="odd">
+<td>worst case</td>
+<td>?</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Space complexity: ?</p></li>
+<li><p>Stability: ?</p></li>
+</ul>
+</section>
+</section>
+<section id="workshop" class="level2" data-number="6.10">
+<h2 data-number="6.10" class="anchored" data-anchor-id="workshop"><span class="header-section-number">6.10</span> Workshop</h2>
+<section id="quiz" class="level3">
+<h3 class="anchored" data-anchor-id="quiz">Quiz</h3>
+<ol type="1">
+<li><p>What is a sorting operation?</p></li>
+<li><p>What is an inversion?</p></li>
+<li><p>How selection sort sorts the sample array <code>E A S Y Q U E S T I O N</code>?</p></li>
+</ol>
+</section>
+</section>
+<section id="references" class="level2" data-number="6.11">
+<h2 data-number="6.11" class="anchored" data-anchor-id="references"><span class="header-section-number">6.11</span> References</h2>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./lect02.html" class="pagination-link" aria-label="ANALYSIS OF ALGORITHM">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">ANALYSIS OF ALGORITHM</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./lect04-pointer.html" class="pagination-link" aria-label="Pointers">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Pointers</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
